@@ -41,7 +41,7 @@ For the sake of school we will be implementing an explicit *load percentage* par
 
 &nbsp; 
 ## JobRequest
-A **JobRequest** identifies what work needs to be done. It has an array of directory paths and the array size value. This is passed from the **ImageProcessingClient** to the **ImageProcessingServer** to identify which data should be processed. It is also passed from the server to the **ImageProcessingNodes**  to identify which data it should process.
+A **JobRequest** identifies what work needs to be done. It consists of a string which specifies the directory path to the folder containing the image files. This is passed from the **ImageProcessingClient** to the **ImageProcessingServer** to identify which data should be processed. It is also passed from the server to the **ImageProcessingNodes**  to identify which data it should process. More fields can be added later on if needed.
 
 &nbsp; 
 ## JobReceipt
