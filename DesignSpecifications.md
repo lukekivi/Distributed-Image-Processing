@@ -45,13 +45,16 @@ For the sake of school we will be implementing an explicit *load percentage* par
 &nbsp; 
 ## JobRequest
 ---
-A **JobRequest** identifies what work needs to be done. It has an array of directory paths and the array size value.
+A **JobRequest** identifies what work needs to be done. It has an array of directory paths and the array size value. This is passed from the **ImageProcessingClient** to the **ImageProcessingServer** to identify which data should be processed. It is also passed from the server to the **ImageProcessingNodes**  to identify which data it should process.
 
 &nbsp; 
-## Job Receipt
-
+## JobReceipt
 ---
+A **JobReceipt** is a boolean value representing whether or not the job was completed. **JobReceipt**s are passed returned to the **ImageProcessingServer** by the **ImageProcessingNode** to specify how the job was handled. They are also returned by the **ImageProcessingServer** to the **ImageProcessingClient** for the same purpose. (This is its own class right now because we might need to package other data with the status)
 
 &nbsp; 
 ## Scheduling Policies
+There are two scheduling policies:
+1. **Mandatory**: the server chooses nodes at random for jobs and they are mandatorilly accepted.
+2. **Optional**: the server chooses nodes at random for jobs and they are optionally accepted. If they are rejected the server continues to search for a node to accept the job.
 ---
