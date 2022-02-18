@@ -23,7 +23,7 @@ enum SchedulingPolicy {
 
 struct JobReceipt {
     1: i64 time,
-    2: status status,
+    2: Status status,
     3: string job,
 }
 
