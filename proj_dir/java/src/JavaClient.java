@@ -17,14 +17,29 @@ import org.apache.thrift.protocol.TProtocol;
 public class JavaClient {
     public static void main(String [] args) {
 
-        if (args.length != 0) {
-            System.out.println("No arguments needed.\n");
+
+
+
+        if (args.length != 1) {
+            System.out.println("Need config file.\n");
             System.exit(0);
         }
 
+        // Grab information from config file here
+
+
+ 
+        String path = ;
+        int policy = ;
+        String host = ;
+
+        JobRequest cJob = new JobRequest();
+        cJob.job = path;
+        cJob.policy = cPolicy;
+
         try {
             TTransport transport;
-            transport = new TSocket("localhost", 9090);
+            transport = new TSocket(host, 9090);
             transport.open();
 
 
@@ -40,33 +55,45 @@ public class JavaClient {
     }
 
     private static void perform(ImageProcessServer.Client client) throws TException {
-        Scanner s = new Scanner(System.in);
-        while(true) {
-            System.out.println("Enter directory path or 'quit' to stop.\n");
-            String path = s.nextLine();
-            if (s.equals("quit") || s.equals("Quit")) {
-                break;
-            }
-            System.out.println("Select a Scheduling Policy: Enter 'RANDOM' for Random or 'BALANCING' for Load balancing.")
-            int cPolicy = s.nextline();
-            if (cPolicy != RANDOM || cPolicy != BALANCING) {
-                System.out.println("Incorrect input.\n")
-                continue;
-            }
-
-            JobRequest cJob = new JobRequest();
-            cJob.job = path;
-            cJob.policy = cPolicy;
-
-            JobReceipt receipt;
-
-            try {
-                receipt = client.sendJob(cJob);
-                System.out.println("Job Receipt:\nJob: " + receipt.job + "\nTime: " + receipt.time + "receipt.time\n" + "Status: " + receipt.status + "\n");
-            } catch (InvalidLocation path) {
-                System.out.println("Invalid directory path given.\n");
-            }
+        JobReceipt receipt;
+        try {
+            receipt = client.sendJob(cJob);
+            System.out.println("Job Receipt:\nJob: " + receipt.job + "\nTime: " + receipt.time + "receipt.time\n" + "Status: " + receipt.status + "\n");
+        } catch (InvalidLocation path) {
+            System.out.println("Invalid directory path given.\n");
         }
-        System.out.println("Client is now closing.\n");
     }
 }
+
+
+
+    // private static void perform(ImageProcessServer.Client client) throws TException {
+    //     Scanner s = new Scanner(System.in);
+    //     while(true) {
+    //         System.out.println("Enter directory path or 'quit' to stop.\n");
+    //         String path = s.nextLine();
+    //         if (s.equals("quit") || s.equals("Quit")) {
+    //             break;
+    //         }
+    //         System.out.println("Select a Scheduling Policy: Enter 'RANDOM' for Random or 'BALANCING' for Load balancing.")
+    //         int cPolicy = s.nextline();
+    //         if (cPolicy != RANDOM || cPolicy != BALANCING) {
+    //             System.out.println("Incorrect input.\n")
+    //             continue;
+    //         }
+
+    //         JobRequest cJob = new JobRequest();
+    //         cJob.job = path;
+    //         cJob.policy = cPolicy;
+
+    //         JobReceipt receipt;
+
+    //         try {
+    //             receipt = client.sendJob(cJob);
+    //             System.out.println("Job Receipt:\nJob: " + receipt.job + "\nTime: " + receipt.time + "receipt.time\n" + "Status: " + receipt.status + "\n");
+    //         } catch (InvalidLocation path) {
+    //             System.out.println("Invalid directory path given.\n");
+    //         }
+    //     }
+    //     System.out.println("Client is now closing.\n");
+    // }
