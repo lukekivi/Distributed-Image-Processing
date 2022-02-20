@@ -66,7 +66,7 @@ struct TaskRequest {
 /**
  * Completion status of the task.
  */
-struct TaskStatus {
+enum TaskStatus {
     SUCCESS = 0,
     FAILURE = 1,
     REJECTED = 2
