@@ -3,8 +3,8 @@
 // Lucas Kivi
 // kivix019
 
-import pa1.*;
 import java.util.*;
+import pa1.*;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TSSLTransportFactory;
