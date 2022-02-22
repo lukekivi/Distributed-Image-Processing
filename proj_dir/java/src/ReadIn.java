@@ -22,9 +22,8 @@ public class ReadIn {
                 }
                 nodes[i] = line[1];
             }
-        } catch (Exception fileName) {
-            System.out.println("Caught exception.\n");
-            System.exit(1);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return nodes;
     }
@@ -45,9 +44,8 @@ public class ReadIn {
                 System.exit(1);
             }
             return line[1];
-        } catch (Exception fileName) {
-            System.out.println("Improper file name.\n");
-            System.exit(1);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -69,9 +67,8 @@ public class ReadIn {
                 System.exit(1);
             }
             return line[1];
-        } catch (Exception fileName) {
-            System.out.println("Improper file name.\n");
-            System.exit(1);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -101,21 +98,66 @@ public class ReadIn {
                 System.exit(1);               
             }
             return policy;
-        } catch (Exception fileName) {
-            System.out.println("Improper file name.\n");
-            System.exit(1);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return 10;
     }
 
-    public static void main(String [] args) {
-        ReadIn myRead = new ReadIn();
-        String[] test = myRead.getNodes("machine.txt");
-        for (int i = 0; i < 4; i++) {
-            System.out.println("Node " + i + ": " + test[i]);
+    public String getThriftPath(String name) {
+        File file = new File(name);
+        try {
+            Scanner scanConfig = new Scanner(file);
+            String[] line; // Read in thrift path line
+
+            line = scanConfig.nextLine().split(" "); // thrift path
+            if (!line[0].equals("THRIFT_LIB_PATH")) {
+                System.out.println("Improper Environment file.\n");
+                System.exit(1);
+            }
+            return line[1];
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("Server: " + myRead.getServer("machine.txt"));
-        System.out.println("Client: " + myRead.getClient("machine.txt"));
-        System.out.println("Policy: " + myRead.getPolicy("machine.txt"));
+        return null;
+    }
+
+    public String getOpenCVPath(String name) {
+        File file = new File(name);
+        try {
+            Scanner scanConfig = new Scanner(file);
+            String[] line; // Read in thrift path line
+            line = scanConfig.nextLine().split(" "); // Skip to openCV file line
+
+            line = scanConfig.nextLine().split(" "); // openCV path
+            if (!line[0].equals("OPENCV_LIB_PATH")) {
+                System.out.println("Improper Environment file.\n");
+                System.exit(1);
+            }
+            return line[1];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getProjPath(String name) {
+        File file = new File(name);
+        try {
+            Scanner scanConfig = new Scanner(file);
+            String[] line; // Read in Proj path line
+            line = scanConfig.nextLine().split(" "); // Iterating until proj line
+            line = scanConfig.nextLine().split(" ");
+
+            line = scanConfig.nextLine().split(" "); // proj path
+            if (!line[0].equals("PROJ_PATH")) {
+                System.out.println("Improper Environment file.\n");
+                System.exit(1);
+            }
+            return line[1];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -29,91 +29,23 @@ public class JavaClient {
         String config = args[0];
         String env = args[1];
 
-        // Grab information from config file here
-        Scanner scanConfig = new Scanner(config);
-        String[] line; // Read in lines of each file
-        String[] nodes = new String[3]; // Array of nodes
-        String client; // client address
-        String server; // server address
-        int policy;
+        ReadIn r = new ReadIn();
+        String[] nodes = r.getNodes(config);; // Array of node addresses
+        String client = r.getClient(config); // client address
+        String server = r.getServer(config); // server address
+        int policy = r.getPolicy(config); // getting the policy
+        THRIFT_LIB_PATH = r.getThriftPath(env); // Setting thrift path env var
+        OPENCV_LIB_PATH = r.getOpenCVPath(env); // Setting opencv path env var
+        PROJ_PATH = r.getProjPath(env); // Setting proj path env var
 
-        // Reading in machine file
-        try {
-            for (int i = 0, i < 3; i++) { // Looping to get addresses of the nodes
-                line = scanConfig.nextLine().split(" ");
-                if (!line[0].equals("node_" + i)) {
-                    System.out.println("Improper Configuration file.\n");
-                    exit(1);
-                }
-                nodes[i] = line[1];
-            }
-            line = scanConfig.nextLine().split(" "); // Server address
-            server = line[1];
-            if (!line[0].equals("server")) {
-                System.out.println("Improper Configuration file.\n");
-                exit(1);
-            }
-
-            line = scanConfig.nextLine().split(" "); // Client address
-            client = line[1];
-            if (!line[0].equals("client")) {
-                System.out.println("Improper Configuration file.\n");
-                exit(1);
-            }
-
-            line = scanConfig.nextLine().split(" "); // Scheduling Policy
-            if (line[1].equals("random")) {
-                policy = RANDOM;
-            }
-            else if (line[1].equals("balancing")){
-                policy = BALANCING;
-            }
-            else {
-                System.out.println("Improper Configuration file.\n");
-                exit(1);                
-            }
-        } catch (NoSuchElementException err) {
-            System.out.println("Improper Configuration file.\n");
-        }
-
-        // Reading in environment file
-        try {
-            Scanner scanEnv = new Scanner(env);
-            line = scanEnv.nextLine().split(" "); // Path to thrift 
-            if (!line[0].equals("THRIFT_LIB_PATH")) {
-                System.out.println("Improper Environment file.\n");
-                exit(1);
-            }
-            THRIFT_LIB_PATH = line[1];
-
-            line = scanEnv.nextLine().split(" "); // Path to opencv
-            if (!line[0].equals("OPENCV_LIB_PATH")) {
-                System.out.println("Improper Environment file.\n");
-                exit(1);
-            }
-            OPENCV_LIB_PATH = line[1];
-
-            line = scanEnv.nextLine().split(" "); // Path to directory of files
-            if (!line[0].equals("PROJ_PATH")) {
-                System.out.println("Improper Environment file.\n");
-                exit(1);
-            }
-            PROJ_PATH = line[1];
-
-        } catch (NoSuchElementException err) {
-            System.out.println("Improper Environment file.\n");
-        }
-        
         // Creating a job to send to server
         JobRequest cJob = new JobRequest();
         cJob.job = PROJ_PATH;
-        cJob.policy = RANDOM; // Can be changed
 
         try {
             TTransport transport;
             transport = new TSocket(server, 9090);
             transport.open();
-
 
             TProtocol protocol = new  TBinaryProtocol(transport);
             ImageProcessServer.Client client = new ImageProcessServer.Client(protocol);
@@ -130,7 +62,7 @@ public class JavaClient {
         JobReceipt receipt;
         try {
             receipt = client.sendJob(clientJob); // Getting job receipt and printing info
-            System.out.println("Job Receipt:\nJob: " + receipt.job + "\nTime: " + receipt.time + "receipt.time\n" + "Status: " + receipt.status + "\n");
+            System.out.println("Job Receipt:\nJob: " + receipt.jobPath + "\nTime: " + receipt.time + "\nStatus: " + receipt.status + "\n");
         } catch (InvalidLocation path) {
             System.out.println("Invalid directory path given.\n");
         }
