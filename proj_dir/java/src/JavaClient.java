@@ -35,18 +35,43 @@ public class JavaClient {
         String[] nodes = new String[3]; // Array of nodes
         String client; // client address
         String server; // server address
+        int policy;
 
         // Reading in machine file
         try {
             for (int i = 0, i < 3; i++) { // Looping to get addresses of the nodes
                 line = scanConfig.nextLine().split(" ");
+                if (!line[0].equals("node_" + i)) {
+                    System.out.println("Improper Configuration file.\n");
+                    exit(1);
+                }
                 nodes[i] = line[1];
             }
             line = scanConfig.nextLine().split(" "); // Server address
             server = line[1];
+            if (!line[0].equals("server")) {
+                System.out.println("Improper Configuration file.\n");
+                exit(1);
+            }
 
             line = scanConfig.nextLine().split(" "); // Client address
             client = line[1];
+            if (!line[0].equals("client")) {
+                System.out.println("Improper Configuration file.\n");
+                exit(1);
+            }
+
+            line = scanConfig.nextLine().split(" "); // Scheduling Policy
+            if (line[1].equals("random")) {
+                policy = RANDOM;
+            }
+            else if (line[1].equals("balancing")){
+                policy = BALANCING;
+            }
+            else {
+                System.out.println("Improper Configuration file.\n");
+                exit(1);                
+            }
         } catch (NoSuchElementException err) {
             System.out.println("Improper Configuration file.\n");
         }
@@ -55,13 +80,26 @@ public class JavaClient {
         try {
             Scanner scanEnv = new Scanner(env);
             line = scanEnv.nextLine().split(" "); // Path to thrift 
+            if (!line[0].equals("THRIFT_LIB_PATH")) {
+                System.out.println("Improper Environment file.\n");
+                exit(1);
+            }
             THRIFT_LIB_PATH = line[1];
 
             line = scanEnv.nextLine().split(" "); // Path to opencv
+            if (!line[0].equals("OPENCV_LIB_PATH")) {
+                System.out.println("Improper Environment file.\n");
+                exit(1);
+            }
             OPENCV_LIB_PATH = line[1];
 
             line = scanEnv.nextLine().split(" "); // Path to directory of files
+            if (!line[0].equals("PROJ_PATH")) {
+                System.out.println("Improper Environment file.\n");
+                exit(1);
+            }
             PROJ_PATH = line[1];
+
         } catch (NoSuchElementException err) {
             System.out.println("Improper Environment file.\n");
         }
