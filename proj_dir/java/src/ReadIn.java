@@ -23,7 +23,8 @@ public class ReadIn {
                 nodes[i] = line[1];
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Improper Configuration file.\n");
+            System.exit(1);
         }
         return nodes;
     }
@@ -45,7 +46,8 @@ public class ReadIn {
             }
             return line[1];
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Improper Configuration file.\n");
+            System.exit(1);
         }
         return null;
     }
@@ -68,7 +70,8 @@ public class ReadIn {
             }
             return line[1];
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Improper Configuration file.\n");
+            System.exit(1);
         }
         return null;
     }
@@ -99,7 +102,8 @@ public class ReadIn {
             }
             return policy;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Improper Configuration file.\n");
+            System.exit(1);
         }
         return 10;
     }
@@ -117,7 +121,8 @@ public class ReadIn {
             }
             return line[1];
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Improper Environment file.\n");
+            System.exit(1);
         }
         return null;
     }
@@ -136,7 +141,8 @@ public class ReadIn {
             }
             return line[1];
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Improper Environment file.\n");
+            System.exit(1);
         }
         return null;
     }
@@ -156,7 +162,8 @@ public class ReadIn {
             }
             return line[1];
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Improper Environment file.\n");
+            System.exit(1);
         }
         return null;
     }
