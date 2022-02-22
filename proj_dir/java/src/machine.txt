@@ -1,3 +1,7 @@
-THRIFT_LIB_PATH /project/droeg022/thrift-0.15.0/lib/java/build/libs
-OPENCV_LIB_PATH /project/droeg022/opencv/build/lib
-PROJ_PATH /project/droeg022/Distributed-Image-Processing/proj_dir
+node_0 kh4250-08.cselabs.umn.edu
+node_1 kh4250-03.cselabs.umn.edu
+node_2 kh4250-06.cselabs.umn.edu
+node_3 kh4250-02.cselabs.umn.edu
+server kh4250-05.cselabs.umn.edu
+client kh4250-01.cselabs.umn.edu
+policy random
