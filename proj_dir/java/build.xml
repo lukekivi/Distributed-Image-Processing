@@ -1,0 +1,54 @@
+<project name="pa1" default="compile" basedir=".">
+
+   <description>Thrift Java pa1</description>
+ 
+   <property name="src.dir" location="src" />
+   <property name="gen.dir" location="gen-java" />
+   <property name="build.dir" location="build" />
+   <property environment="env"/>
+   
+   <path id="libs.classpath">
+      <fileset dir="${env.THRIFT_LIB_PATH}">
+         <include name="libthrift*.jar"/>
+         <exclude name="libthrift*source.jar"/>
+         <exclude name="libtrift*javadoc.jar"/>
+      </fileset>
+      <fileset dir="${env.THRIFT_LIB_PATH}/../deps">
+         <include name="*.jar"/>   
+      </fileset>
+      <fileset dir="${env.OPENCV_LIB_PATH}"> 
+      </fileset>
+      <fileset dir="${env.PROJ_PATH}"> </fileset>
+   </path>
+
+   <path id="thrift_compiler.classpath">
+      <fileset dir="${env.THRIFT_LIB_PATH}/../../../../compiler/cpp/src/thrift"/>
+   </path>
+
+   <path id="build.classpath">
+      <path refid="libs.classpath" />
+      <pathelement path="${gen.dir}" />
+  </path>
+
+   <target name="init">
+    <tstamp/>
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="generate">
+      <!-- Generate the thrift gen-java source -->
+      <exec failonerror="true" executable="../../../thrift-0.15.0/compiler/cpp/thrift">
+         <arg line="--gen java -r ../pa1.thrift"/>
+      </exec>
+   </target>
+
+  <target name="compile" depends="init, generate">
+    <javac compiler="modern" includeantruntime="false" srcdir="${gen.dir}" destdir="${build.dir}" classpathref="libs.classpath" />
+    <javac compiler="modern" includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" classpathref="build.classpath" />
+  </target>
+   
+   <target name="clean" description="Clean output directories">
+      <delete dir="${build.dir}"/>
+      <delete dir="${gen.dir}"/>
+   </target>
+</project>
