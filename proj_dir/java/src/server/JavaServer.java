@@ -1,4 +1,4 @@
-import pa1.*;
+import pa1.ImageProcessingServer;
 
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
@@ -8,18 +8,18 @@ import org.apache.thrift.transport.TServerTransport;
 
 public class JavaServer {
 
-    public static ImageProcessingNodeHandler handler;
+    public static ImageProcessingServerHandler handler;
     public static ImageProcessingServer.Processor processor;
 
     public static void main(String[] args) {
         try {
 
             handler = new ImageProcessingServerHandler();
-            processor = new ImageProcessingServer.Processor(handler);
+            processor = new ImageProcessingServer.Processor<ImageProcessingServerHandler>(handler);
 
             Runnable simple = new Runnable() {
                 public void run() {
-                    simple(handler);
+                    simple(processor);
                 }
             };
 

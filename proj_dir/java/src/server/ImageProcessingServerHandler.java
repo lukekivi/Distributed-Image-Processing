@@ -4,8 +4,14 @@
  * - Charles Droeg (droeg022)
  */
 
-import pa1.ImageProcessingServer;
+import java.util.ArrayList;
+import java.io.File;
+import pa1.JobReceipt;
+import pa1.JobRequest;
+import pa1.TaskRequest;
 import pa1.InvalidLocation;
+import pa1.ImageProcessingServer;
+import pa1.JobStatus;
 import org.apache.thrift.TException;
 
 public class ImageProcessingServerHandler implements ImageProcessingServer.Iface {
