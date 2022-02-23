@@ -11,9 +11,10 @@ Data is stored in some shared memory space and is not transferred via the socket
 &nbsp; 
 ## ImageProcessingClient
 
-The **ImageProcessingClient** runs with a config file that contains information about the shared memory space and the machine hosting the **ImageProcessingServer**. It also has takes a directory of images as an argument. The client then makes a request to the **ImageProcessingServer** and eventually gets a **JobReceipt** confirming the work has been completed as expected.
+The **ImageProcessingClient** runs with a config file that contains information about the shared memory space and the machine hosting the **ImageProcessingServer**. It also takes a directory of images as an argument. The client then makes a request to the **ImageProcessingServer**. This request contains a path to a directory with two sub-directories, input_dir and output_dir. Eventually a **JobReceipt** confirming the work has been completed as expected is returned to the client.
 
 The key jobs are:
+- Build a **JobRequest**
 - Send **JobRequest**s to **ImageProcessingServer**
 - Receive **JobReceipt** from **ImageProcessingServer**
 
