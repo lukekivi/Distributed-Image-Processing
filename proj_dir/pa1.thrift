@@ -15,22 +15,12 @@ exception InvalidLocation {
 }
 
 /**
- * Work scheduling policy.
- */
-enum SchedulingPolicy {
-    RANDOM = 0,
-    BALANCING = 1
-}
-
-/**
  * A request for processing of a batch of images. This is 
  * sent to the ImageProcessingServer.
  * -    job: path to folder containing images/folders of images.
- * - policy: work scheduling policy
  */
 struct JobRequest {
-    1: string job,
-    2: SchedulingPolicy policy,
+    1: string job
 }
 
 /**
@@ -43,24 +33,24 @@ enum JobStatus {
 
 /**
  * Receipt for a JobRequest.
- * -    time: duration of work required to complete the job
- * -  status: completion status of the job
  * - jobPath: path to folder that was worked on
+ * -  status: completion status of the job
+ * -    time: duration of work required to complete the job
+ * -     msg: a message from the server
  */
 struct JobReceipt {
-    1: i64 time,
+    1: string jobPath,
     2: JobStatus status,
-    3: string jobPath
+    3: i64 time,
+    4: string msg
 }
 
 /**
  * A request for the processing of a single image.
  * -   task: the path to the specific image to be processed
- * - policy: the scheduling policy for the task
  */
 struct TaskRequest {
-    1: string task,
-    2: SchedulingPolicy policy
+    1: string task
 }
 
 /**
@@ -73,13 +63,25 @@ enum TaskStatus {
 }
 
 /**
+ * Work scheduling policy.
+ */
+enum SchedulingPolicy {
+    MANDATORY = 0,
+    OPTIONAL = 1
+}
+
+/**
  * Receipt for a TaskRequest.
  * - taskPath: the path of the assigned image
  * -   status: the status of the task
+ * -   policy: scheduling policy used by the nodes
+ * -      msg: a message from the server
  */
 struct TaskReceipt {
     1: string taskPath,
-    2: TaskStatus status
+    2: TaskStatus status,
+    3: SchedulingPolicy policy,
+    4: string msg
 }
 
 /**
