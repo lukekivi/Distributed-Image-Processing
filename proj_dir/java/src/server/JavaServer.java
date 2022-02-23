@@ -1,5 +1,6 @@
-import pa1.ImageProcessingServer;
+package server;
 
+import pa1.ImageProcessingServer;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
 import org.apache.thrift.server.TSimpleServer;

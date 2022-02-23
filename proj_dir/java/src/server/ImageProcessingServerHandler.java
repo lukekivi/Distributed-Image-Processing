@@ -3,45 +3,37 @@
  * - Lucas Kivi (kivix019)
  * - Charles Droeg (droeg022)
  */
+package server;
 
 import java.util.ArrayList;
 import java.io.File;
 import pa1.JobReceipt;
 import pa1.JobRequest;
 import pa1.TaskRequest;
+import server.ServerManager;
 import pa1.InvalidLocation;
 import pa1.ImageProcessingServer;
 import pa1.JobStatus;
 import org.apache.thrift.TException;
 
 public class ImageProcessingServerHandler implements ImageProcessingServer.Iface {
-    private static final String INPUT_DIRECTORY_NAME = "input_dir";
-    private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
+    static private final ServerManager serverManager = new ServerManager();
 
     public JobReceipt sendJob(JobRequest job) throws InvalidLocation {
-        final long startTime = System.currentTimeMillis();
+        final Long startTime =  System.currentTimeMillis();
 
-        File folder = new File(job.getJob());
+        serverManager.setJob(job);
 
-        if (!folderIsValid(folder)) {
+        ArrayList<TaskRequest> taskRequests = serverManager.getTaskRequests();
+
+        if (taskRequests == null) {
             return new JobReceipt(
                 job.getJob(),
                 JobStatus.FAILURE,
                 System.currentTimeMillis() - startTime,
-                "JobPath is invalid."
+                serverManager.getErrorMsg()
             );
         }
-
-        if ((folder = getInputFolder(folder)) == null) {
-            return new JobReceipt(
-                job.getJob(),
-                JobStatus.FAILURE,
-                System.currentTimeMillis() - startTime,
-                "Folder is not laid out correctly."
-            );
-        }
-
-        ArrayList<TaskRequest> taskRequests = generateTaskRequests(folder);
 
         for (TaskRequest taskRequest : taskRequests) {
             System.out.println(taskRequest.getTask());
@@ -50,60 +42,8 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
         return new JobReceipt(
             job.getJob(),
             JobStatus.SUCCESS,
-            System.currentTimeMillis() - startTime, 
-            "All is well"
-            );            
-    }
-
-    /**
-     * @brief 
-     * @param folder
-     * @return
-     */
-    private ArrayList<TaskRequest> generateTaskRequests(File folder) {
-        ArrayList<TaskRequest> taskRequests = new ArrayList<TaskRequest>();
-        String[] fileNames = folder.list();
-
-        for (String fileName : fileNames) {
-            if (fileName.contains(".jpg") || fileName.contains(".png")) {
-                taskRequests.add(new TaskRequest(folder.getPath() + fileName));
-            } else {
-                System.out.println(folder.getPath() + fileName + " is not a jpg or png.");
-            }
-        }
-
-        return taskRequests;
-    }
-
-    private boolean folderIsValid(File folder) {
-        if (!folder.isDirectory()) {
-            return false;
-        } else {
-            File[] dirs = folder.listFiles();
-
-            if (dirs.length != 2 || !dirs[0].isDirectory() || !dirs[1].isDirectory()) {
-                return false;
-            } else {
-                boolean caseOne = dirs[0].getName().equals(INPUT_DIRECTORY_NAME) || 
-                                    dirs[1].getName().equals(OUTPUT_DIRECTORY_NAME);
-
-                boolean caseTwo = dirs[1].getName().equals(INPUT_DIRECTORY_NAME) || 
-                                    dirs[0].getName().equals(OUTPUT_DIRECTORY_NAME);
-
-                return caseOne || caseTwo;
-            }
-        }
-    }
-
-    private File getInputFolder(File folder) {
-        File[] dirs = folder.listFiles();
-        
-        if (dirs[0].getName().equals(INPUT_DIRECTORY_NAME)) {
-            return dirs[0];
-        } else if (dirs[1].getName().equals(INPUT_DIRECTORY_NAME)) {
-            return dirs[1];
-        } else { 
-            return null;
-        }
+            System.currentTimeMillis() - startTime,
+            "All is well."
+        );
     }
 }
