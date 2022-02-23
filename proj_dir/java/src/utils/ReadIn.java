@@ -18,21 +18,19 @@ public class ReadIn {
                 line = scanConfig.nextLine().split(" ");
                 if (!line[0].equals("node_" + i)) {
                     System.out.println("Improper Configuration file.\n");
-                    scanConfig.close();
                     System.exit(1);
                 }
                 nodes[i] = line[1];
             }
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
-            scanConfig.close();
             System.exit(1);
         }
-        scanConfig.close();
         return nodes;
     }
 
     public String getServer(String name) {
+        String ans = "";
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -45,20 +43,18 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // Client address
             if (!line[0].equals("server")) {
                 System.out.println("Improper Configuration file.\n");
-                scanConfig.close();
                 System.exit(1);
             }
-            scanConfig.close();
-            return line[1];
+            ans = line[1];
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
-            scanConfig.close();
             System.exit(1);
         }
-        return null;
+        return ans;
     }
 
     public String getClient(String name) {
+        String ans = "";
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -72,17 +68,14 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // Client address
             if (!line[0].equals("client")) {
                 System.out.println("Improper Configuration file.\n");
-                scanConfig.close();
                 System.exit(1);
             }
-            scanConfig.close();
-            return line[1];
+            ans = line[1];
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
-            scanConfig.close();
             System.exit(1);
         }
-        return null;
+        return ans;
     }
 
     public int getPolicy(String name) {
@@ -109,17 +102,15 @@ public class ReadIn {
                 System.out.println("Improper Configuration file.\n");
                 System.exit(1);               
             }
-            return policy;
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
-            scanConfig.close();
             System.exit(1);
         }
-        scanConfig.close();
-        return 10;
+        return policy;
     }
 
     public String getThriftPath(String name) {
+        String ans = "";
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -128,20 +119,18 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // thrift path
             if (!line[0].equals("THRIFT_LIB_PATH")) {
                 System.out.println("Improper Environment file.\n");
-                scanConfig.close();
                 System.exit(1);
             }
-            scanConfig.close();
-            return line[1];
+            ans = line[1];
         } catch (Exception e) {
             System.out.println("Improper Environment file.\n");
-            scanConfig.close();
             System.exit(1);
         }
-        return null;
+        return ans;
     }
 
     public String getOpenCVPath(String name) {
+        String ans = "";
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -151,20 +140,18 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // openCV path
             if (!line[0].equals("OPENCV_LIB_PATH")) {
                 System.out.println("Improper Environment file.\n");
-                scanConfig.close();
                 System.exit(1);
             }
-            scanConfig.close();
-            return line[1];
+            ans = line[1];
         } catch (Exception e) {
             System.out.println("Improper Environment file.\n");
-            scanConfig.close();
             System.exit(1);
         }
-        return null;
+        return ans;
     }
 
     public String getProjPath(String name) {
+        String ans = "";
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -175,16 +162,13 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // proj path
             if (!line[0].equals("PROJ_PATH")) {
                 System.out.println("Improper Environment file.\n");
-                scanConfig.close();
                 System.exit(1);
             }
-            scanConfig.close();
-            return line[1];
+            ans = line[1];
         } catch (Exception e) {
             System.out.println("Improper Environment file.\n");
-            scanConfig.close();
             System.exit(1);
         }
-        return null;
+        return ans;
     }
 }
