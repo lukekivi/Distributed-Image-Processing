@@ -14,7 +14,7 @@ public class JavaServer {
     public static void main(String[] args) {
         try {
 
-            handler = new ImageProcessingNodeHandler();
+            handler = new ImageProcessingServerHandler();
             processor = new ImageProcessingServer.Processor(handler);
 
             Runnable simple = new Runnable() {

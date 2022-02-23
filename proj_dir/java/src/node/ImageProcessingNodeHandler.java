@@ -9,10 +9,11 @@ import pa1.ImageProcessingNode;
 import pa1.InvalidLocation;
 import pa1.TaskReceipt;
 import pa1.TaskRequest;
+import org.apache.thrift.TException;
 
 
 public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
-    public TaskReceipt send(TaskRequest task) throws InvalidLocation, org.apache.thrift.TException {
-
+    public TaskReceipt send(TaskRequest task) throws InvalidLocation, TException {
+            
     }
 }
