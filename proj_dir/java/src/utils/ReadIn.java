@@ -18,14 +18,17 @@ public class ReadIn {
                 line = scanConfig.nextLine().split(" ");
                 if (!line[0].equals("node_" + i)) {
                     System.out.println("Improper Configuration file.\n");
+                    scanConfig.close();
                     System.exit(1);
                 }
                 nodes[i] = line[1];
             }
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
+            scanConfig.close();
             System.exit(1);
         }
+        scanConfig.close();
         return nodes;
     }
 
@@ -42,11 +45,14 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // Client address
             if (!line[0].equals("server")) {
                 System.out.println("Improper Configuration file.\n");
+                scanConfig.close();
                 System.exit(1);
             }
+            scanConfig.close();
             return line[1];
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
+            scanConfig.close();
             System.exit(1);
         }
         return null;
@@ -66,11 +72,14 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // Client address
             if (!line[0].equals("client")) {
                 System.out.println("Improper Configuration file.\n");
+                scanConfig.close();
                 System.exit(1);
             }
+            scanConfig.close();
             return line[1];
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
+            scanConfig.close();
             System.exit(1);
         }
         return null;
@@ -103,8 +112,10 @@ public class ReadIn {
             return policy;
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
+            scanConfig.close();
             System.exit(1);
         }
+        scanConfig.close();
         return 10;
     }
 
@@ -117,11 +128,14 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // thrift path
             if (!line[0].equals("THRIFT_LIB_PATH")) {
                 System.out.println("Improper Environment file.\n");
+                scanConfig.close();
                 System.exit(1);
             }
+            scanConfig.close();
             return line[1];
         } catch (Exception e) {
             System.out.println("Improper Environment file.\n");
+            scanConfig.close();
             System.exit(1);
         }
         return null;
@@ -137,11 +151,14 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // openCV path
             if (!line[0].equals("OPENCV_LIB_PATH")) {
                 System.out.println("Improper Environment file.\n");
+                scanConfig.close();
                 System.exit(1);
             }
+            scanConfig.close();
             return line[1];
         } catch (Exception e) {
             System.out.println("Improper Environment file.\n");
+            scanConfig.close();
             System.exit(1);
         }
         return null;
@@ -158,11 +175,14 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" "); // proj path
             if (!line[0].equals("PROJ_PATH")) {
                 System.out.println("Improper Environment file.\n");
+                scanConfig.close();
                 System.exit(1);
             }
+            scanConfig.close();
             return line[1];
         } catch (Exception e) {
             System.out.println("Improper Environment file.\n");
+            scanConfig.close();
             System.exit(1);
         }
         return null;
