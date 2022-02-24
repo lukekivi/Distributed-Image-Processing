@@ -19,6 +19,7 @@ public class ServerManager {
     private String errorMsg;
     
     public void setJob(JobRequest job) {
+        System.out.println("Processing job..");
 
         // Refresh job information.
         jobRequest = job;
@@ -33,7 +34,6 @@ public class ServerManager {
     public String getErrorMsg() {
         return errorMsg;
     }
-
 
     /**
      * @brief Get the input_dir from a folder and set it. Does no sanity checking on folder.
