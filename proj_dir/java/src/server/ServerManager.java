@@ -10,7 +10,7 @@ import pa1.JobStatus;
 import pa1.JobStatus;
 
 public class ServerManager {
-    
+
     private static final String INPUT_DIRECTORY_NAME = "input_dir";
     private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
 

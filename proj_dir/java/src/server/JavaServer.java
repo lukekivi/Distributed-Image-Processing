@@ -1,5 +1,10 @@
 package server;
 
+import java.io.PrintStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+
 import pa1.ImageProcessingServer;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
@@ -13,7 +18,12 @@ public class JavaServer {
     public static ImageProcessingServer.Processor processor;
 
     public static void main(String[] args) {
+
         try {
+
+            if (args.length == 1) {
+                System.setOut(outputFile(args[0]));
+            }
 
             handler = new ImageProcessingServerHandler();
             processor = new ImageProcessingServer.Processor<ImageProcessingServerHandler>(handler);
@@ -44,4 +54,7 @@ public class JavaServer {
         }
     }
 
+    private static PrintStream outputFile(String name) throws FileNotFoundException {
+        return new PrintStream(new BufferedOutputStream(new FileOutputStream(name)), true);
+    }
 }

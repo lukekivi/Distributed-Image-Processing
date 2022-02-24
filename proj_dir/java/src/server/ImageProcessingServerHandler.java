@@ -20,6 +20,9 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
     static private final ServerManager serverManager = new ServerManager();
 
     public JobReceipt sendJob(JobRequest job) throws InvalidLocation {
+
+        System.out.println("Job received..");
+
         final Long startTime =  System.currentTimeMillis();
 
         serverManager.setJob(job);
