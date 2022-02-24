@@ -3,7 +3,7 @@
  * - Lucas Kivi (kivix019)
  * - Charles Droeg (droeg022)
  */
-
+package node;
 
 import pa1.ImageProcessingNode;
 import pa1.InvalidLocation;
