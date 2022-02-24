@@ -5,3 +5,4 @@ node_3 kh4250-02.cselabs.umn.edu
 server kh4250-05.cselabs.umn.edu
 client kh4250-01.cselabs.umn.edu
 policy random
+data data
