@@ -28,11 +28,17 @@
    <path id="build.classpath">
       <path refid="libs.classpath" />
       <pathelement path="${gen.dir}" />
-  </path>
+   </path>
+
+   <path id="pa1.classpath">
+      <path refid="build.classpath"/>   
+      <pathelement path="${build.dir}"/>
+   </path>
 
    <target name="init">
     <tstamp/>
     <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.dir}/log"/>
   </target>
 
   <target name="generate">
@@ -46,6 +52,22 @@
     <javac compiler="modern" includeantruntime="false" srcdir="${gen.dir}" destdir="${build.dir}" classpathref="libs.classpath" />
     <javac compiler="modern" includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" classpathref="build.classpath" />
   </target>
+
+  
+   <target name="client" depends="compile" description="Run a pa1 client">
+      <echo>tutorial client simple:</echo>
+      <java classpathref="pa1.classpath" failonerror="true" classname="JavaClient">
+         <arg line="../machine.txt"/>
+         <arg line="../env.txt"/>
+      </java>
+   </target>
+   
+   
+   <target name="server" depends="compile" description="Run a pa1 server">
+      <java classpathref="pa1.classpath" output="${build.dir}/log/pa1.log" failonerror="false" fork="true" classname="server/JavaServer"> 
+         <arg line="${build.dir}/log/server_log.txt"/>
+      </java>
+   </target>
    
    <target name="clean" description="Clean output directories">
       <delete dir="${build.dir}"/>
