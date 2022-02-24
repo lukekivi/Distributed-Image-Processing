@@ -1,6 +1,6 @@
 # Distributed Image Processing
 Created by Lucas Kivi and Charles Droeg
-Last edited 2/16/2022
+Last edited 2/23/2022
 
 &nbsp; 
 ## Architecture Overview
