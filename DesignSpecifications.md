@@ -11,12 +11,17 @@ Data is stored in some shared memory space and is not transferred via the socket
 &nbsp; 
 ## ImageProcessingClient
 
-The **ImageProcessingClient** runs with a config file that contains information about the shared memory space and the machine hosting the **ImageProcessingServer**. It also takes a directory of images as an argument. The client then makes a request to the **ImageProcessingServer**. This request contains a path to a directory with two sub-directories, input_dir and output_dir. Eventually a **JobReceipt** confirming the work has been completed as expected is returned to the client.
+The **ImageProcessingClient** runs with a machine.txt file as the only argument accepted. Machine.txt contains the addresses of each node, the client, and the server. It also lists what policy to use as well as the directory path leading to the images that need to be processed. The client creates an instance of the ReadIn class and calls its functions to grab those important values from the machine.txt file. The client then makes a request to the **ImageProcessingServer**. This request contains a path to a directory with two sub-directories, input_dir and output_dir. Eventually a **JobReceipt** confirming the work has been completed as expected is returned to the client.
 
 The key jobs are:
+- Use **ReadIn class** to grab addresses and important info
 - Build a **JobRequest**
 - Send **JobRequest**s to **ImageProcessingServer**
 - Receive **JobReceipt** from **ImageProcessingServer**
+
+&nbsp; 
+## ReadIn
+This class defines functions for each piece of information being provided in the machine.txt file. These functions utilize the scanner class to read in those values and conduct checks on the first word of the line, making sure they align with the information being provided. There is a proper order to these files to ensure the scanner can perform correctly. This is used by the client and server to grab addresses and values specified by the user.
 
 &nbsp; 
 ## ImageProcessingServer
