@@ -5,7 +5,7 @@
 
 import java.util.*;
 import pa1.*;
-
+import utils.ReadIn;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TTransport;
@@ -15,6 +15,8 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 
 public class JavaClient {
+
+    private final static String DATA_PATH_EXT = "/data";
 
     public static void main(String [] args) {
         // Checking to see that proper files are provided
@@ -26,26 +28,27 @@ public class JavaClient {
         String env = args[1];
 
         ReadIn r = new ReadIn();
-        String[] nodesA = r.getNodes(config);; // Array of node addresses
-        String clientA = r.getClient(config); // client address
+
         String serverA = r.getServer(config); // server address
-        int policy = r.getPolicy(config); // getting the policy
-        String dirPath = r.getProjPath(env); // Setting proj path env var
+        
+        String dirPath = r.getProjPath(env) + DATA_PATH_EXT; // Setting proj path env var
 
         // Creating a job to send to server
-        JobRequest cJob = new JobRequest();
-        cJob.job = dirPath;
+        JobRequest cJob = new JobRequest(dirPath);
 
         try {
             TTransport transport;
-            transport = new TSocket(serverA, 9090);
+            transport = new TSocket(serverA, 9090); 
             transport.open();
 
-            TProtocol protocol = new  TBinaryProtocol(transport);
-            ImageProcessingServer.Client client = new ImageProcessingServer.Client(protocol);
+            if (transport.isOpen()) {
+                TProtocol protocol = new  TBinaryProtocol(transport);
+                ImageProcessingServer.Client client = new ImageProcessingServer.Client(protocol);
 
-            perform(client, cJob); // Passing job as arg for client
+                perform(client, cJob); // Passing job as arg for client
 
+                transport.close();
+            }
             transport.close();
         } catch (TException x) {
             x.printStackTrace();
@@ -56,7 +59,8 @@ public class JavaClient {
         JobReceipt receipt;
         try {
             receipt = client.sendJob(clientJob); // Getting job receipt and printing info
-            System.out.println("Job Receipt:\nJob: " + receipt.jobPath + "\nTime: " + receipt.time + "\nStatus: " + receipt.status + "\n");
+            System.out.println("Job Receipt:\nJob: " + receipt.jobPath + "\nTime: " +
+             receipt.time + "\nStatus: " + receipt.status + "\nMsg " + receipt.msg + "\n");
         } catch (InvalidLocation path) {
             System.out.println("Invalid directory path given.\n");
         }
