@@ -81,7 +81,7 @@ public class ReadIn {
     }
 
     public int getPolicy(String name) {
-        int policy = 0;
+        int policy = -1;
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -94,6 +94,11 @@ public class ReadIn {
             line = scanConfig.nextLine().split(" ");
 
             line = scanConfig.nextLine().split(" "); // Scheduling Policy
+            if (!line[0].equals("policy")) {
+                System.out.println("Improper Configuration file.\n");
+                System.exit(1);
+            }
+
             if (line[1].equals("random")) {
                 policy = 1;
             }
@@ -109,6 +114,33 @@ public class ReadIn {
             System.exit(1);
         }
         return policy;
+    }
+    
+    public String getData(String name) {
+        String ans = "";
+        File file = new File(name);
+        try {
+            Scanner scanConfig = new Scanner(file);
+            String[] line; // Read in client line
+            line = scanConfig.nextLine().split(" "); // Iterating through node, server, and client lines
+            line = scanConfig.nextLine().split(" ");
+            line = scanConfig.nextLine().split(" ");
+            line = scanConfig.nextLine().split(" ");
+            line = scanConfig.nextLine().split(" ");
+            line = scanConfig.nextLine().split(" ");
+            line = scanConfig.nextLine().split(" ");
+
+            line = scanConfig.nextLine().split(" "); // Scheduling Policy
+            if (!line[0].equals("data")) {
+                System.out.println("Improper Configuration file.\n");
+                System.exit(1);
+            }
+            ans = line[1];
+        } catch (Exception e) {
+            System.out.println("Improper Configuration file.\n");
+            System.exit(1);
+        }
+        return ans;
     }
 
     public String getThriftPath(String name) {

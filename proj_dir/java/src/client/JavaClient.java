@@ -12,23 +12,19 @@ import pa1.*;
 import utils.ReadIn;
 
 public class JavaClient {
-
-    private final static String DATA_PATH_EXT = "/data";
-
     public static void main(String [] args) {
         // Checking to see that proper files are provided
-        if (args.length != 2) {
-            System.out.println("Need config file first and Env file second.\n");
+        if (args.length != 0) {
+            System.out.println("No arguments needed.\n");
             System.exit(0);
         }
-        String config = args[0];
-        String env = args[1];
+        String config = System.getenv("PROJ_PATH") + "/machine.txt";
 
         ReadIn r = new ReadIn();
 
         String serverA = r.getServer(config); // server address
         
-        String dirPath = r.getProjPath(env) + DATA_PATH_EXT; // Setting proj path env var
+        String dirPath = r.getData(config); // getting path to data dir
 
         // Creating a job to send to server
         JobRequest cJob = new JobRequest(dirPath);
