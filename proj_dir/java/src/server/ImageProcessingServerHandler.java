@@ -14,7 +14,7 @@ import pa1.JobStatus;
 import pa1.TaskReceipt;
 import pa1.TaskRequest;
 import server.utils.JobRequestManager;
-import server.utils.NodeManager;
+import server.utils.ServerNodeManager;
 import server.utils.ThreadAndRunnableContainer;
 
 
@@ -22,7 +22,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
 
     static private final int PORT_NUM = 9090;
     static private final JobRequestManager jobRequestManager = new JobRequestManager();
-    private NodeManager nodeManager;
+    private ServerNodeManager serverNodeManager;
 
     @Override
     public JobReceipt sendJob(JobRequest job) throws InvalidLocation {
@@ -48,7 +48,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
         /**
          * Setup nodes
          */
-        nodeManager = new NodeManager();
+        serverNodeManager = new ServerNodeManager();
 
         /**
          * Send TaskRequests
@@ -62,7 +62,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
 
             // build a runnable
             TaskRequestRunnable runnable = new TaskRequestRunnable(
-                nodeManager,
+                serverNodeManager,
                 PORT_NUM,
                 task
             );

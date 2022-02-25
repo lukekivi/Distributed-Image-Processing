@@ -10,20 +10,20 @@ import pa1.InvalidLocation;
 import pa1.TaskReceipt;
 import pa1.TaskRequest;
 import pa1.TaskStatus;
-import server.utils.NodeManager;
+import server.utils.ServerNodeManager;
 
 public class TaskRequestRunnable implements Runnable {
     private volatile TaskReceipt taskReceipt = null;
     private TaskRequest taskRequest = null;
     private int port;
-    private NodeManager nodeManager;
+    private ServerNodeManager serverNodeManager;
 
     public TaskRequestRunnable(
-        NodeManager nodeManager,
+        ServerNodeManager serverNodeManager,
         int port,
         TaskRequest taskRequest
     ) {
-        this.nodeManager = nodeManager;
+        this.serverNodeManager = serverNodeManager;
         this.port = port;
         this.taskRequest = taskRequest;
     }
@@ -33,7 +33,7 @@ public class TaskRequestRunnable implements Runnable {
         while (taskReceipt == null) {
             // Do image processing
             try {
-                TaskReceipt receipt = perform(nodeManager.getRandomNodeAddress());
+                TaskReceipt receipt = perform(serverNodeManager.getRandomNodeAddress());
 
                 if (receipt.status == TaskStatus.REJECTED) {
                     // Try another node

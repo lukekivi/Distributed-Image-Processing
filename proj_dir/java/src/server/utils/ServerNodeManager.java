@@ -4,12 +4,12 @@ import java.util.Random;
 import utils.ReadIn;
 
 
-public class NodeManager {
+public class ServerNodeManager {
     
     private Random random;
     private String[] nodes;
 
-    public NodeManager() {
+    public ServerNodeManager() {
         random = new Random();
         ReadIn r = new ReadIn();
         String config = System.getenv("PROJ_PATH") + "/machine.txt";
