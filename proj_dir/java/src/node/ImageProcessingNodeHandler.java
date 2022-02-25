@@ -34,7 +34,6 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
 
         if (inputPath == "" || myTask == null) {
             return new TaskReceipt(
-                "",
                 TaskStatus.FAILURE,
                 policy,
                 "Improper Task Request."
@@ -52,14 +51,12 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             TaskStatus status = nodeManager.transformImage(inputPath, prob);
             // Conduct image operation
             return new TaskReceipt(
-                "",
                 status,
                 policy,
                 "Successful task completion."
             );
         } else {
             return new TaskReceipt(
-                "",
                 TaskStatus.REJECTED,
                 policy,
                 "Node Rejected Task."
