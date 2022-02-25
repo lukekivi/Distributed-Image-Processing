@@ -6,6 +6,11 @@
 
 package node;
 
+import java.io.PrintStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+
 import pa1.ImageProcessingNode;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
@@ -19,12 +24,14 @@ public class JavaNode {
     public static ImageProcessingNode.Processor processor;
     public static int num = 0;
     public static void main(String [] args) {
-        if (args.length != 1) {
-            System.out.println("Need 1 argument, node number.");
-            System.exit(1);
-        }
-        num = Integer.parseInt(args[0]);
         try {
+            if (args.length != 1) {
+                System.out.println("Need 1 argument, node number.");
+                System.exit(1);
+            }
+            num = Integer.parseInt(args[0]);
+            System.setOut(outputFile("MADE IT INTO THE NODE!"));
+
             handler = new ImageProcessingNodeHandler(num);
             processor = new ImageProcessingNode.Processor<ImageProcessingNodeHandler>(handler);
 
@@ -49,5 +56,8 @@ public class JavaNode {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private static PrintStream outputFile(String name) throws FileNotFoundException {
+        return new PrintStream(new BufferedOutputStream(new FileOutputStream(name)), true);
     }
 }
