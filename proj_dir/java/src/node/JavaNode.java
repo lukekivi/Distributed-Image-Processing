@@ -23,7 +23,7 @@ public class JavaNode {
             System.out.println("Need 1 argument, node number.");
             System.exit(1);
         }
-        num = args[0];
+        num = Integer.parseInt(args[0]);
         try {
             handler = new ImageProcessingNodeHandler(num);
             processor = new ImageProcessingNode.Processor<ImageProcessingNodeHandler>(handler);
@@ -39,10 +39,10 @@ public class JavaNode {
             x.printStackTrace();
         }
     }
-    public static void simple(Request.Processor processor) {
+    public static void simple(ImageProcessingNode.Processor processor) {
         try {
             TServerTransport nodeTransport = new TServerSocket(9090);
-            TServer node = new TThreadPoolServer(new TThreadPoolServer.Args(nodeTransport).processor(processor));
+            TServer node = new TSimpleServer(new Args(nodeTransport).processor(processor));
 
             System.out.println("Starting the simple node...");
             node.serve();

@@ -9,7 +9,9 @@
 package node;
 import java.util.Random;
 import pa1.SchedulingPolicy;
-import Thread;
+import pa1.TaskStatus;
+import java.lang.Thread;
+
 
 public class NodeManager {
     private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
@@ -20,13 +22,18 @@ public class NodeManager {
      * @param prob: probability of load injecting
      * @return nothing
      */
-    public void transformImage(String imagePath, double prob) {
+    public TaskStatus transformImage(String imagePath, double prob) {
         String outputPath = imagePath + "/../" + OUTPUT_DIRECTORY_NAME;
         boolean delay = decide(prob);
         if (delay) {
-            Thread.sleep(3000);
+            try {
+                Thread.sleep(3000);
+            } catch (Exception e) {
+                return TaskStatus.FAILURE;
+            }
         }
         // Conduct image transformation with OpenCV here
+        return TaskStatus.SUCCESS;
     }
 
     /**

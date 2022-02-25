@@ -5,6 +5,7 @@
  */
 package node;
 
+import utils.ReadIn;
 import pa1.ImageProcessingNode;
 import pa1.InvalidLocation;
 import pa1.TaskReceipt;
@@ -18,9 +19,9 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
     static private final NodeManager nodeManager = new NodeManager();
     static public int nodeNum;
 
-    public ImageProcessingNodeHandler(int num) [
+    public ImageProcessingNodeHandler(int num) {
         nodeNum = num;
-    ]
+    }
 
     public TaskReceipt sendTask(TaskRequest task) throws InvalidLocation {
 
@@ -33,6 +34,7 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
 
         if (inputPath == "" || myTask == null) {
             return new TaskReceipt(
+                "",
                 TaskStatus.FAILURE,
                 policy,
                 "Improper Task Request."
@@ -47,15 +49,17 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
         }
 
         if (decision) {
-            nodeManager.transformImage(inputPath, prob);
+            TaskStatus status = nodeManager.transformImage(inputPath, prob);
             // Conduct image operation
             return new TaskReceipt(
-                TaskStatus.SUCCESS,
+                "",
+                status,
                 policy,
                 "Successful task completion."
             );
         } else {
             return new TaskReceipt(
+                "",
                 TaskStatus.REJECTED,
                 policy,
                 "Node Rejected Task."
