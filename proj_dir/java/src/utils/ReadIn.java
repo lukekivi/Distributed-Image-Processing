@@ -1,12 +1,14 @@
-// Charles Droege
-// droeg022
-// Lucas Kivi
-// kivix019
+/**
+ * Created by:
+ * - Lucas Kivi (kivix019)
+ * - Charles Droege (droeg022)
+ */
 
 package utils;
 
 import java.util.*;
 import java.io.File;
+import pa1.SchedulingPolicy;
 
 public class ReadIn {
 
@@ -29,6 +31,29 @@ public class ReadIn {
             System.exit(1);
         }
         return nodes;
+    }
+
+    public double getProbability(String name, int num) {
+        File file = new File(name);
+        double ans = 0;
+        try {
+            Scanner scanConfig = new Scanner(file);
+            String[] line; // Read in node line
+            for (int i = 0; i < num; i++) { // Looping to get to proper node
+                line = scanConfig.nextLine().split(" ");
+            }
+
+            line = scanConfig.nextLine().split(" ");
+            if (!line[0].equals("node_" + num)) {
+                System.out.println("Improper Configuration file.\n");
+                System.exit(1);
+            }
+            ans = Double.parseDouble(line[2]);
+        } catch (Exception e) {
+            System.out.println("Improper Configuration file.\n");
+            System.exit(1);
+        }
+        return ans;
     }
 
     public String getServer(String name) {
@@ -80,8 +105,8 @@ public class ReadIn {
         return ans;
     }
 
-    public int getPolicy(String name) {
-        int policy = -1;
+    public SchedulingPolicy getPolicy(String name) {
+        SchedulingPolicy policy = null;
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -100,10 +125,10 @@ public class ReadIn {
             }
 
             if (line[1].equals("random")) {
-                policy = 1;
+                policy = SchedulingPolicy.MANDATORY;
             }
             else if (line[1].equals("balancing")){
-                policy = 0;
+                policy = SchedulingPolicy.OPTIONAL;
             }
             else {
                 System.out.println("Improper Configuration file.\n");
