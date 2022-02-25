@@ -1,15 +1,12 @@
-package server;
+package server.utils;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import pa1.JobReceipt;
 import pa1.JobRequest;
 import pa1.TaskRequest;
-import pa1.JobStatus;
-import pa1.JobStatus;
 
-public class ServerManager {
+
+public class JobRequestManager {
 
     private static final String INPUT_DIRECTORY_NAME = "input_dir";
     private static final String OUTPUT_DIRECTORY_NAME = "output_dir";

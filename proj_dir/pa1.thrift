@@ -74,13 +74,11 @@ enum SchedulingPolicy {
  * Receipt for a TaskRequest.
  * - taskPath: the path of the assigned image
  * -   status: the status of the task
- * -   policy: scheduling policy used by the nodes
  * -      msg: a message from the server
  */
 struct TaskReceipt {
     1: string taskPath,
     2: TaskStatus status,
-    3: SchedulingPolicy policy,
     4: string msg
 }
 
