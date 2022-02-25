@@ -1,14 +1,10 @@
 /**
  * Created by:
  * - Lucas Kivi (kivix019)
- * - Charles Droeg (droeg022)
+ * - Charles Droege (droeg022)
  */
 
 package node;
-import java.io.PrintStream;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
 
 import pa1.ImageProcessingNode;
 import org.apache.thrift.server.TServer;

@@ -1,7 +1,7 @@
 /**
  * Created by:
  * - Lucas Kivi (kivix019)
- * - Charles Droeg (droeg022)
+ * - Charles Droege (droeg022)
  */
 package node;
 
@@ -33,7 +33,6 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
 
         if (inputPath == "" || myTask == null) {
             return new TaskReceipt(
-                "",
                 TaskStatus.FAILURE,
                 policy,
                 "Improper Task Request."
@@ -48,17 +47,15 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
         }
 
         if (decision) {
-            nodeManager.conductImage(inputPath);
+            nodeManager.transformImage(inputPath, prob);
             // Conduct image operation
             return new TaskReceipt(
-                inputPath,
                 TaskStatus.SUCCESS,
                 policy,
                 "Successful task completion."
             );
         } else {
             return new TaskReceipt(
-                myTask.task,
                 TaskStatus.REJECTED,
                 policy,
                 "Node Rejected Task."

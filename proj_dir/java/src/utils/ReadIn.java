@@ -1,7 +1,8 @@
-// Charles Droege
-// droeg022
-// Lucas Kivi
-// kivix019
+/**
+ * Created by:
+ * - Lucas Kivi (kivix019)
+ * - Charles Droege (droeg022)
+ */
 
 //package utils;
 
