@@ -3,16 +3,13 @@
 // Lucas Kivi
 // kivix019
 
-import java.util.*;
-import pa1.*;
-import utils.ReadIn;
 import org.apache.thrift.TException;
-import org.apache.thrift.transport.TSSLTransportFactory;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
+import pa1.*;
+import utils.ReadIn;
 
 public class JavaClient {
 
@@ -41,14 +38,11 @@ public class JavaClient {
             transport = new TSocket(serverA, 9090); 
             transport.open();
 
-            if (transport.isOpen()) {
-                TProtocol protocol = new  TBinaryProtocol(transport);
-                ImageProcessingServer.Client client = new ImageProcessingServer.Client(protocol);
+            TProtocol protocol = new  TBinaryProtocol(transport);
+            ImageProcessingServer.Client client = new ImageProcessingServer.Client(protocol);
 
-                perform(client, cJob); // Passing job as arg for client
+            perform(client, cJob); // Passing job as arg for client
 
-                transport.close();
-            }
             transport.close();
         } catch (TException x) {
             x.printStackTrace();
