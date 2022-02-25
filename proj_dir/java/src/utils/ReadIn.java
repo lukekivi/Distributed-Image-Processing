@@ -3,7 +3,7 @@
 // Lucas Kivi
 // kivix019
 
-package utils;
+//package utils;
 
 import java.util.*;
 import java.io.File;
@@ -29,6 +29,29 @@ public class ReadIn {
             System.exit(1);
         }
         return nodes;
+    }
+
+    public double getProb(String name, int num) {
+        File file = new File(name);
+        double ans = 0;
+        try {
+            Scanner scanConfig = new Scanner(file);
+            String[] line; // Read in node line
+            for (int i = 0; i < num; i++) { // Looping to get to proper node
+                line = scanConfig.nextLine().split(" ");
+            }
+
+            line = scanConfig.nextLine().split(" ");
+            if (!line[0].equals("node_" + num)) {
+                System.out.println("Improper Configuration file.\n");
+                System.exit(1);
+            }
+            ans = Double.parseDouble(line[2]);
+        } catch (Exception e) {
+            System.out.println("Improper Configuration file.\n");
+            System.exit(1);
+        }
+        return ans;
     }
 
     public String getServer(String name) {
