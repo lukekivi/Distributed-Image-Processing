@@ -18,7 +18,7 @@
          <include name="*.jar"/>   
       </fileset>
       <fileset dir="${env.OPENCV_LIB_PATH}"/>
-      <fileset dir="${env.PROJ_PATH}"> </fileset>
+      <fileset dir="${env.PROJ_PATH}"/>
    </path>
 
    <path id="thrift_compiler.classpath">
