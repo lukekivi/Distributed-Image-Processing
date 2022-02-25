@@ -25,7 +25,7 @@ This class defines functions for each piece of information being provided in the
 
 &nbsp; 
 ## ImageProcessingServer
-The **ImageProcessingServer** receives a **JobRequest** from the **ImageProcessingClient**. It then logically divides the job into **TaskRequest**s and sends those out to **ImageProcessingNode**s and then awaits a **TaskReceipt**. The server starts a thread to communicate with each node. When a response is received the server must review it. If the task was accepted and completed it updates the main **TaskReceipt** and waits for other nodes to respond. If the task was rejected then the server must make another request with a newly chosen node. Once the main **TaskReceipt** is completed it is sent back to the **ImageProcessingClient**.
+The **ImageProcessingServer** receives a **JobRequest** from the **ImageProcessingClient**. It then logically divides the job into **TaskRequest**s and sends those out to **ImageProcessingNode**s and then awaits a **TaskReceipt**. The server starts a thread for each **TaskRequest**. When a response is received the server must review it. If the task was accepted and completed it updates the main **TaskReceipt** and waits for other nodes to respond. If the task was rejected then the server must make another request with a newly chosen node. Once the main **TaskReceipt** is completed it is sent back to the **ImageProcessingClient**.
 
 The key jobs are:
 - Receive **JobRequest**s from **ImageProcessingClient**
