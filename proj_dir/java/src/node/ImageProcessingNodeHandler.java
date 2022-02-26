@@ -24,15 +24,19 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
     }
 
     public TaskReceipt sendTask(TaskRequest task) throws InvalidLocation {
-
         System.out.println("Task received!");
-        TaskRequest myTask = task;
+        TaskRequest myTask = task; // Grabbing values from Task Request
         String inputPath = myTask.task;
         String config = System.getenv("PROJ_PATH") + "/machine.txt";
         ReadIn reader = new ReadIn();
         SchedulingPolicy policy = reader.getPolicy(config);
+        TaskReceipt receipt = new TaskReceipt( // Initializing TaskReceipt object
+            inputPath,
+            TaskStatus.FAILURE,
+            "Initializing TaskReceipt object."
+        );
 
-        if (inputPath == "" || myTask == null) {
+        if (inputPath == "" || myTask == null) { // Return if the path is empty (Will check validity later)
             return new TaskReceipt(
                 inputPath,
                 TaskStatus.FAILURE,
@@ -42,25 +46,25 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
         
         double prob = reader.getProbability(config, nodeNum);
 
-        boolean decision = true;
-        if (policy == SchedulingPolicy.OPTIONAL) {
-            decision = nodeManager.decide(prob);
-        }
+        // Creating a runnable for the task
+        NodeTaskRunnable runnable = new NodeTaskRunnable( // Creating a runnable
+            nodeManager, // Manager class instance
+            myTask, // Task request was sent
+            policy, // Policy to be used
+            prob // Probability for specific node
+        );
 
-        if (decision) {
-            TaskStatus status = nodeManager.transformImage(inputPath, prob);
-            // Conduct image operation
-            return new TaskReceipt(
-                inputPath,
-                status,
-                "Successful task completion."
-            );
-        } else {
-            return new TaskReceipt(
-                inputPath,
-                TaskStatus.REJECTED,
-                "Node Rejected Task."
-            );
+        // Creating a thread for the task
+        Thread thread = new Thread(runnable);
+        thread.start();
+
+        try {
+            thread.join();
+            receipt = runnable.getTaskReceipt();
+        } catch (InterruptedException e) {
+            System.out.println("Thread was interrupted.");
+            System.exit(1);
         }
+        return receipt;
     }
 }
