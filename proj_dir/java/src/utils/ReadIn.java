@@ -6,8 +6,9 @@
 
 package utils;
 
-import java.util.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.util.*;
 import pa1.SchedulingPolicy;
 
 public class ReadIn {
@@ -228,6 +229,35 @@ public class ReadIn {
             System.out.println("Improper Environment file.\n");
             System.exit(1);
         }
+        return ans;
+    }
+
+
+    /**
+     * Returns the port number or -1 for an error.
+     */
+    public int getServerPort(String name)  {
+        int ans = -1;
+        
+        try {
+            FileInputStream file = new FileInputStream(name);
+
+            Scanner scanConfig = new Scanner(file);
+            String[] line; // Read in client line
+    
+            while (scanConfig.hasNextLine()) {
+                line = scanConfig.nextLine().split(" ");
+
+                if (line[0].equals("server")) {
+                    ans = Integer.parseInt(line[2]);
+                    break;
+                }
+            }
+            
+        } catch (Exception exception) {
+            System.out.println("ReadIn: getServerPort() - " + exception);
+        }
+      
         return ans;
     }
 }
