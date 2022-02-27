@@ -13,8 +13,8 @@ import pa1.SchedulingPolicy;
 
 public class ReadIn {
 
-    public String[] getNodes(String name) {
-        String[] nodes = new String[4]; // Array of nodes
+    public String[][] getNodes(String name) {
+        String[][] nodes = new String[4][3]; // Array of nodes
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -25,7 +25,9 @@ public class ReadIn {
                     System.out.println("Improper Configuration file.\n");
                     System.exit(1);
                 }
-                nodes[i] = line[1];
+                nodes[i][0] = line[1]; // address
+                nodes[i][1] = line[2]; // probability
+                nodes[i][2] = line[3]; // port number
             }
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
@@ -35,25 +37,28 @@ public class ReadIn {
     }
 
     public double getProbability(String name, int num) {
-        File file = new File(name);
-        double ans = 0;
-        try {
-            Scanner scanConfig = new Scanner(file);
-            String[] line; // Read in node line
-            for (int i = 0; i < num; i++) { // Looping to get to proper node
-                line = scanConfig.nextLine().split(" ");
-            }
+        // File file = new File(name);
+        // double ans = 0;
+        // try {
+        //     Scanner scanConfig = new Scanner(file);
+        //     String[] line; // Read in node line
+        //     for (int i = 0; i < num; i++) { // Looping to get to proper node
+        //         line = scanConfig.nextLine().split(" ");
+        //     }
 
-            line = scanConfig.nextLine().split(" ");
-            if (!line[0].equals("node_" + num)) {
-                System.out.println("Improper Configuration file.\n");
-                System.exit(1);
-            }
-            ans = Double.parseDouble(line[2]);
-        } catch (Exception e) {
-            System.out.println("Improper Configuration file.\n");
-            System.exit(1);
-        }
+        //     line = scanConfig.nextLine().split(" ");
+        //     if (!line[0].equals("node_" + num)) {
+        //         System.out.println("Improper Configuration file.\n");
+        //         System.exit(1);
+        //     }
+        //     ans = Double.parseDouble(line[2]);
+        // } catch (Exception e) {
+        //     System.out.println("Improper Configuration file.\n");
+        //     System.exit(1);
+        // }
+        double ans = 0;
+        String[][] arr = getNodes(name);
+        ans = Double.parseDouble(arr[num][1]);
         return ans;
     }
 

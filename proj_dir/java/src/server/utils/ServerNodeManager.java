@@ -7,7 +7,7 @@ import utils.ReadIn;
 public class ServerNodeManager {
     
     private Random random;
-    private String[] nodes;
+    private String[][] nodes;
 
     public ServerNodeManager() {
         random = new Random();
@@ -19,7 +19,7 @@ public class ServerNodeManager {
 
     public String getRandomNodeAddress() {
         int randomIndex = random.nextInt() % nodes.length;
-        return nodes[randomIndex];
+        return nodes[randomIndex][0];
     }
 
 }

@@ -1,7 +1,7 @@
-node_0 kh4250-08.cselabs.umn.edu 0.8
-node_1 kh4250-03.cselabs.umn.edu 0.6
-node_2 kh4250-06.cselabs.umn.edu 0.5
-node_3 kh4250-02.cselabs.umn.edu 0.2
+node_0 kh4250-08.cselabs.umn.edu 0.8 9094
+node_1 kh4250-03.cselabs.umn.edu 0.6 9095
+node_2 kh4250-06.cselabs.umn.edu 0.5 9096
+node_3 kh4250-02.cselabs.umn.edu 0.2 9097
 server csel-kh1260-12.cselabs.umn.edu 9093
 client kh4250-01.cselabs.umn.edu
 policy random
