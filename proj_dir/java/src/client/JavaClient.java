@@ -14,7 +14,7 @@ import utils.ReadIn;
 public class JavaClient {
     public static void main(String [] args) {
         // Checking to see that proper files are provided
-        if (args.length != 0) {
+        if (args.length != 2) {
             System.out.println("No arguments needed.\n");
             System.exit(0);
         }

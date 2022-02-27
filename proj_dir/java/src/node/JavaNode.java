@@ -30,7 +30,7 @@ public class JavaNode {
                 System.exit(1);
             }
             num = Integer.parseInt(args[0]);
-            System.setOut(outputFile("MADE IT INTO THE NODE!"));
+            System.setOut(outputFile("Node Log"));
 
             handler = new ImageProcessingNodeHandler(num);
             processor = new ImageProcessingNode.Processor<ImageProcessingNodeHandler>(handler);
@@ -48,7 +48,7 @@ public class JavaNode {
     }
     public static void simple(ImageProcessingNode.Processor processor) {
         try {
-            TServerTransport nodeTransport = new TServerSocket(9090);
+            TServerTransport nodeTransport = new TServerSocket(9091);
             TServer node = new TSimpleServer(new Args(nodeTransport).processor(processor));
 
             System.out.println("Starting the simple node...");
