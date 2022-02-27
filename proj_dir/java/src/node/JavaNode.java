@@ -25,7 +25,7 @@ public class JavaNode {
     public static int num = 0;
     public static void main(String [] args) {
         try {
-            if (args.length != 1) {
+            if (args.length != 2) {
                 System.out.println("Need 1 argument, node number.");
                 System.exit(1);
             }
