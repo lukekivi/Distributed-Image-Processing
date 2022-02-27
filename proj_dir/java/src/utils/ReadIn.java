@@ -14,25 +14,35 @@ import pa1.SchedulingPolicy;
 public class ReadIn {
 
     public String[][] getNodes(String name) {
-        String[][] nodes = new String[4][3]; // Array of nodes
-        File file = new File(name);
-        try {
-            Scanner scanConfig = new Scanner(file);
-            String[] line; // Read in node lines
-            for (int i = 0; i < 4; i++) { // Looping to get addresses of the nodes
-                line = scanConfig.nextLine().split(" ");
-                if (!line[0].equals("node_" + i)) {
-                    System.out.println("Improper Configuration file.\n");
-                    System.exit(1);
-                }
-                nodes[i][0] = line[1]; // address
-                nodes[i][1] = line[2]; // probability
-                nodes[i][2] = line[3]; // port number
-            }
-        } catch (Exception e) {
-            System.out.println("Improper Configuration file.\n");
-            System.exit(1);
-        }
+        // String[][] nodes = new String[4][2]; // Array of nodes
+        // File file = new File(name);
+        // try {
+        //     Scanner scanConfig = new Scanner(file);
+        //     String[] line; // Read in node lines
+        //     for (int i = 0; i < 4; i++) { // Looping to get addresses of the nodes
+        //         line = scanConfig.nextLine().split(" ");
+        //         if (!line[0].equals("node_" + i)) {
+        //             System.out.println("Improper Configuration file.\n");
+        //             System.exit(1);
+        //         }
+        //         nodes[i][0] = line[1]; // address
+        //         nodes[i][1] = line[2]; // probability
+        //         nodes[i][2] = line[3]; // port number
+        //     }
+        // } catch (Exception e) {
+        //     System.out.println("Improper Configuration file.\n");
+        //     System.exit(1);
+        // }
+        String[][] nodes = new String[4][2]; // Array of nodes
+        NodeData nodeData = new NodeData(name);
+        nodes[0][0] = nodeData.getAddress(0);
+        nodes[0][1] = Integer.toString(nodeData.getPort(0));
+        nodes[1][0] = nodeData.getAddress(1);
+        nodes[1][1] = Integer.toString(nodeData.getPort(1));
+        nodes[2][0] = nodeData.getAddress(2);
+        nodes[2][1] = Integer.toString(nodeData.getPort(2));
+        nodes[3][0] = nodeData.getAddress(3);
+        nodes[3][1] = Integer.toString(nodeData.getPort(3));
         return nodes;
     }
 
@@ -56,10 +66,11 @@ public class ReadIn {
         //     System.out.println("Improper Configuration file.\n");
         //     System.exit(1);
         // }
-        double ans = 0;
-        String[][] arr = getNodes(name);
-        ans = Double.parseDouble(arr[num][1]);
-        return ans;
+        // double ans = 0;
+        // String[][] arr = getNodes(name);
+        // ans = Double.parseDouble(arr[num][1]);
+        NodeData nodes = new NodeData(name);
+        return nodes.getProbability(num);
     }
 
     public String getServer(String name) {
@@ -265,4 +276,12 @@ public class ReadIn {
       
         return ans;
     }
+
+    // public static void main(String[] args) {
+    //     ReadIn r = new ReadIn();
+    //     System.out.println("Node 0 port: " + r.getNodes("/project/droeg022/Distributed-Image-Processing/proj_dir/machine.txt")[0][1]);
+    //     System.out.println("Node 1 port: " + r.getNodes("/project/droeg022/Distributed-Image-Processing/proj_dir/machine.txt")[1][1]);
+    //     System.out.println("Node 2 port: " + r.getNodes("/project/droeg022/Distributed-Image-Processing/proj_dir/machine.txt")[2][1]);
+    //     System.out.println("Node 3 port: " + r.getNodes("/project/droeg022/Distributed-Image-Processing/proj_dir/machine.txt")[3][1]);
+    // }
 }
