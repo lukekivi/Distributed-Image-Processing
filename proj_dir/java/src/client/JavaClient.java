@@ -28,6 +28,14 @@ public class JavaClient {
 
         try {
             TTransport transport;
+
+            int serverPortNum = r.getServerPort(config);
+
+            if (serverPortNum == -1) {
+                System.out.println("Unable to get port num from machine.txt");
+                System.exit(-1);
+            }
+
             transport = new TSocket(serverA, r.getServerPort(config)); 
             transport.open();
 
