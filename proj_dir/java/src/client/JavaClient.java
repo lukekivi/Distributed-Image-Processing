@@ -2,6 +2,7 @@
 // droeg022
 // Lucas Kivi
 // kivix019
+package client;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -13,11 +14,7 @@ import utils.ReadIn;
 
 public class JavaClient {
     public static void main(String [] args) {
-        // Checking to see that proper files are provided
-        if (args.length != 0) {
-            System.out.println("No arguments needed.\n");
-            System.exit(0);
-        }
+        
         String config = System.getenv("PROJ_PATH") + "/machine.txt";
 
         ReadIn r = new ReadIn();
@@ -31,7 +28,7 @@ public class JavaClient {
 
         try {
             TTransport transport;
-            transport = new TSocket(serverA, 9090); 
+            transport = new TSocket(serverA, r.getServerPort(config)); 
             transport.open();
 
             TProtocol protocol = new  TBinaryProtocol(transport);
