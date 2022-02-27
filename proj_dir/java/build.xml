@@ -56,10 +56,7 @@
   
    <target name="client" depends="compile" description="Run a pa1 client">
       <echo>tutorial client simple:</echo>
-      <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="JavaClient">
-         <arg line="../machine.txt"/>
-         <arg line="../env.txt"/>
-      </java>
+      <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="client/JavaClient"/>
    </target>
    
    
@@ -69,27 +66,31 @@
       </java>
    </target>
 
-   <target name="node_zero" depends="compile" description="Run node one">
+   <target name="node_zero" depends="compile" description="Run node zero">
       <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="0"/>
+         <arg line="${build.dir}/log/node_0_log.txt"/>
       </java>
    </target>
 
    <target name="node_one" depends="compile" description="Run node one">
-      <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="JavaNode"> 
+      <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="1"/>
+         <arg line="${build.dir}/log/node_1_log.txt"/>
       </java>
    </target>
 
-   <target name="node_two" depends="compile" description="Run node one">
+   <target name="node_two" depends="compile" description="Run node two">
       <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="2"/>
+         <arg line="${build.dir}/log/node_2_log.txt"/>
       </java>
    </target>
 
-   <target name="node_three" depends="compile" description="Run node one">
+   <target name="node_three" depends="compile" description="Run node three">
       <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="3"/>
+         <arg line="${build.dir}/log/node_3_log.txt"/>
       </java>
    </target>
    
