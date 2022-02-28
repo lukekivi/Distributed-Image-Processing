@@ -51,9 +51,8 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             }
 
             if (decision) {
-                TaskStatus status = nodeManager.transformImage(dataPath, prob);
                 // Conduct image operation here
-                nodeManager.transformImage(dataPath, prob);
+                TaskStatus status = nodeManager.transformImage(dataPath, prob);
 
                 receipt = new TaskReceipt(
                     dataPath,
