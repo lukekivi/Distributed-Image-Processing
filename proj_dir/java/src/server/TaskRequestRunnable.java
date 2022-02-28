@@ -5,15 +5,16 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
+import pa1.ImageProcessingNode;
 import pa1.InvalidLocation;
 import pa1.TaskReceipt;
 import pa1.TaskRequest;
 import pa1.TaskStatus;
-import pa1.ImageProcessingNode;
 import server.utils.ServerNodeManager;
 import utils.NodeData;
 
 public class TaskRequestRunnable implements Runnable {
+    private static final String LOG_TAG = "TaskRequestRunnable: ";
     private volatile TaskReceipt taskReceipt = null;
     private TaskRequest taskRequest = null;
     private ServerNodeManager serverNodeManager;
@@ -31,9 +32,10 @@ public class TaskRequestRunnable implements Runnable {
         while (taskReceipt == null) {
             // Do image processing
             try {
-
                 NodeData nodeData = serverNodeManager.getRandomNodeData();
                 TaskReceipt receipt = perform(nodeData.getAddress(), nodeData.getPort());
+
+                System.out.println(LOG_TAG + "sending request to node " + nodeData.getPort());
 
                 if (receipt.status == TaskStatus.REJECTED) {
                     // Try another node
@@ -43,7 +45,7 @@ public class TaskRequestRunnable implements Runnable {
                 }
 
             } catch (TException exception) {
-                System.out.println(exception);
+                System.out.println(LOG_TAG + exception);
                 System.exit(1);
             }
         }
@@ -60,8 +62,7 @@ public class TaskRequestRunnable implements Runnable {
     
         try {
             receipt = client.sendTask(taskRequest);
-            System.out.println("Job Receipt:\nJob: " + receipt.taskPath + 
-                    "\nStatus: " + receipt.status + "\nMsg " + receipt.msg + "\n");
+            System.out.println("TaskRequestRunnable: task Completed.");
         } catch (InvalidLocation exception) {
             receipt = new TaskReceipt(
                 taskRequest.task,
