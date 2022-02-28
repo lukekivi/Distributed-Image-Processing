@@ -29,11 +29,11 @@ public class JavaNode {
     public static void main(String [] args) {
         try {
             if (args.length != 2) {
-                System.out.println("Need 1 argument, node number.");
+                System.out.println("Need 1 argument, node number, and log file.");
                 System.exit(1);
             }
             num = Integer.parseInt(args[0]);
-            System.setOut(outputFile("MADE IT INTO THE NODE!"));
+            System.setOut(outputFile(args[1]));
 
             handler = new ImageProcessingNodeHandler(num);
             processor = new ImageProcessingNode.Processor<ImageProcessingNodeHandler>(handler);

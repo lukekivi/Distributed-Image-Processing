@@ -5,26 +5,23 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-import pa1.ImageProcessingNode;
 import pa1.InvalidLocation;
 import pa1.TaskReceipt;
 import pa1.TaskRequest;
 import pa1.TaskStatus;
 import server.utils.ServerNodeManager;
+import utils.NodeData;
 
 public class TaskRequestRunnable implements Runnable {
     private volatile TaskReceipt taskReceipt = null;
     private TaskRequest taskRequest = null;
-    private int port;
     private ServerNodeManager serverNodeManager;
 
     public TaskRequestRunnable(
         ServerNodeManager serverNodeManager,
-        int port,
         TaskRequest taskRequest
     ) {
         this.serverNodeManager = serverNodeManager;
-        this.port = port;
         this.taskRequest = taskRequest;
     }
 
@@ -33,7 +30,9 @@ public class TaskRequestRunnable implements Runnable {
         while (taskReceipt == null) {
             // Do image processing
             try {
-                TaskReceipt receipt = perform(serverNodeManager.getRandomNodeAddress());
+
+                NodeData nodeData = serverNodeManager.getRandomNodeData();
+                TaskReceipt receipt = perform(nodeData.getAddress(), nodeData.getPort());
 
                 if (receipt.status == TaskStatus.REJECTED) {
                     // Try another node
@@ -49,9 +48,9 @@ public class TaskRequestRunnable implements Runnable {
         }
     }
 
-    private TaskReceipt perform(String address) throws TException {
+    private TaskReceipt perform(String address, int portNum) throws TException {
         TaskReceipt receipt;
-        TTransport transport = new TSocket(address, this.port); 
+        TTransport transport = new TSocket(address, portNum); 
         transport.open();
 
         TProtocol protocol = new  TBinaryProtocol(transport);
