@@ -12,6 +12,7 @@ import pa1.TaskReceipt;
 import pa1.TaskRequest;
 import pa1.TaskStatus;
 import pa1.SchedulingPolicy;
+import utils.NodeData;
 import org.apache.thrift.TException;
 
 
@@ -44,7 +45,8 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             );
         }
         
-        double prob = reader.getProbability(config, nodeNum);
+        NodeData[] nodes = reader.getNodes(config);
+        double prob = nodes[nodeNum].getProbability();
 
         // Creating a runnable for the task
         NodeTaskRunnable runnable = new NodeTaskRunnable( // Creating a runnable
