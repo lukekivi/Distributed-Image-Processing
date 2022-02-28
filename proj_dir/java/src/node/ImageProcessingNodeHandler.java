@@ -25,17 +25,17 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
     }
 
     public TaskReceipt sendTask(TaskRequest task) throws InvalidLocation {
-
+        TaskReceipt receipt;
         System.out.println("Task received!");
         TaskRequest myTask = task;
-        String inputPath = myTask.task;
+        String dataPath = myTask.task;
         String config = System.getenv("PROJ_PATH") + "/machine.txt";
         ReadIn reader = new ReadIn();
         SchedulingPolicy policy = reader.getPolicy(config);
 
-        if (inputPath == "" || myTask == null) {
+        if (dataPath == "" || myTask == null) {
             return new TaskReceipt(
-                inputPath,
+                dataPath,
                 TaskStatus.FAILURE,
                 "Improper Task Request."
             );
@@ -44,25 +44,37 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
         NodeData[] nodes = reader.getNodes(config);
         double prob = nodes[nodeNum].getProbability();
 
-        boolean decision = true;
-        if (policy == SchedulingPolicy.OPTIONAL) {
-            decision = nodeManager.decide(prob);
-        }
+        try {
+            boolean decision = true;
+            if (policy == SchedulingPolicy.OPTIONAL) {
+                decision = nodeManager.decide(prob);
+            }
 
-        if (decision) {
-            TaskStatus status = nodeManager.transformImage(inputPath, prob);
-            // Conduct image operation
+            if (decision) {
+                TaskStatus status = nodeManager.transformImage(dataPath, prob);
+                // Conduct image operation here
+                nodeManager.transformImage(dataPath, prob);
+
+                receipt = new TaskReceipt(
+                    dataPath,
+                    status,
+                    "Successful task completion."
+                );
+            } else {
+                receipt = new TaskReceipt(
+                    dataPath,
+                    TaskStatus.REJECTED,
+                    "Node Rejected Task."
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("Error encountered, returning.");
             return new TaskReceipt(
-                inputPath,
-                status,
-                "Successful task completion."
-            );
-        } else {
-            return new TaskReceipt(
-                inputPath,
-                TaskStatus.REJECTED,
-                "Node Rejected Task."
+                dataPath,
+                TaskStatus.FAILURE,
+                "Task Failed."
             );
         }
+        return receipt;
     }
 }
