@@ -12,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 
 import pa1.ImageProcessingNode;
+import utils.NodeData;
+import utils.ReadIn;
+
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
 import org.apache.thrift.server.TSimpleServer;
@@ -48,7 +51,10 @@ public class JavaNode {
     }
     public static void simple(ImageProcessingNode.Processor processor) {
         try {
-            TServerTransport nodeTransport = new TServerSocket(9090);
+            String path = System.getenv("PROJ_PATH") + "/machine.txt";
+            ReadIn r = new ReadIn();
+            NodeData nodeData = r.getNodes(path)[num];
+            TServerTransport nodeTransport = new TServerSocket(nodeData.getPort());
             TServer node = new TSimpleServer(new Args(nodeTransport).processor(processor));
 
             System.out.println("Starting the simple node...");
