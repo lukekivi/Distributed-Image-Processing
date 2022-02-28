@@ -1,0 +1,6 @@
+ssh kivix019@csel-kh1260-10.cselabs.umn.edu "cd ../../project/kivix019/Distributed-Image-Processing/proj_dir/java; ant node_zero"
+ssh kivix019@csel-kh1260-11.cselabs.umn.edu "cd ../../project/kivix019/Distributed-Image-Processing/proj_dir/java; ant node_one"
+ssh kivix019@csel-kh1260-12.cselabs.umn.edu "cd ../../project/kivix019/Distributed-Image-Processing/proj_dir/java; ant node_two"
+ssh kivix019@csel-kh1260-13.cselabs.umn.edu "cd ../../project/kivix019/Distributed-Image-Processing/proj_dir/java; ant node_three"
+ssh kivix019@csel-kh1260-14.cselabs.umn.edu "cd ../../project/kivix019/Distributed-Image-Processing/proj_dir/java; ant server"
+ssh kivix019@csel-kh1260-15.cselabs.umn.edu "cd ../../project/kivix019/Distributed-Image-Processing/proj_dir/java; ant client"
