@@ -21,7 +21,7 @@ public class JavaClient {
 
         String serverA = r.getServer(config); // server address
         
-        String dirPath = r.getData(config); // getting path to data dir
+        String dirPath = System.getenv("PROJ_PATH") + "/" + r.getData(config); // getting path to data dir
 
         // Creating a job to send to server
         JobRequest cJob = new JobRequest(dirPath);
