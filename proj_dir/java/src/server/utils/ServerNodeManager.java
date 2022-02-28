@@ -1,13 +1,15 @@
 package server.utils;
 
 import java.util.Random;
+
+import utils.NodeData;
 import utils.ReadIn;
 
 
 public class ServerNodeManager {
     
     private Random random;
-    private String[] nodes;
+    private NodeData[] nodes;
 
     public ServerNodeManager() {
         random = new Random();
@@ -18,8 +20,8 @@ public class ServerNodeManager {
     }
 
     public String getRandomNodeAddress() {
-        int randomIndex = random.nextInt() % nodes.length;
-        return nodes[randomIndex];
+        int randomIndex = random.nextInt() % 4;
+        return nodes[randomIndex].getAddress();
     }
 
 }

@@ -13,8 +13,11 @@ import pa1.SchedulingPolicy;
 
 public class ReadIn {
 
-    public String[] getNodes(String name) {
-        String[] nodes = new String[4]; // Array of nodes
+    public NodeData[] getNodes(String name) {
+        String address; 
+        double prob;
+        int port;
+        NodeData[] nodes = new NodeData[4];
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
@@ -25,36 +28,16 @@ public class ReadIn {
                     System.out.println("Improper Configuration file.\n");
                     System.exit(1);
                 }
-                nodes[i] = line[1];
+                address = line[1]; // address
+                prob = Double.parseDouble(line[2]); // probability
+                port = Integer.parseInt(line[3]); // port number
+                nodes[i] = new NodeData(address, prob, port);
             }
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
             System.exit(1);
         }
         return nodes;
-    }
-
-    public double getProbability(String name, int num) {
-        File file = new File(name);
-        double ans = 0;
-        try {
-            Scanner scanConfig = new Scanner(file);
-            String[] line; // Read in node line
-            for (int i = 0; i < num; i++) { // Looping to get to proper node
-                line = scanConfig.nextLine().split(" ");
-            }
-
-            line = scanConfig.nextLine().split(" ");
-            if (!line[0].equals("node_" + num)) {
-                System.out.println("Improper Configuration file.\n");
-                System.exit(1);
-            }
-            ans = Double.parseDouble(line[2]);
-        } catch (Exception e) {
-            System.out.println("Improper Configuration file.\n");
-            System.exit(1);
-        }
-        return ans;
     }
 
     public String getServer(String name) {
@@ -260,4 +243,24 @@ public class ReadIn {
       
         return ans;
     }
+
+    // public static void main(String[] args) {
+    //     ReadIn r = new ReadIn();
+    //     NodeData[] nodes;
+    //     nodes = r.getNodes("/project/droeg022/Distributed-Image-Processing/proj_dir/machine.txt");
+    //     System.out.println("Node 0 address: " + nodes[0].getAddress());
+    //     System.out.println("Node 1 address: " + nodes[1].getAddress());
+    //     System.out.println("Node 2 address: " + nodes[2].getAddress());
+    //     System.out.println("Node 3 address: " + nodes[3].getAddress());
+
+    //     System.out.println("Node 0 prob: " + nodes[0].getProbability());
+    //     System.out.println("Node 1 prob: " + nodes[1].getProbability());
+    //     System.out.println("Node 2 prob: " + nodes[2].getProbability());
+    //     System.out.println("Node 3 prob: " + nodes[3].getProbability());
+
+    //     System.out.println("Node 0 port: " + nodes[0].getPort());
+    //     System.out.println("Node 1 port: " + nodes[1].getPort());
+    //     System.out.println("Node 2 port: " + nodes[2].getPort());
+    //     System.out.println("Node 3 port: " + nodes[3].getPort());
+    // }
 }

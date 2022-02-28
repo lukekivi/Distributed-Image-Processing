@@ -5,6 +5,7 @@
  */
 package node;
 
+import utils.NodeData;
 import utils.ReadIn;
 import pa1.ImageProcessingNode;
 import pa1.InvalidLocation;
@@ -40,7 +41,8 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             );
         }
         
-        double prob = reader.getProbability(config, nodeNum);
+        NodeData[] nodes = reader.getNodes(config);
+        double prob = nodes[nodeNum].getProbability();
 
         boolean decision = true;
         if (policy == SchedulingPolicy.OPTIONAL) {
