@@ -9,6 +9,7 @@ import pa1.InvalidLocation;
 import pa1.TaskReceipt;
 import pa1.TaskRequest;
 import pa1.TaskStatus;
+import pa1.ImageProcessingNode;
 import server.utils.ServerNodeManager;
 import utils.NodeData;
 
