@@ -13,6 +13,8 @@ import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 
 public class JavaServer {
 
@@ -24,12 +26,7 @@ public class JavaServer {
     public static void main(String[] args) {
 
         try {
-
-            if (args.length == 1) {
-                System.setOut(outputFile(args[0]));
-            }
-
-            BasicConfigurator.configure();
+            Logger.getRootLogger().setLevel(Level.ERROR);
 
             handler = new ImageProcessingServerHandler();
             processor = new ImageProcessingServer.Processor<ImageProcessingServerHandler>(handler);
@@ -63,6 +60,7 @@ public class JavaServer {
 
             server.serve();
         } catch (Exception e) {
+            System.out.println("JavaServer: Client connection closed with exception.");
             e.printStackTrace();
         }
     }
