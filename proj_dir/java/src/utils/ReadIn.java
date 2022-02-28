@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
 import pa1.SchedulingPolicy;
+import utils.NodeData;
 
 public class ReadIn {
 
@@ -226,8 +227,9 @@ public class ReadIn {
             FileInputStream file = new FileInputStream(name);
 
             Scanner scanConfig = new Scanner(file);
-            String[] line; // Read in client line
+            String[] line;
     
+            // search for server line
             while (scanConfig.hasNextLine()) {
                 line = scanConfig.nextLine().split(" ");
 
