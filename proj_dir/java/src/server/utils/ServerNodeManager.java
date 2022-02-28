@@ -22,7 +22,7 @@ public class ServerNodeManager {
     }
 
     public NodeData getRandomNodeData() {
-        int randomIndex = random.nextInt() % 4;
+        int randomIndex = random.nextInt(nodes.length);
         return nodes[randomIndex];
     }
 
