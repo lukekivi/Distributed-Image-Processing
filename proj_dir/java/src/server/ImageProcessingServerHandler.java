@@ -55,9 +55,9 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
         ArrayList<TaskReceipt> completedTasks = new ArrayList<TaskReceipt>();
         ArrayList<ThreadAndRunnableContainer> containers = new ArrayList<ThreadAndRunnableContainer>();
     
-        for (int i=0; i < taskRequests.size(); i++) {
+        while (!taskRequests.isEmpty()) {
             // pop TaskRequest
-            TaskRequest task = taskRequests.remove(i);
+            TaskRequest task = taskRequests.remove(taskRequests.size() - 1);
 
             // build a runnable
             TaskRequestRunnable runnable = new TaskRequestRunnable(
@@ -81,31 +81,30 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
         /**
          * Check to see that threads completed successfully.
          */
-        for (int i = 0; i < containers.size(); i++) {
+        while (!containers.isEmpty()) {
             try {
-                ThreadAndRunnableContainer container = containers.remove(i);
+                ThreadAndRunnableContainer container = containers.remove(containers.size() - 1);
                 Thread thread = container.getThread();
                 TaskRequestRunnable runnable = container.getRunnable();
 
                 thread.join();
 
                 TaskReceipt receipt = runnable.getTaskReceipt();
-
                 completedTasks.add(receipt);
 
-                System.out.println("TaskRecipt " + i + ":\n" + "\tPath: " + receipt.taskPath +
-                            "\n\tMsg: " + receipt.msg);
+                System.out.println("TaskReceipt:\n" + "\tPath: " + receipt.taskPath + "\n\tMsg: " + receipt.msg);
+
             } catch (InterruptedException exception) {
-                System.out.println("TaskRequest " + i + " thread interrupted.");
+                System.out.println("TaskRequest thread interrupted.\n" + exception);
                 System.exit(1);
             }
         }       
-    
+        
         return new JobReceipt(
             job.getJob(),
             JobStatus.SUCCESS,
             System.currentTimeMillis() - startTime,
-            "All is well."
+            "All tasks completed successfully."
         );
     }
 }
