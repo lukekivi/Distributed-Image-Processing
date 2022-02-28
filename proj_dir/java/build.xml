@@ -5,6 +5,7 @@
    <property name="src.dir" location="src" />
    <property name="gen.dir" location="gen-java" />
    <property name="build.dir" location="build" />
+   <property name="log.dir" location="log" />
    <property environment="env"/>
    
    <path id="libs.classpath">
@@ -38,8 +39,7 @@
    <target name="init">
     <tstamp/>
     <mkdir dir="${build.dir}"/>
-    <mkdir dir="${build.dir}/log"/>
-    <mkdir dir="${build.dir}/log/debug"/>
+    <mkdir dir="${log.dir}"/>
   </target>
 
   <target name="generate">
@@ -62,36 +62,30 @@
    
    
    <target name="server" depends="compile" description="Run a pa1 server">
-      <java classpathref="pa1.classpath" output="${build.dir}/log/debug/server_log4.log" failonerror="false" fork="true" classname="server/JavaServer"> 
-         <arg line="${build.dir}/log/server_log.txt"/>
-      </java>
+      <java classpathref="pa1.classpath" output="${log.dir}/server_log.txt" failonerror="false" fork="true" classname="server/JavaServer"/> 
    </target>
 
    <target name="node_zero" depends="compile" description="Run node zero">
-      <java classpathref="pa1.classpath" output="${build.dir}/log/debug/node_zero_log4.log" failonerror="false" fork="true" classname="node/JavaNode"> 
+      <java classpathref="pa1.classpath" output="${log.dir}/node_zero_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="0"/>
-         <arg line="${build.dir}/log/node_0_log.txt"/>
       </java>
    </target>
 
    <target name="node_one" depends="compile" description="Run node one">
-      <java classpathref="pa1.classpath" output="${build.dir}/log/debug/node_one_log4.log" failonerror="false" fork="true" classname="node/JavaNode"> 
+      <java classpathref="pa1.classpath" output="${log.dir}/node_one_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="1"/>
-         <arg line="${build.dir}/log/node_1_log.txt"/>
       </java>
    </target>
 
    <target name="node_two" depends="compile" description="Run node two">
-      <java classpathref="pa1.classpath" output="${build.dir}/log/debug/node_two_log4.log" failonerror="false" fork="true" classname="node/JavaNode"> 
+      <java classpathref="pa1.classpath" output="${log.dir}/node_two_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="2"/>
-         <arg line="${build.dir}/log/node_2_log.txt"/>
       </java>
    </target>
 
    <target name="node_three" depends="compile" description="Run node three">
-      <java classpathref="pa1.classpath" output="${build.dir}/log/debug/node_three_log4.log" failonerror="false" fork="true" classname="node/JavaNode"> 
+      <java classpathref="pa1.classpath" output="${log.dir}/node_three_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="3"/>
-         <arg line="${build.dir}/log/node_3_log.txt"/>
       </java>
    </target>
    
