@@ -16,24 +16,29 @@ import utils.NodeData;
 import utils.ReadIn;
 
 import org.apache.thrift.server.TServer;
-import org.apache.thrift.server.TServer.Args;
+import org.apache.thrift.server.TThreadPoolServer;
+import org.apache.thrift.server.TThreadPoolServer.Args;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 
 public class JavaNode {
 
     public static ImageProcessingNodeHandler handler;
     public static ImageProcessingNode.Processor processor;
     public static int num = 0;
+
     public static void main(String [] args) {
+        Logger.getRootLogger().setLevel(Level.ERROR);
+
         try {
-            if (args.length != 2) {
-                System.out.println("Need 1 argument, node number, and log file.");
+            if (args.length != 1) {
+                System.out.println("Need 1 argument, a node number");
                 System.exit(1);
             }
             num = Integer.parseInt(args[0]);
-            System.setOut(outputFile(args[1]));
 
             handler = new ImageProcessingNodeHandler(num);
             processor = new ImageProcessingNode.Processor<ImageProcessingNodeHandler>(handler);
@@ -54,10 +59,13 @@ public class JavaNode {
             String path = System.getenv("PROJ_PATH") + "/machine.txt";
             ReadIn r = new ReadIn();
             NodeData nodeData = r.getNodes(path)[num];
+            
             TServerTransport nodeTransport = new TServerSocket(nodeData.getPort());
-            TServer node = new TSimpleServer(new Args(nodeTransport).processor(processor));
+            TServer node = new TThreadPoolServer(
+                new TThreadPoolServer.Args(nodeTransport).processor(processor)
+            );
 
-            System.out.println("Starting the simple node...");
+            System.out.println("Starting the multi threaded server node...");
             node.serve();
         } catch (Exception e) {
             e.printStackTrace();
