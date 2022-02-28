@@ -84,8 +84,8 @@ There are two ways to run the client.
  
 ## Scheduling Policy
 Currently two scheduling policies are imlemented:
-1. `Mandatory` - nodes must accept randomly assigned tasks from the server
-2. `Optional` - nodes potentiall reject randomly assigned tasks from the server (details are given in `DesignSpecifications.md`).
+1. `random` - nodes must accept randomly assigned tasks from the server
+2. `balancing` - nodes potentiall reject randomly assigned tasks from the server (details are given in `DesignSpecifications.md`).
 
 Scheduling policy is modified via a field at line 7 in `machine.txt`.
 ```
@@ -97,18 +97,18 @@ policy random
 ```
 
 ### Data
-Before running the client be sure that the path to your data is assigned to line 8 in `machine.txt`
+Users may use data directories that adhere to the below hierarchy.
+```
+-+ proj_dir
+-+-+ <directory_name>
+---+-+- input_dir
+-----+- output dir
+```
+The <directory_name> can be anything and is assigned in line 8 in `machine.txt`
 ```
 data <path>
 ```
 example with data directory named `data` within proj_dir
 ```
 data data
-```
-
-This directory must look like this or there will be errors:
-```
---+directory_name
---+-+- input_dir
-----+- output dir
 ```
