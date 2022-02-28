@@ -39,6 +39,7 @@
     <tstamp/>
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${build.dir}/log"/>
+    <mkdir dir="${build.dir}/log/debug"/>
   </target>
 
   <target name="generate">
