@@ -43,6 +43,13 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                 getElapsedTime(startTime),
                 jobRequestManager.getErrorMsg()
             );
+        } else if (taskRequests.isEmpty()) {
+            return new JobReceipt(
+                job.getJob(),
+                JobStatus.SUCCESS,
+                getElapsedTime(startTime),
+                "Job held a directory with an empty input_dir"
+            );
         }
 
         /**
