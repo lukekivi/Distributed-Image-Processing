@@ -18,9 +18,7 @@
       <fileset dir="${env.THRIFT_LIB_PATH}/../deps">
          <include name="*.jar"/>   
       </fileset>
-      <fileset dir="${env.OPENCV_LIB_PATH}">
-         <exclude name="/usr/share/java/maven3-slf4j-provider.jar!/org/slf4j/impl/StaticLoggerBinder.class"/>
-      </fileset>
+      <fileset dir="${env.OPENCV_LIB_PATH}"/>
       <fileset dir="${env.PROJ_PATH}"/>
    </path>
 
