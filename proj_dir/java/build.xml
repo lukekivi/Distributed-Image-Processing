@@ -37,59 +37,65 @@
    </path>
 
    <target name="init">
-    <tstamp/>
-    <mkdir dir="${build.dir}"/>
-    <mkdir dir="${log.dir}"/>
-  </target>
+      <tstamp/>
+      <mkdir dir="${build.dir}"/>
+      <mkdir dir="${log.dir}"/>
+   </target>
 
-  <target name="generate">
-      <!-- Generate the thrift gen-java source -->
+   <!-- Generate the thrift gen-java source -->
+   <target name="generate">
       <exec failonerror="true" executable="../../../thrift-0.15.0/compiler/cpp/thrift">
          <arg line="--gen java -r ../pa1.thrift"/>
       </exec>
    </target>
 
-  <target name="compile" depends="init, generate">
-    <javac compiler="modern" includeantruntime="false" srcdir="${gen.dir}" destdir="${build.dir}" classpathref="libs.classpath" />
-    <javac compiler="modern" includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" classpathref="build.classpath" />
-  </target>
+   <!-- Compile all source files -->
+   <target name="compile" depends="init, generate">
+      <javac compiler="modern" includeantruntime="false" srcdir="${gen.dir}" destdir="${build.dir}" classpathref="libs.classpath" />
+      <javac compiler="modern" includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" classpathref="build.classpath" />
+   </target>
 
-  
-   <target name="client" depends="compile" description="Run a pa1 client">
+   <!-- Run client -->
+   <target name="client" depends="compile">
       <echo>tutorial client simple:</echo>
       <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="client/JavaClient"/>
    </target>
    
-   
-   <target name="server" depends="compile" description="Run a pa1 server">
+   <!-- Run server -->
+   <target name="server" depends="compile">
       <java classpathref="pa1.classpath" output="${log.dir}/server_log.txt" failonerror="false" fork="true" classname="server/JavaServer"/> 
    </target>
 
-   <target name="node_zero" depends="compile" description="Run node zero">
+   <!-- Run node zero -->
+   <target name="node_zero" depends="compile">
       <java classpathref="pa1.classpath" output="${log.dir}/node_zero_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="0"/>
       </java>
    </target>
 
-   <target name="node_one" depends="compile" description="Run node one">
+   <!-- Run node one -->
+   <target name="node_one" depends="compile">
       <java classpathref="pa1.classpath" output="${log.dir}/node_one_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="1"/>
       </java>
    </target>
 
-   <target name="node_two" depends="compile" description="Run node two">
+   <!-- Run node two -->
+   <target name="node_two" depends="compile">
       <java classpathref="pa1.classpath" output="${log.dir}/node_two_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="2"/>
       </java>
    </target>
 
-   <target name="node_three" depends="compile" description="Run node three">
+   <!-- Run node three -->
+   <target name="node_three" depends="compile">
       <java classpathref="pa1.classpath" output="${log.dir}/node_three_log.txt" failonerror="false" fork="true" classname="node/JavaNode"> 
          <arg line="3"/>
       </java>
    </target>
-   
-   <target name="clean" description="Clean output directories">
+
+   <!-- clean everything -->
+   <target name="clean">
       <delete dir="${build.dir}"/>
       <delete dir="${gen.dir}"/>
    </target>
