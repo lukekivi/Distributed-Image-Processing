@@ -30,6 +30,7 @@ public class JavaClient {
             TTransport transport;
 
             int serverPortNum = r.getServerPort(config);
+            System.out.println("Port num: " + serverPortNum + "\n");
 
             if (serverPortNum == -1) {
                 System.out.println("Unable to get port num from machine.txt");

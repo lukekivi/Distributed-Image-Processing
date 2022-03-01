@@ -58,6 +58,7 @@ public class JavaServer {
             TServerTransport serverTransport = new TServerSocket(portNum);
             TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
 
+            System.out.println("Starting the server...");
             server.serve();
         } catch (Exception e) {
             System.out.println("JavaServer: Client connection closed with exception.");
