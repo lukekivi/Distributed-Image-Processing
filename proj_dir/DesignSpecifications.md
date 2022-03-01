@@ -1,11 +1,11 @@
 # Distributed Image Processing
-Created by Lucas Kivi and Charles Droeg
-Last edited 2/23/2022
+Created by Lucas Kivi and Charles Droege
+Last edited 2/28/2022
 
 &nbsp; 
 ## Architecture Overview
 ---
-There is a **ImageProcessingClient** who sends jobs to an **ImageProcessingServer**. The server has access to *n* **ImageProcessingNode**s. The server then logically divides the job and attempts to divide the work into tasks which are assigned to the population of available nodes. The nodes who receive jobs then carry out a filtering task on some portion of the overall data. The nodes respond to the server with a success status. Once each task is completed the server gives returns a success status to the client. The entire process is synchronous.
+There is a **ImageProcessingClient** who sends jobs to an **ImageProcessingServer**. The server has access to *n* **ImageProcessingNode**s. The server then logically divides the job and attempts to divide the work into tasks which are assigned to the population of available nodes. The nodes who receive jobs then carry out a filtering task on some portion of the overall data. The nodes respond to the server with a success status. Once each task is completed the server returns a success status to the client. The entire process is synchronous.
 
 Data is stored in some shared memory space and is not transferred via the socket. Instead, file locations are passed for jobs and tasks.
 
@@ -19,6 +19,22 @@ The key jobs are:
 - Build a **JobRequest**
 - Send **JobRequest**s to **ImageProcessingServer**
 - Receive **JobReceipt** from **ImageProcessingServer**
+
+The `Machine.txt` file has the following format:
+- node_0 [Address] [Probability] [Port]
+- node_1 [Address] [Probability] [Port]
+- node_2 [Address] [Probability] [Port]
+- node_3 [Address] [Probability] [Port]
+- server [Address] [Port]
+- client [Address]
+- policy [Scheduling Policy]
+- data [Path]
+
+Address: address of the machine hosting the process (string)
+Probability: probability used for load injection and rejection (double)
+Port: port on which communication takes place (int)
+Scheduling Policy: the scheduling policy to use, either random or balancing (string)
+Path: path to the directory containing input_dir and output_dir (string)
 
 &nbsp; 
 ## ReadIn
@@ -39,7 +55,7 @@ The key jobs are:
 &nbsp; 
 ## ImageProcessingNodes
 ---
-The **ImageProcessingNode**s receives a **TaskRequest** from the **ImageProcessingServer** and they set their current load percentages and **SchedulingPolicy**s via a local configuration file. The node should then look at its **SchedulingPolicy** and ff the policy is **Mandatory** the node must accept the job. If the policy is **Optional** the node then rejects the task with a probability equal to its current load percentage. If the task is accepted it then starts a thread to process the images specified in that description. The node accesses shared memory in order to get the image data it needs. Anynode may be processing multiple **TaskRequest**s simultaniously—one per thread. Upon completing a **TaskRequest** the node returns a **TaskReceipt** to the **ImageProcessingServer** indicating its successful completion or rejection.
+The **ImageProcessingNode**s receives a **TaskRequest** from the **ImageProcessingServer** and they set their current load percentages and **SchedulingPolicy**s via a local configuration file. The node should then look at its **SchedulingPolicy** and if the policy is **MANDATORY** the node must accept the job. If the policy is **OPTIONAL** the node then rejects the task with a probability equal to its current `load-probability`. If the task is accepted it then starts a thread to process the images specified in that description. The node accesses shared memory in order to get the image data it needs. Any node may be processing multiple **TaskRequest**s simultaniously—one per thread. Upon completing a **TaskRequest** the node returns a **TaskReceipt** to the **ImageProcessingServer** indicating its success, failure, or rejection.
 
 The key jobs are:
 - Receive **TaskRequest**s from **ImageProcessingServer**
@@ -47,7 +63,7 @@ The key jobs are:
 - Send **TaskReceipt** to **ImageProcessingServer**
 
 #### Note
-For the sake of school we will be implementing an explicit *load percentage* parameter instead of a true *load balance*. This will allow the ImageProcessingNodes to behave as if they are truly experiencing variable load thus allowing us to test our load balancing technique of rejection by probability. Also, nodes will have a probability of adding a delay proportional to the *load percentage* parameter. So for each accepted job there will be a probability of a constant three second delay prior to that job being processed.
+For the sake of school we will be implementing an explicit *`load-probability`* parameter instead of a true *load balance*. This will allow the ImageProcessingNodes to behave as if they are truly experiencing variable load thus allowing us to test our load balancing technique of rejection by probability. Also, nodes will have a probability of adding a delay which is equal to the `load-probability` parameter. So for each accepted job there will be a probability of a constant three second delay prior to that job being processed.
 
 &nbsp; 
 ## JobRequest
@@ -69,9 +85,17 @@ A **TaskRequest** is an order for the **ImageProcessingNode** to process an imag
 ---
 A **TaskReceipt** contains a **TaskStatus**representing the completion status of the task designated to a particular node. It can be successful, fail, or be rejected.
 
+&nbsp;
+## NodeData
+---
+A **NodeData** object contains all the information needed for a node. The class also has getter functions for all of its fields. The object has 
+- `String address`: address of the node
+- `double prob`: load-probability, used to simualate load injecting or rejection of tasks
+- `int port`: The port at which the node can be reached by the server
 &nbsp; 
 ## Scheduling Policies
 ---
 There are two scheduling policies:
-1. **Mandatory**: the server chooses nodes at random for jobs and they are mandatorilly accepted.
-2. **Optional**: the server chooses nodes at random for jobs and they are optionally accepted. If they are rejected the server continues to search for a node to accept the job.
+1. **Mandatory**: Load Injecting, the server chooses nodes at random for jobs and they are mandatorilly accepted. Then `load-probability` is used to simulate a load and inject a delay, 3 seconds in our case.
+2. **Optional**: Random, the server chooses nodes at random for jobs and they are optionally accepted using the `load-probability value`. If they are rejected the server continues to search for a node to accept the job. If accepted, the probability value is once again used to choose whether or not to inject a delay, 3 seconds in this case as well.
+
