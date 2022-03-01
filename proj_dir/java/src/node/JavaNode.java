@@ -27,7 +27,7 @@ import org.apache.log4j.Level;
 
 public class JavaNode {
 
-    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "config/machine.txt";
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/config/machine.txt";
     public static ImageProcessingNodeHandler handler;
     public static ImageProcessingNode.Processor processor;
     public static int num = 0;

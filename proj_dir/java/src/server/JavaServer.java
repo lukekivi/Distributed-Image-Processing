@@ -18,7 +18,7 @@ import org.apache.log4j.Level;
 
 public class JavaServer {
 
-    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "config/machine.txt";
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/config/machine.txt";
     public static ImageProcessingServerHandler handler;
     public static ImageProcessingServer.Processor processor;
 

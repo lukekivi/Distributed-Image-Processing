@@ -18,7 +18,7 @@ import org.apache.thrift.TException;
 
 public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
 
-    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "config/machine.txt";
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/config/machine.txt";
     static private final NodeManager nodeManager = new NodeManager();
     static public int nodeNum;
 
