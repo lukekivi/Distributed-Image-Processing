@@ -1,7 +1,7 @@
 # Distributed-Image-Processing
 **Created by**:\
 Lucas Kivi - kivix019 \
-Charles Droeg - droeg022 
+Charles Droege - droeg022 
 ---
 An application for processing image files in a distributed, synchronous manner.
 
@@ -18,7 +18,7 @@ In order for the application to resolve your dependencies set the environment th
 > PROJ_PATH /\<path\>/project/kivix019/Distributed-Image-Processing/proj_dir 
 
 ## Machines
-Being that the application is a distributed system we have a config document `machine.txt`. Inside of this document you may assign host addresses, port numbers and other details to application entities. The syntax details will be explained in the entity sections below.
+Being that the application is a distributed system we have a config document `machine.txt`. Inside of this document you may assign host addresses, port numbers and other details to application entities. The syntax details will be explained in the entity sections below. It is important to keep the syntax the same as displayed currently. The program will not work if the format is changed.
 
 ## Commands
 `command.txt` contains commands for starting app entities.
@@ -42,9 +42,9 @@ Nodes depend on a scheduling policy that is outlined in the **Scheduling Policy*
  ```
  Example:
  ```
- node_0 kh4250-08.cselabs.umn.edu 0.8 9094
+ node_0 csel-kh4250-08.cselabs.umn.edu 0.8 9094
  ```
- ** remember load probability simulates load percentage. More details in `DesignSpecifications.md`.
+ ** remember load probability simulates the probability of injecting a delay no matter the scheduling policy . It also simulates the probability of rejection when using the `Random` scheduling policy. More details in `DesignSpecifications.md`. Also take  note that the machine.txt file reads the nodes as 'node_2' while the command to run it will be ant 'node_two'.
 
 ## Server
 There are two ways to run the server.
@@ -78,14 +78,14 @@ There are two ways to run the client.
  ```
  Example:
  ```
- client kh4250-01.cselabs.umn.edu
+ client csel-kh4250-01.cselabs.umn.edu
 
  ```
  
 ## Scheduling Policy
 Currently two scheduling policies are imlemented:
 1. `random` - nodes must accept randomly assigned tasks from the server
-2. `balancing` - nodes potentiall reject randomly assigned tasks from the server (details are given in `DesignSpecifications.md`).
+2. `balancing` - nodes potentially reject randomly assigned tasks from the server (details are given in `DesignSpecifications.md`).
 
 Scheduling policy is modified via a field at line 7 in `machine.txt`.
 ```
