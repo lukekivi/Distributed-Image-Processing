@@ -27,6 +27,7 @@ import org.apache.log4j.Level;
 
 public class JavaNode {
 
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "config/machine.txt";
     public static ImageProcessingNodeHandler handler;
     public static ImageProcessingNode.Processor processor;
     public static int num = 0;
@@ -57,9 +58,8 @@ public class JavaNode {
     }
     public static void simple(ImageProcessingNode.Processor processor) {
         try {
-            String path = System.getenv("PROJ_PATH") + "/machine.txt";
             ReadIn r = new ReadIn();
-            NodeData nodeData = r.getNodes(path)[num];
+            NodeData nodeData = r.getNodes(CONFIG_FILE_PATH)[num];
             
             TServerTransport nodeTransport = new TServerSocket(nodeData.getPort());
             TServer node = new TThreadPoolServer(
