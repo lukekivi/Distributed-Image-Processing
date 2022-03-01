@@ -7,6 +7,7 @@
  // Used https://java2blog.com/delay-java-program-few-secs/ for help with sleeping
 
 package node;
+
 import java.util.Random;
 import pa1.SchedulingPolicy;
 import pa1.TaskStatus;
@@ -14,7 +15,9 @@ import java.lang.Thread;
 
 
 public class NodeManager {
-    private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
+    private static final String INPUT_DIR_NAME = "input_dir";
+    private static final String OUTPUT_DIR_NAME = "output_dir";
+    private final OpenCVTransformer transformer = new OpenCVTransformer();
 
     /**
      * @brief Conducts the heavy lifting of the image transformation call
@@ -23,7 +26,6 @@ public class NodeManager {
      * @return nothing
      */
     public TaskStatus transformImage(String imagePath, double prob) {
-        String outputPath = imagePath + "/../" + OUTPUT_DIRECTORY_NAME;
         boolean delay = decide(prob);
         if (!delay) {
             try {
@@ -33,7 +35,12 @@ public class NodeManager {
                 return TaskStatus.FAILURE;
             }
         }
+
+        String outputPath = imagePath.replace(INPUT_DIR_NAME, OUTPUT_DIR_NAME);
+
         // Conduct image transformation with OpenCV here
+        TransformationData transformationData = transformer.perform(imagePath, outputPath);
+
         return TaskStatus.SUCCESS;
     }
 
@@ -51,7 +58,4 @@ public class NodeManager {
         }
        return true;
     }
-
-
-
 }

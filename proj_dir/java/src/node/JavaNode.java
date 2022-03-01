@@ -24,6 +24,7 @@ import org.apache.thrift.transport.TServerTransport;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
+import org.opencv.core.Core;
 
 public class JavaNode {
 
@@ -34,6 +35,8 @@ public class JavaNode {
 
     public static void main(String [] args) {
         Logger.getRootLogger().setLevel(Level.ERROR);
+
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
         try {
             if (args.length != 1) {
