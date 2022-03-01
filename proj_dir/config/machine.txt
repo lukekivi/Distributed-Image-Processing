@@ -1,8 +1,13 @@
-node_0 csel-kh4250-16.cselabs.umn.edu 0.0 8080
-node_1 csel-kh4250-11.cselabs.umn.edu 1.0 8081
-node_2 csel-kh4250-12.cselabs.umn.edu 1.0 8082
-node_3 csel-kh4250-13.cselabs.umn.edu 0.5 8083
-server csel-kh4250-14.cselabs.umn.edu 8084
+node_0 csel-kh4250-16.cselabs.umn.edu 0.8 9030
+node_1 csel-kh4250-11.cselabs.umn.edu 0.6 9031
+node_2 csel-kh4250-12.cselabs.umn.edu 0.5 9032
+node_3 csel-kh4250-13.cselabs.umn.edu 0.2 9033
+server csel-kh4250-14.cselabs.umn.edu 9034
 client csel-kh4250-15.cselabs.umn.edu
+<<<<<<< HEAD:proj_dir/machine.txt
+policy random
+data data
+=======
 policy balancing
 data data
+>>>>>>> 1bb1905896d3005d955d4443b5dccd22413363a5:proj_dir/config/machine.txt
