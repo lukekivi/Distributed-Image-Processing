@@ -47,6 +47,7 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
         try {
             boolean decision = true;
             if (policy == SchedulingPolicy.OPTIONAL) {
+                System.out.println("Checking for rejection: ");
                 decision = nodeManager.decide(prob);
             }
 
@@ -60,6 +61,7 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
                     "Successful task completion."
                 );
             } else {
+                System.out.println("Rejected");
                 receipt = new TaskReceipt(
                     dataPath,
                     TaskStatus.REJECTED,

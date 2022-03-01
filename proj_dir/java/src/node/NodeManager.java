@@ -25,9 +25,10 @@ public class NodeManager {
     public TaskStatus transformImage(String imagePath, double prob) {
         String outputPath = imagePath + "/../" + OUTPUT_DIRECTORY_NAME;
         boolean delay = decide(prob);
-        if (delay) {
+        if (!delay) {
             try {
                 Thread.sleep(3000);
+                System.out.println("After sleep.");
             } catch (Exception e) {
                 return TaskStatus.FAILURE;
             }
@@ -39,16 +40,16 @@ public class NodeManager {
     /**
      * @brief Calculates whether or not to do something depending on probability
      * @param probability: probability passed in
-     * @return boolean for whether or not the probability hit
+     * @return boolean, true if accepted/sleeping and false if denied or injected
      */
     public boolean decide(double probability) {
-       Random rand = new Random();
-       int val = rand.nextInt(100);
-       int prob = (int) (probability * 10);
-        if (val < prob) {
-            return true;
+        Random rand = new Random();
+        double val = rand.nextDouble();
+        System.out.println("Value calculated: " + val + "\nProbability: " + probability);
+        if (val <= probability) {
+            return false;
         }
-       return false;
+       return true;
     }
 
 

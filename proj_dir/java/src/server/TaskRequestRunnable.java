@@ -39,6 +39,7 @@ public class TaskRequestRunnable implements Runnable {
 
                 if (receipt.status == TaskStatus.REJECTED) {
                     // Try another node
+                    System.out.println("Node " + nodeData.getPort() + "Rejected and will try again, TaskReceipt:\n" + "\tPath: " + receipt.taskPath + "\n\tMsg: " + receipt.msg);
                     continue;
                 } else {
                     taskReceipt = receipt;
