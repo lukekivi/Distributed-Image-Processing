@@ -17,6 +17,8 @@ import org.apache.thrift.TException;
 
 
 public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
+
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "config/machine.txt";
     static private final NodeManager nodeManager = new NodeManager();
     static public int nodeNum;
 
@@ -25,13 +27,13 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
     }
 
     public TaskReceipt sendTask(TaskRequest task) throws InvalidLocation {
-        TaskReceipt receipt;
         System.out.println("Task received!");
+
+        TaskReceipt receipt;
         TaskRequest myTask = task;
         String dataPath = myTask.task;
-        String config = System.getenv("PROJ_PATH") + "/machine.txt";
         ReadIn reader = new ReadIn();
-        SchedulingPolicy policy = reader.getPolicy(config);
+        SchedulingPolicy policy = reader.getPolicy(CONFIG_FILE_PATH);
 
         if (dataPath == "" || myTask == null) {
             return new TaskReceipt(
@@ -41,7 +43,7 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             );
         }
         
-        NodeData[] nodes = reader.getNodes(config);
+        NodeData[] nodes = reader.getNodes(CONFIG_FILE_PATH);
         double prob = nodes[nodeNum].getProbability();
 
         try {
