@@ -8,17 +8,14 @@ import utils.ReadIn;
 
 public class ServerNodeManager {
     
-    private final String CONFIG_EXT = "/machine.txt";
-    private final String CONFIG_VAR = "PROJ_PATH";
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "config/machine.txt";
     private Random random;
     private NodeData[] nodes;
 
     public ServerNodeManager() {
         random = new Random();
         ReadIn r = new ReadIn();
-        String config = System.getenv(CONFIG_VAR) + CONFIG_EXT;
-
-        nodes = r.getNodes(config);
+        nodes = r.getNodes(CONFIG_FILE_PATH);
     }
 
     public NodeData getRandomNodeData() {

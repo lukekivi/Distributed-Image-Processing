@@ -18,8 +18,7 @@ import org.apache.log4j.Level;
 
 public class JavaServer {
 
-    private static final String CONFIG_EXT = "/machine.txt";
-    private static final String CONFIG_VAR = "PROJ_PATH";
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "config/machine.txt";
     public static ImageProcessingServerHandler handler;
     public static ImageProcessingServer.Processor processor;
 
@@ -47,8 +46,7 @@ public class JavaServer {
     public static void simple(ImageProcessingServer.Processor processor) {
         try {
             ReadIn readIn = new ReadIn();
-            String config = System.getenv(CONFIG_VAR) + CONFIG_EXT;
-            int portNum = readIn.getServerPort(config);
+            int portNum = readIn.getServerPort(CONFIG_FILE_PATH);
 
             if (portNum == -1) {
                 System.out.println("Unable to get port num from machine.txt");

@@ -90,13 +90,30 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                 thread.join();
 
                 TaskReceipt receipt = runnable.getTaskReceipt();
+
+                if (receipt == null) {
+                     return new JobReceipt(
+                        job.getJob(),
+                        JobStatus.FAILURE,
+                        System.currentTimeMillis() - startTime,
+                        "Error occurred in an TaskRequest"
+                    );
+                }
+
                 completedTasks.add(receipt);
 
                 System.out.println("TaskReceipt:\n" + "\tPath: " + receipt.taskPath + "\n\tMsg: " + receipt.msg);
 
-            } catch (InterruptedException exception) {
-                System.out.println("TaskRequest thread interrupted.\n" + exception);
-                System.exit(1);
+            } catch (Exception exception) {
+                String localErrorMsg = "TaskRequest thread interrupted.\n" + exception;
+                System.out.println(localErrorMsg);
+                
+                return new JobReceipt(
+                    job.getJob(),
+                    JobStatus.FAILURE,
+                    System.currentTimeMillis() - startTime,
+                    localErrorMsg
+                );
             }
         }       
         

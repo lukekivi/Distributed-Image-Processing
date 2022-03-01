@@ -15,6 +15,7 @@ import utils.NodeData;
 
 public class TaskRequestRunnable implements Runnable {
     private static final String LOG_TAG = "TaskRequestRunnable: ";
+
     private volatile TaskReceipt taskReceipt = null;
     private TaskRequest taskRequest = null;
     private ServerNodeManager serverNodeManager;
@@ -47,7 +48,6 @@ public class TaskRequestRunnable implements Runnable {
 
             } catch (TException exception) {
                 System.out.println(LOG_TAG + exception);
-                System.exit(1);
             }
         }
     }
