@@ -104,7 +104,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
 
                 System.out.println("TaskReceipt:\n" + "\tPath: " + receipt.taskPath + "\n\tMsg: " + receipt.msg);
 
-            } catch (exception exception) {
+            } catch (Exception exception) {
                 String localErrorMsg = "TaskRequest thread interrupted.\n" + exception;
                 System.out.println(localErrorMsg);
                 
