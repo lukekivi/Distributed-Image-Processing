@@ -10,6 +10,7 @@ public class JobRequestManager {
 
     private static final String INPUT_DIRECTORY_NAME = "input_dir";
     private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
+    private static final String TASK_REQUEST_EXT = "/input_dir/";
 
     private JobRequest jobRequest;
     private File inputFolder;
@@ -82,7 +83,7 @@ public class JobRequestManager {
 
         for (String fileName : fileNames) {
             if (fileName.contains(".jpg") || fileName.contains(".png")) {
-                taskRequests.add(new TaskRequest(jobRequest.getJob() + fileName));
+                taskRequests.add(new TaskRequest(jobRequest.getJob() + TASK_REQUEST_EXT + fileName));
             } else {
                 System.out.println(jobRequest.getJob() + fileName + " is not a jpg or png.");
             }
