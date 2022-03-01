@@ -10,7 +10,7 @@ public class JobRequestManager {
 
     private static final String INPUT_DIRECTORY_NAME = "input_dir";
     private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
-    private static final String TASK_REQUEST_EXT = "/input_dir/";
+    private static final String TASK_REQUEST_EXT = "/" + INPUT_DIRECTORY_NAME + "/";
 
     private JobRequest jobRequest;
     private File inputFolder;
