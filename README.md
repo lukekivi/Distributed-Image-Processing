@@ -99,10 +99,10 @@ policy random
 ### Data
 Users may use data directories that adhere to the below hierarchy.
 ```
--+ proj_dir
--+-+ <directory_name>
----+-+- input_dir
------+- output dir
+proj_dir
+|-- <directory_name>
+    |-- input_dir
+    |-- output dir
 ```
 The <directory_name> can be anything and is assigned in line 8 in `machine.txt`
 ```
