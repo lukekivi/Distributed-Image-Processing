@@ -13,6 +13,7 @@ import pa1.JobRequest;
 import pa1.JobStatus;
 import pa1.TaskReceipt;
 import pa1.TaskRequest;
+import pa1.TaskStatus;
 import server.utils.JobRequestManager;
 import server.utils.ServerNodeManager;
 import server.utils.ThreadAndRunnableContainer;
@@ -39,7 +40,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
             return new JobReceipt(
                 job.getJob(),
                 JobStatus.FAILURE,
-                System.currentTimeMillis() - startTime,
+                getElapsedTime(startTime),
                 jobRequestManager.getErrorMsg()
             );
         }
@@ -95,8 +96,15 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                      return new JobReceipt(
                         job.getJob(),
                         JobStatus.FAILURE,
-                        System.currentTimeMillis() - startTime,
-                        "Error occurred in an TaskRequest"
+                        getElapsedTime(startTime),
+                        "An error occurred in a TaskRequest."
+                    );
+                } else if (receipt.status == TaskStatus.FAILURE) {
+                    return new JobReceipt(
+                        job.getJob(),
+                        JobStatus.FAILURE,
+                        getElapsedTime(startTime),
+                        "A TaskRequest failed to complete\n\t" + receipt.msg
                     );
                 }
 
@@ -111,7 +119,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                 return new JobReceipt(
                     job.getJob(),
                     JobStatus.FAILURE,
-                    System.currentTimeMillis() - startTime,
+                    getElapsedTime(startTime),
                     localErrorMsg
                 );
             }
@@ -123,5 +131,9 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
             System.currentTimeMillis() - startTime,
             "All tasks completed successfully."
         );
+    }
+
+    private Long getElapsedTime(Long startTime) {
+        return System.currentTimeMillis() - startTime;
     }
 }
