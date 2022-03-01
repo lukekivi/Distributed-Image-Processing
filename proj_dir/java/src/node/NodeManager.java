@@ -10,7 +10,6 @@ package node;
 
 import java.util.Random;
 import pa1.SchedulingPolicy;
-import pa1.TaskStatus;
 import java.lang.Thread;
 
 
@@ -23,25 +22,25 @@ public class NodeManager {
      * @brief Conducts the heavy lifting of the image transformation call
      * @param imagePath: path leading to the image
      * @param prob: probability of load injecting
-     * @return nothing
+     * @return data about the transformation
      */
-    public TaskStatus transformImage(String imagePath, double prob) {
+    public TransformationData transformImage(String imagePath, double prob) {
         boolean delay = decide(prob);
         if (!delay) {
             try {
                 Thread.sleep(3000);
                 System.out.println("After sleep.");
             } catch (Exception e) {
-                return TaskStatus.FAILURE;
+                return new TransformationData(
+                    TransformationStatus.FAILURE,
+                    "NodeManager: transformImage() - " + e
+                );
             }
         }
 
         String outputPath = imagePath.replace(INPUT_DIR_NAME, OUTPUT_DIR_NAME);
 
-        // Conduct image transformation with OpenCV here
-        TransformationData transformationData = transformer.perform(imagePath, outputPath);
-
-        return TaskStatus.SUCCESS;
+        return transformer.perform(imagePath, outputPath);
     }
 
     /**

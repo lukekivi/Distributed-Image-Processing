@@ -55,13 +55,22 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
 
             if (decision) {
                 // Conduct image operation here
-                TaskStatus status = nodeManager.transformImage(dataPath, prob);
+                TransformationData transformationData = nodeManager.transformImage(dataPath, prob);
 
-                receipt = new TaskReceipt(
-                    dataPath,
-                    status,
-                    "Successful task completion."
-                );
+                if (transformationData.getStatus() == TransformationStatus.SUCCESS) {
+                    receipt = new TaskReceipt(
+                        dataPath,
+                        TaskStatus.SUCCESS,
+                        "Successful task completion."
+                    );
+                } else {
+                    receipt = new TaskReceipt(
+                        dataPath,
+                        TaskStatus.FAILURE,
+                        transformationData.getMsg()
+                    );
+                }
+
             } else {
                 System.out.println("Rejected");
                 receipt = new TaskReceipt(
