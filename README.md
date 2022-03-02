@@ -128,18 +128,18 @@ data data
 # Tests
 ## Running
 In order to run the tests users must complete the following steps:
-* navigate to the respective test directory:
+* navigate to the respective test directory, for instance `test02`:
     ```
-    Distributed-ImageProcessing
+    Distributed-Image-Processing
     |-- proj_dir
     |-- tests
         |-- test01
-        |-- test02
+        |-- test02   <-- expand
         |-- ...
     ```
- * Within the testXX directory you will find:
+ * Within each test directory you will find the same structure. The difference is in the `input_dir`, contents of the `machine.txt` file.
     ```
-    |-- testXX
+    |-- test02
         |-- data
         |   |-- input_dir
         |   |-- output_dir
@@ -153,9 +153,9 @@ In order to run the tests users must complete the following steps:
     |   |   |-- machine.txt  <-- replace me
     ```
 * Run the commands found in `commands.txt` in order.
-* See transformed images in the tests `output_dir` and see logs here:
+* See transformed images in the test's `output_dir` and see logs in `Distributed-Image-Processing/proj_dir/java/log`
     ```
-    Distributed-ImageProcessing
+    Distributed-Image-Processing
     |-- proj_dir
     |   |-- java
     |   |   |-- log   <-- logs
