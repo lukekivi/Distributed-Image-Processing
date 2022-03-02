@@ -9,6 +9,7 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.transport.TTransportException;
 import pa1.InvalidLocation;
 import pa1.JobReceipt;
 import pa1.JobRequest;
@@ -47,7 +48,10 @@ public class JavaClient {
             perform(client, cJob); // Passing job as arg for client
 
             transport.close();
-        } catch (TException x) {
+        } catch (TTransportException x) {
+            System.out.println("Server not running as expected.");
+            System.exit(1);
+        }   catch (TException x) {
             x.printStackTrace();
         } 
     }

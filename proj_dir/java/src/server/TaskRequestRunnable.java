@@ -5,6 +5,7 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.transport.TTransportException;
 import pa1.ImageProcessingNode;
 import pa1.InvalidLocation;
 import pa1.TaskReceipt;
@@ -64,26 +65,44 @@ public class TaskRequestRunnable implements Runnable {
 
     private TaskReceipt perform(String address, int portNum) throws TException {
         TaskReceipt receipt;
-        TTransport transport = new TSocket(address, portNum); 
-        transport.open();
 
-        TProtocol protocol = new  TBinaryProtocol(transport);
-    
-        ImageProcessingNode.Client client = new ImageProcessingNode.Client(protocol);
-    
         try {
+            TTransport transport = new TSocket(address, portNum); 
+            transport.open();
+
+            TProtocol protocol = new  TBinaryProtocol(transport);
+    
+            ImageProcessingNode.Client client = new ImageProcessingNode.Client(protocol);
+    
             receipt = client.sendTask(taskRequest);
             System.out.println("TaskRequestRunnable: task Completed.");
+
+            transport.close();
+
+        } catch (TTransportException exception) {
+            String localErrorMsg = "Node not running as expected.";
+            System.out.println(localErrorMsg);
+            receipt = new TaskReceipt(
+                taskRequest.task,
+                TaskStatus.FAILURE,
+                localErrorMsg
+            );
         } catch (InvalidLocation exception) {
+            System.out.println(exception.msg);
             receipt = new TaskReceipt(
                 taskRequest.task,
                 TaskStatus.FAILURE,
                 exception.msg
             );
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            receipt = new TaskReceipt(
+                taskRequest.task,
+                TaskStatus.FAILURE,
+                exception.getMessage()
+            );
         }
     
-        transport.close();
-
         return receipt;
     }
 
