@@ -5,4 +5,4 @@ node_3 csel-kh4250-23.cselabs.umn.edu 0.2 8113
 server csel-kh4250-24.cselabs.umn.edu 8114
 client csel-kh4250-25.cselabs.umn.edu
 policy balancing
-data tests/test02/data
+data ../tests/test02/data
