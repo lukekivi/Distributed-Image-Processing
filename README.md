@@ -141,8 +141,6 @@ In order to run the tests users must complete the following steps:
     ```
     |-- test02
         |-- data
-        |   |-- input_dir
-        |   |-- output_dir
         |-- machine.txt
     ```
 * Copy (don't cut) the `machine.txt` file and replace the `machine.txt` located here:
@@ -162,6 +160,13 @@ In order to run the tests users must complete the following steps:
     |   |   |-- ...
     |   |-- ... 
     |-- tests
+        |-- test01
+        |-- test02
+        |   |-- data
+        |   |   |-- input_dir
+        |   |   |-- output_dir  <-- output images
+        |   |-- machine.txt
+        |-- ...   
     ```
     
 ### Test 1
