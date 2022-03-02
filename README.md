@@ -278,10 +278,8 @@ Two nodes are 100% full and two are completely open at the time of each access. 
 One node has a 100% load injection probability, other three have a 0% probability. We expect the time to be greater than 3000 ms since there will be a 3 second delay if node Three is ever chosen for a task.
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
 | **Probability** | 0.0 | 0.0 | 0.0 | 1.0 |
-|**Policy**| Random
 ```
      [java] Job Receipt:
      [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test09/data
@@ -296,7 +294,6 @@ One node has a 100% load injection probability, other three have a 0% probabilit
 One node has a 100% load injection probability, other three have a 0% probability. Node Three will always reject a task and the other nodes have a 0% injection probability so a load injection delay should never occur in this task.
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
 | **Probability** | 0.0 | 0.0 | 0.0 | 1.0|
   ```
@@ -312,7 +309,6 @@ One node has a 100% load injection probability, other three have a 0% probabilit
 All Nodes have an 80% load injection probability so most of the tasks will have a three second delay injected. However, the tasks are run as threads so they don't have to wait for each other to finish before the next starts so most of these will probably overlap with each other when executing. No tasks should be rejected as well since we are using the random policy.
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
 | **Probability** | 0.8 | 0.8 | 0.8 | 0.8 |
 ```
@@ -328,7 +324,6 @@ All Nodes have an 80% load injection probability so most of the tasks will have 
 All Nodes have an 80% load injection probability so most of the tasks will actually be rejected since we are using the balancy policy. If the task gets accepted, there is a strong chance there is a delay injected as well.
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
 | **Probability** | 0.8 | 0.8 | 0.8 | 0.8 |
 ```
@@ -345,7 +340,6 @@ All Nodes have an 80% load injection probability so most of the tasks will actua
 All Nodes have an 20% load injection probability so most of the tasks will not have a load injected. Random policy is used as well so no tasks can be rejected. 
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
 | **Probability** | 0.2 | 0.2 | 0.2 | 0.2 |
 ```
@@ -362,7 +356,6 @@ All Nodes have an 20% load injection probability so most of the tasks will not h
 All Nodes have an 20% load injection probability so most of the tasks will not have the load injected. Since it's the balancing policy, tasks can be rejected but there is still a decently low chance of that happening. When compared to test 13, we can expect this one to take a bit longer since tasks can be rejeted in this test.
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
 | **Probability** | 0.2 | 0.2 | 0.2 | 0.2 |
 ```
@@ -379,9 +372,7 @@ All Nodes have an 20% load injection probability so most of the tasks will not h
 All Nodes have a 100% load injection rate so every single task will have a three second delay injected. However, these tasks are run as separate threads so the delay of one task shouldn't delay another task from starting.
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
-
 | **Probability** | 1.0 | 1.0 | 1.0 | 1.0 |
 ```
      [java] Job Receipt:
@@ -397,9 +388,7 @@ All Nodes have a 100% load injection rate so every single task will have a three
 All Nodes have a 100% load injection rate but since it is the balancing policy, the nodes also have a 100% rejection rate. Therefore the tasks will never finish. The server will see that every single task is being rejected and detect a node clog and send back a FAILURE status to the client.
 
 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
-
 |:---------------:|:-------------:|--------------|--------------|----------------|
-
 | **Probability** | 1.0 | 1.0 | 1.0 | 1.0 |
 
 ```
