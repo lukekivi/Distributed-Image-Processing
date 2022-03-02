@@ -28,7 +28,7 @@ import org.opencv.core.Core;
 
 public class JavaNode {
 
-    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/config/machine.txt";
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/machine.txt";
     public static ImageProcessingNodeHandler handler;
     public static ImageProcessingNode.Processor processor;
     public static int num = 0;

@@ -18,7 +18,7 @@ import utils.ReadIn;
 
 public class JavaClient {
     private static final String PROJ_PATH = System.getenv("PROJ_PATH");
-    private static final String CONFIG_FILE_PATH = PROJ_PATH + "/config/machine.txt";
+    private static final String CONFIG_FILE_PATH = PROJ_PATH + "/machine.txt";
 
     public static void main(String [] args) {
         

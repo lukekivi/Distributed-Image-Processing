@@ -8,7 +8,7 @@ import utils.ReadIn;
 
 public class ServerNodeManager {
     
-    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/config/machine.txt";
+    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/machine.txt";
     private Random random;
     private NodeData[] nodes;
 
