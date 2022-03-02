@@ -169,22 +169,103 @@ In order to run the tests users must complete the following steps:
         |-- ...   
     ```
     
-### Test 1
+### Test 1 - Random
 
-### Test 2
+Test a spread of probabilities with **random** scheduling policy.
 
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.8      | 0.6          | 0.5          | 0.2            |
 
-### Test 3
+```
+client:
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test02/data
+     [java]     Time: 3145
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+     [java]
+```
 
+### Test 2 - Balancing
+Test a spread of probabilities with **balancing** scheduling policy. 
 
-### Test 4
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.8      | 0.6          | 0.5          | 0.2            |
 
+```
+client:
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test02/data
+     [java]     Time: 3145
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+     [java]
+```
 
-### Test 5
+### Test 3 - Input Testing
+Test that if `input_dir` is empty we get a success status and a report that the directory was empty.
+```
+client:
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test03/data
+     [java]     Time: 41
+     [java]     Status: SUCCESS
+     [java]     Msg: Job held a directory with an empty input_dir
+     [java]
+```
 
+### Test 4 - Input Testing
+If the `data` directory is incorrectly laid out the app should return a failure and a useful message about why it failed.
+```
+client:
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test04/data
+     [java]     Time: 27
+     [java]     Status: FAILURE
+     [java]     Msg: Target directory does not contain exactly two directories.
+     [java]
+```
 
-### Test 6
+### Test 5 - Random
+Two nodes are 100% full and two are completely open at the time of each access. This guarantees a delay for half of the tasks.
 
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      1.0      | 1.0          | 0.0          | 0.0            |
+
+```
+client:
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test05/data
+     [java]     Time: 3247
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+     [java]
+```
+
+### Test 6 - Balancing
+Two nodes are 100% full and two are completely open at the time of each access. This guarantees a rejection for half of the tasks. There will be no explictly imposed delays like with the **random** policy. The only delay is caused by the server retrying a different node.
+
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      1.0      | 1.0          | 0.0          | 0.0            |
+
+```
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test06/data
+     [java]     Time: 328
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+     [java]
+```
 
 ### Test 7
 
@@ -192,26 +273,133 @@ In order to run the tests users must complete the following steps:
 ### Test 8
 
 
-### Test 9
+### Test 9 - Random
+
+One node has a 100% load injection probability, other three have a 0% probability. We expect the time to be greater than 3000 ms since there will be a 3 second delay if node Three is ever chosen for a task.
 
 
-### Test 10
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.0      | 0.0          | 0.0          | 1.0            |
 
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test09/data
+     [java]     Time: 3690
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+```
+  
 
-### Test 11
+### Test 10 - Balancing
 
+One node has a 100% load injection probability, other three have a 0% probability. Node Three will always reject a task and the other nodes have a 0% injection probability so a load injection delay should never occur in this task.
 
-### Test 12
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.0      | 0.0          | 0.0          | 1.0            |
 
+  ```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test10/data
+     [java]     Time: 346
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+  ```
+  
 
-### Test 13
+### Test 11 - Random
+All Nodes have an 80% load injection probability so most of the tasks will have a three second delay injected. However, the tasks are run as threads so they don't have to wait for each other to finish before the next starts so most of these will probably overlap with each other when executing. No tasks should be rejected as well since we are using the random policy.
 
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.8      | 0.8          | 0.8          | 0.8            |
 
-### Test 14
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test11/data
+     [java]     Time: 3306
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+```  
+  
 
+### Test 12 - Balancing
+All Nodes have an 80% load injection probability so most of the tasks will actually be rejected since we are using the balancy policy. If the task gets accepted, there is a strong chance there is a delay injected as well.
 
-### Test 15
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.8      | 0.8          | 0.8          | 0.8            |
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test12/data
+     [java]     Time: 3359
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+ ```
+  
+  
 
+### Test 13 - Random
+All Nodes have an 20% load injection probability so most of the tasks will not have a load injected. Random policy is used as well so no tasks can be rejected. 
 
-### Test 16
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.2      | 0.2          | 0.2          | 0.2            |
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test13/data
+     [java]     Time: 3210
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+```
+  
+  
+
+### Test 14 - Balancing
+All Nodes have an 20% load injection probability so most of the tasks will not have the load injected. Since it's the balancing policy, tasks can be rejected but there is still a decently low chance of that happening. When compared to test 13, we can expect this one to take a bit longer since tasks can be rejeted in this test.
+
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.2      | 0.2          | 0.2          | 0.2            |
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test14/data
+     [java]     Time: 3284
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+```
+  
+  
+
+### Test 15 - Random
+All Nodes have a 100% load injection rate so every single task will have a three second delay injected. However, these tasks are run as separate threads so the delay of one task shouldn't delay another task from starting.
+
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.1      | 0.1          | 0.1          | 0.1            |
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test15/data
+     [java]     Time: 3339
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+```
+  
+  
+
+### Test 16 - Balancing
+All Nodes have a 100% load injection rate but since it is the balancing policy, the nodes also have a 100% rejection rate. Therefore the tasks will never finish. The server will see that every single task is being rejected and detect a node clog and send back a FAILURE status to the client.
+
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.1      | 0.1          | 0.1          | 0.1            |
+
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test16/data
+     [java]     Time: 937
+     [java]     Status: FAILURE
+     [java]     Msg: 6/6 tasks failed     [java] /project/droeg022/Distributed-Image-Processing/proj_dir/../tests
+```
 
