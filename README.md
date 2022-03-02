@@ -520,7 +520,11 @@ Run 2
 | **Probability** |      0.4      | 0.4          | 0.4          | 0.4            |
 
 ```
-
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test21/data
+     [java]     Time: 3278
+     [java]     Status: SUCCESS      
+     [java]     Msg: All tasks completed successfully.
 ```
 
 ### Test 22 - Balancing
@@ -531,7 +535,11 @@ Run 2
 | **Probability** |      0.4      | 0.4          | 0.4          | 0.4            |
 
 ```
-
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test22/data
+     [java]     Time: 3319
+     [java]     Status: SUCCESS      
+     [java]     Msg: All tasks completed successfully.
 ```
 
 ### Test 23 - Random
@@ -542,7 +550,11 @@ Run 2
 | **Probability** |      0.6      | 0.6          | 0.6          | 0.6            |
 
 ```
-
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test23/data
+     [java]     Time: 3268
+     [java]     Status: SUCCESS      
+     [java]     Msg: All tasks completed successfully.
 ```
 
 ### Test 24 - Balancing
@@ -550,10 +562,14 @@ Run 2
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
-| **Probability** |      0.4      | 0.4          | 0.4          | 0.4            |
+| **Probability** |      0.6      | 0.6          | 0.6          | 0.6            |
 
 ```
-
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test24/data
+     [java]     Time: 3399
+     [java]     Status: SUCCESS      
+     [java]     Msg: All tasks completed successfully.
 ```
 
 ### Test 25 - Random
@@ -564,7 +580,11 @@ Run 2
 | **Probability** |      0.0      | 0.0          | 0.0          | 0.0            |
 
 ```
-
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test25/data
+     [java]     Time: 633
+     [java]     Status: SUCCESS      
+     [java]     Msg: All tasks completed successfully.
 ```
 
 ### Test 26 - Balancing
@@ -572,9 +592,13 @@ Run 2
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
-| **Probability** |      0.0      | 0.60          | 0.0          | 0.0            |
+| **Probability** |      0.0      | 0.0          | 0.0          | 0.0            |
 
 ```
-
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test26/data
+     [java]     Time: 271
+     [java]     Status: SUCCESS      
+     [java]     Msg: All tasks completed successfully.
 ```
 
