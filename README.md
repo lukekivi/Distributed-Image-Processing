@@ -272,6 +272,7 @@ Two nodes are 100% full and two are completely open at the time of each access. 
 ```
 
 ### Test 7 - Random
+Three nodes have a 100% load injecting probability and the last has a 0% probability. As long as one of those three nodes are randomly chose, there will be a three seconds delay injected. Therefore we expect the time to be greater than 3000 ms. This will take more time than the Balancing policy version of this test since the balancing will just reject the tasks for the three nodes and the last node will always accept and never inject a delay since its probability is 0%.
 
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
@@ -288,6 +289,7 @@ Two nodes are 100% full and two are completely open at the time of each access. 
 
 
 ### Test 8 - Balancing
+Three nodes have a 100% load injecting probability and the last has a 0% probability. Therefore those three nodes will reject every task assigned to them and then the last node will acccept every task assigned. Since the only node accepting tasks has a 0% probability for load injecting and task rejection, there won't be a three second delay implemented so this should take much less time than its Random policy counterpart where it has to accept everything.
 
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
