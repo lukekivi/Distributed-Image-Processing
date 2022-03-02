@@ -57,7 +57,7 @@ public class JavaClient {
         try {
             receipt = client.sendJob(clientJob); // Getting job receipt and printing info
             System.out.println("Job Receipt:\nJob: " + receipt.jobPath + "\nTime: " +
-             receipt.time + "\nStatus: " + receipt.status + "\nMsg " + receipt.msg + "\n");
+             receipt.time + "\nStatus: " + receipt.status + "\nMsg: " + receipt.msg + "\n");
         } catch (InvalidLocation path) {
             System.out.println("Invalid directory path given.\n");
         }
