@@ -1,8 +1,0 @@
-node_0 csel-kh4250-16.cselabs.umn.edu 0.8 9030
-node_1 csel-kh4250-11.cselabs.umn.edu 0.6 9031
-node_2 csel-kh4250-12.cselabs.umn.edu 0.5 9032
-node_3 csel-kh4250-13.cselabs.umn.edu 0.2 9033
-server csel-kh4250-14.cselabs.umn.edu 9034
-client csel-kh4250-15.cselabs.umn.edu
-policy random
-data data
