@@ -129,23 +129,29 @@ data data
 ## Running
 In order to run the tests users must complete the following steps:
 * navigate to the respective test directory:
+    ```
     Distributed-ImageProcessing
     |-- proj_dir
     |-- tests
         |-- test01
         |-- test02
         |-- ...
+    ```
  * Within the testXX directory you will find:
+    ```
     testXX
     |-- data
     |   |-- input_dir
     |   |-- output_dir
     |-- machine.txt
+    ```
 * Copy (don't cut) the `machine.txt` file and replace the `machine.txt` located here:
+    ```
     Distributed-ImageProcessing
     |-- proj_dir
     |   |-- config
         |   |-- machine.txt  <-- replace me
+    ```
 * Run the commands found in `commands.txt`.
     
 ### Test 1
