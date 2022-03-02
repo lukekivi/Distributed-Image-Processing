@@ -472,9 +472,17 @@ All Nodes have a 100% load injection rate but since it is the balancing policy, 
 | **Probability** |      0.8      | 0.6          | 0.5          | 0.2            |
 
 ```
+Run 1
      [java] Job Receipt:
      [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test19/data   
      [java]     Time: 292
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+```
+```
+Run 2
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test19/data   
+     [java]     Time: 3307
      [java]     Status: SUCCESS
      [java]     Msg: All tasks completed successfully.
 ```
