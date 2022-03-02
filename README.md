@@ -6,7 +6,7 @@ Charles Droege - droeg022
 An application for processing image files in a distributed, synchronous manner.
 
 # Table of Contents
-* Running
+* **Running**
     1. Environment
     2. Machines
     3. Commands
@@ -15,7 +15,7 @@ An application for processing image files in a distributed, synchronous manner.
     6. Client
     7. Scheduling Policy
     8. Data
-* Tests
+* **Tests**
 
 # Running
 This description is for running this app on machines with **shared memory space**. If you are not using shared memory space this setting up all entites in the system will be complicated and we will not detail that process.
@@ -127,6 +127,27 @@ data data
 
 # Tests
 ## Running
+In order to run the tests users must complete the following steps:
+* navigate to the respective test directory:
+    Distributed-ImageProcessing
+    |-- proj_dir
+    |-- tests
+        |-- test01
+        |-- test02
+        |-- ...
+ * Within the testXX directory you will find:
+    testXX
+    |-- data
+    |   |-- input_dir
+    |   |-- output_dir
+    |-- machine.txt
+* Copy (don't cut) the `machine.txt` file and replace the `machine.txt` located here:
+    Distributed-ImageProcessing
+    |-- proj_dir
+    |   |-- config
+        |   |-- machine.txt  <-- replace me
+* Run the commands found in `commands.txt`.
+    
 ### Test 1
 
 ### Test 2
