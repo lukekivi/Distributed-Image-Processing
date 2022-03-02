@@ -408,7 +408,7 @@ All Nodes have a 100% load injection rate so every single task will have a three
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
-| **Probability** |      0.1      | 0.1          | 0.1          | 0.1            |
+| **Probability** |      1.0      | 1.0          | 1.0          | 1.0            |
 ```
      [java] Job Receipt:
      [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test15/data
@@ -424,7 +424,7 @@ All Nodes have a 100% load injection rate but since it is the balancing policy, 
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
-| **Probability** |      0.1      | 0.1          | 0.1          | 0.1            |
+| **Probability** |      1.0      | 1.0          | 1.0          | 1.0            |
 
 ```
      [java] Job Receipt:
