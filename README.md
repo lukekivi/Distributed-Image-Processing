@@ -171,7 +171,7 @@ In order to run the tests users must complete the following steps:
     
 ### Test 1
 
-Test a spread of probabilities. We would expect.
+Test a spread of probabilities with **random** scheduling policy. 
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -189,7 +189,22 @@ client:
 ```
 
 ### Test 2
+Test a spread of probabilities with **balancing** scheduling policy. 
 
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.8      | 0.6          | 0.5          | 0.2            |
+
+```
+client:
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test02/data
+     [java]     Time: 3145
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+     [java]
+```
 
 ### Test 3
 
