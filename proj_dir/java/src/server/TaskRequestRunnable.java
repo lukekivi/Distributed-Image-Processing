@@ -15,6 +15,7 @@ import utils.NodeData;
 
 public class TaskRequestRunnable implements Runnable {
     private static final String LOG_TAG = "TaskRequestRunnable: ";
+    private static final int MAX_REJECTIONS = 40;
 
     private volatile TaskReceipt taskReceipt = null;
     private TaskRequest taskRequest = null;
@@ -30,17 +31,19 @@ public class TaskRequestRunnable implements Runnable {
 
     @Override
     public void run() {
+        int rejections = 0;
+
         while (taskReceipt == null) {
+
             // Do image processing
             try {
                 NodeData nodeData = serverNodeManager.getRandomNodeData();
                 TaskReceipt receipt = perform(nodeData.getAddress(), nodeData.getPort());
 
-                System.out.println(LOG_TAG + "sending request to node " + nodeData.getPort());
-
                 if (receipt.status == TaskStatus.REJECTED) {
                     // Try another node
-                    System.out.println("Node " + nodeData.getPort() + "Rejected and will try again, TaskReceipt:\n" + "\tPath: " + receipt.taskPath + "\n\tMsg: " + receipt.msg);
+                    System.out.println("Node " + nodeData.getPort() + "Rejected and will try again");
+                    rejections++;
                     continue;
                 } else {
                     taskReceipt = receipt;
@@ -48,6 +51,14 @@ public class TaskRequestRunnable implements Runnable {
 
             } catch (TException exception) {
                 System.out.println(LOG_TAG + exception);
+            }
+
+            if (rejections == MAX_REJECTIONS) {
+                taskReceipt = new TaskReceipt(
+                    taskRequest.task,
+                    TaskStatus.FAILURE,
+                    "Task rejected too many times."
+                );
             }
         }
     }
