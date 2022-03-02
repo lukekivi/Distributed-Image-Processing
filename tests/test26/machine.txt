@@ -1,0 +1,8 @@
+node_0 csel-kh4250-20.cselabs.umn.edu 0.0 8245
+node_1 csel-kh4250-26.cselabs.umn.edu 0.0 8246
+node_2 csel-kh4250-22.cselabs.umn.edu 0.0 8247
+node_3 csel-kh4250-23.cselabs.umn.edu 0.0 8248
+server csel-kh4250-24.cselabs.umn.edu 8249
+client csel-kh4250-25.cselabs.umn.edu
+policy balancing
+data ../tests/test26/data
