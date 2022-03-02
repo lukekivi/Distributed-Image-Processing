@@ -271,11 +271,36 @@ Two nodes are 100% full and two are completely open at the time of each access. 
      [java]
 ```
 
-### Test 7
+### Test 7 - Random
 
 
-### Test 8
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      1.0      | 1.0          | 1.0          | 0.0            |
 
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test07/data
+     [java]     Time: 3318
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully. 
+```
+
+
+### Test 8 - Balancing
+
+
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      1.0      | 1.0          | 1.0          | 0.0            |
+
+```
+     [java] Job Receipt:
+     [java]     Job: /project/droeg022/Distributed-Image-Processing/proj_dir/../tests/test08/data
+     [java]     Time: 382
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully. 
+```
 
 ### Test 9 - Random
 
