@@ -5,6 +5,18 @@ Charles Droege - droeg022
 ---
 An application for processing image files in a distributed, synchronous manner.
 
+# Table of Contents
+* **Running**
+    1. Environment
+    2. Machines
+    3. Commands
+    4. Nodes
+    5. Server
+    6. Client
+    7. Scheduling Policy
+    8. Data
+* **Tests**
+
 # Running
 This description is for running this app on machines with **shared memory space**. If you are not using shared memory space this setting up all entites in the system will be complicated and we will not detail that process.
 
@@ -112,3 +124,111 @@ example with data directory named `data` within proj_dir
 ```
 data data
 ```
+
+# Tests
+## Running
+In order to run the tests users must complete the following steps:
+* navigate to the respective test directory, for instance `test02`:
+    ```
+    Distributed-Image-Processing
+    |-- proj_dir
+    |-- tests
+        |-- test01
+        |-- test02   <-- expand
+        |-- ...
+    ```
+ * Within each test directory you will find the same structure. The difference is in the `input_dir`, contents of the `machine.txt` file.
+    ```
+    |-- test02
+        |-- data
+        |-- machine.txt
+    ```
+* Copy (don't cut) the `machine.txt` file and replace the `machine.txt` located here:
+    ```
+    Distributed-ImageProcessing
+    |-- proj_dir
+    |   |-- config
+    |   |   |-- machine.txt  <-- replace me
+    ```
+* Run the commands found in `commands.txt` in order.
+* See transformed images in the test's `output_dir` and see logs in `Distributed-Image-Processing/proj_dir/java/log`
+    ```
+    Distributed-Image-Processing
+    |-- proj_dir
+    |   |-- java
+    |   |   |-- log   <-- logs
+    |   |   |-- ...
+    |   |-- ... 
+    |-- tests
+        |-- test01
+        |-- test02
+        |   |-- data
+        |   |   |-- input_dir
+        |   |   |-- output_dir  <-- output images
+        |   |-- machine.txt
+        |-- ...   
+    ```
+    
+### Test 1
+
+Test a spread of probabilities. We would expect.
+
+|                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
+|:---------------:|:-------------:|--------------|--------------|----------------|
+| **Probability** |      0.8      | 0.6          | 0.5          | 0.2            |
+
+```
+client:
+     [echo] tutorial client simple:
+     [java] Job Receipt:
+     [java]     Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test02/data
+     [java]     Time: 3145
+     [java]     Status: SUCCESS
+     [java]     Msg: All tasks completed successfully.
+     [java]
+```
+
+### Test 2
+
+
+### Test 3
+
+
+### Test 4
+
+
+### Test 5
+
+
+### Test 6
+
+
+### Test 7
+
+
+### Test 8
+
+
+### Test 9
+
+
+### Test 10
+
+
+### Test 11
+
+
+### Test 12
+
+
+### Test 13
+
+
+### Test 14
+
+
+### Test 15
+
+
+### Test 16
+
