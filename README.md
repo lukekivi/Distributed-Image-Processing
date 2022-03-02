@@ -153,7 +153,7 @@ In order to run the tests users must complete the following steps:
     |   |   |-- machine.txt  <-- replace me
     ```
 * Run the commands found in `commands.txt` in order.
-* See images in the tests `output_dir` and see logs here.
+* See transformed images in the tests `output_dir` and see logs here.
     ```
     Distributed-ImageProcessing
     |-- proj_dir
