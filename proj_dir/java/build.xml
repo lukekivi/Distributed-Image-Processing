@@ -5,6 +5,7 @@
    <property name="src.dir" location="src" />
    <property name="gen.dir" location="gen-java" />
    <property name="build.dir" location="build" />
+   <property name="output.dir" location="../data/output_dir"/>
    <property name="log.dir" location="log" />
    <property environment="env"/>
    
@@ -56,7 +57,7 @@
    </target>
 
    <!-- Run client -->
-   <target name="client" depends="compile">
+   <target name="client" depends="compile, clean_output">
       <echo>tutorial client simple:</echo>
       <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="client/JavaClient"/>
    </target>
@@ -94,8 +95,17 @@
       </java>
    </target>
 
+   <!-- Clean output_dir -->
+   <target name="clean_output">
+      <delete>
+         <fileset dir="${output.dir}">
+            <include name="*"/>
+         </fileset>
+      </delete>
+   </target>
+
    <!-- clean everything -->
-   <target name="clean">
+   <target name="clean" depends="clean_output">
       <delete dir="${build.dir}"/>
       <delete dir="${gen.dir}"/>
    </target>
