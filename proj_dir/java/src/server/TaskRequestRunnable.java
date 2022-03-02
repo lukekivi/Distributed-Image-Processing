@@ -44,6 +44,13 @@ public class TaskRequestRunnable implements Runnable {
                     // Try another node
                     System.out.println("Node " + nodeData.getPort() + "Rejected and will try again");
                     rejections++;
+                    if (rejections == MAX_REJECTIONS) {
+                        taskReceipt = new TaskReceipt(
+                            taskRequest.task,
+                            TaskStatus.FAILURE,
+                            "Task rejected too many times."
+                        );
+                    }
                     continue;
                 } else {
                     taskReceipt = receipt;
@@ -51,14 +58,6 @@ public class TaskRequestRunnable implements Runnable {
 
             } catch (TException exception) {
                 System.out.println(LOG_TAG + exception);
-            }
-
-            if (rejections == MAX_REJECTIONS) {
-                taskReceipt = new TaskReceipt(
-                    taskRequest.task,
-                    TaskStatus.FAILURE,
-                    "Task rejected too many times."
-                );
             }
         }
     }
