@@ -340,7 +340,7 @@ One node has a 100% load injection probability, other three have a 0% probabilit
   
 
 ### Test 11 - Random
-All Nodes have an 80% load injection probability so most of the tasks will have a three second delay injected. However, the tasks are run as threads so they don't have to wait for each other to finish before the next starts so most of these will probably overlap with each other when executing. No tasks should be rejected as well since we are using the random policy.
+All Nodes have an 80% load injection probability so most of the tasks will have a three second delay injected. However, the tasks are run as threads so they don't have to wait for each other to finish before the next starts so most of these will probably overlap with each other when executing. No tasks should be rejected as well since we are using the random policy. Also used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -356,7 +356,7 @@ All Nodes have an 80% load injection probability so most of the tasks will have 
   
 
 ### Test 12 - Balancing
-All Nodes have an 80% load injection probability so most of the tasks will actually be rejected since we are using the balancy policy. If the task gets accepted, there is a strong chance there is a delay injected as well.
+All Nodes have an 80% load injection probability so most of the tasks will actually be rejected since we are using the balancy policy. If the task gets accepted, there is a strong chance there is a delay injected as well. Also used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -372,7 +372,7 @@ All Nodes have an 80% load injection probability so most of the tasks will actua
   
 
 ### Test 13 - Random
-All Nodes have an 20% load injection probability so most of the tasks will not have a load injected. Random policy is used as well so no tasks can be rejected. 
+All Nodes have an 20% load injection probability so most of the tasks will not have a load injected. Random policy is used as well so no tasks can be rejected. Also used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -388,7 +388,7 @@ All Nodes have an 20% load injection probability so most of the tasks will not h
   
 
 ### Test 14 - Balancing
-All Nodes have an 20% load injection probability so most of the tasks will not have the load injected. Since it's the balancing policy, tasks can be rejected but there is still a decently low chance of that happening. When compared to test 13, we can expect this one to take a bit longer since tasks can be rejeted in this test.
+All Nodes have an 20% load injection probability so most of the tasks will not have the load injected. Since it's the balancing policy, tasks can be rejected but there is still a decently low chance of that happening. When compared to test 13, we can expect this one to take a bit longer since tasks can be rejeted in this test. Also used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -404,7 +404,7 @@ All Nodes have an 20% load injection probability so most of the tasks will not h
   
 
 ### Test 15 - Random
-All Nodes have a 100% load injection rate so every single task will have a three second delay injected. However, these tasks are run as separate threads so the delay of one task shouldn't delay another task from starting.
+All Nodes have a 100% load injection rate so every single task will have a three second delay injected. However, these tasks are run as separate threads so the delay of one task shouldn't delay another task from starting. Also used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -420,7 +420,7 @@ All Nodes have a 100% load injection rate so every single task will have a three
   
 
 ### Test 16 - Balancing
-All Nodes have a 100% load injection rate but since it is the balancing policy, the nodes also have a 100% rejection rate. Therefore the tasks will never finish. The server will see that every single task is being rejected and detect a node clog and send back a FAILURE status to the client.
+All Nodes have a 100% load injection rate but since it is the balancing policy, the nodes also have a 100% rejection rate. Therefore the tasks will never finish. The server will see that every single task is being rejected and detect a node clog and send back a FAILURE status to the client. Also used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -435,7 +435,7 @@ All Nodes have a 100% load injection rate but since it is the balancing policy, 
 ```
 
 ### Test 17 - Random
-18 images
+18 images, used to make sure the number of images doesn't affect the distributed system's integrity.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -450,7 +450,7 @@ All Nodes have a 100% load injection rate but since it is the balancing policy, 
 ```
 
 ### Test 18 - Balancing
-18 images
+18 images, used to make sure the number of images doesn't affect the distributed system's integrity.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -465,7 +465,7 @@ All Nodes have a 100% load injection rate but since it is the balancing policy, 
 ```
 
 ### Test 19 - Random
-1 image
+1 image, used to make sure the number of images doesn't affect the distributed system's integrity. Added a 2nd run where the node happened to inject a delay on the process just for comparison.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -488,7 +488,7 @@ Run 2
 ```
 
 ### Test 20 - Balancing
-1 image
+1 image, used to make sure the number of images doesn't affect the distributed system's integrity. Added a 2nd run where the node didn't happen to inject a delay on the process just for comparison.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -513,7 +513,7 @@ Run 2
 ```
 
 ### Test 21 - Random
-
+Nodes have a 40% chance at injecting a three second delay. Used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -528,7 +528,7 @@ Run 2
 ```
 
 ### Test 22 - Balancing
-
+Nodes have a 40% chance of rejecting tasks and a 40% chance at injecting a three second delay. Used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -543,7 +543,7 @@ Run 2
 ```
 
 ### Test 23 - Random
-
+Nodes have a 60% chance of injecting a load delay and always accept the task. Used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -558,7 +558,7 @@ Run 2
 ```
 
 ### Test 24 - Balancing
-
+Nodes have 60% chance of rejection and then a 60% chance of injecting a load delay. Used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -573,7 +573,7 @@ Run 2
 ```
 
 ### Test 25 - Random
-
+Nodes won't inject any delay so time shold be low. Used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
@@ -588,7 +588,7 @@ Run 2
 ```
 
 ### Test 26 - Balancing
-
+Nodes will accept every time and there is no injected delay so time should be low. Used to compare against other consistent node values.
 
 |                 | **Node Zero** | **Node One** | **Node Two** | **Node Three** |
 |:---------------:|:-------------:|--------------|--------------|----------------|
