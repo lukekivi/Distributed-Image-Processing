@@ -5,6 +5,18 @@ Charles Droege - droeg022
 ---
 An application for processing image files in a distributed, synchronous manner.
 
+# Table of Contents
+* Running
+    1. Environment
+    2. Machines
+    3. Commands
+    4. Nodes
+    5. Server
+    6. Client
+    7. Scheduling Policy
+    8. Data
+* Tests
+
 # Running
 This description is for running this app on machines with **shared memory space**. If you are not using shared memory space this setting up all entites in the system will be complicated and we will not detail that process.
 
@@ -112,3 +124,52 @@ example with data directory named `data` within proj_dir
 ```
 data data
 ```
+
+# Tests
+## Running
+### Test 1
+
+### Test 2
+
+
+### Test 3
+
+
+### Test 4
+
+
+### Test 5
+
+
+### Test 6
+
+
+### Test 7
+
+
+### Test 8
+
+
+### Test 9
+
+
+### Test 10
+
+
+### Test 11
+
+
+### Test 12
+
+
+### Test 13
+
+
+### Test 14
+
+
+### Test 15
+
+
+### Test 16
+
