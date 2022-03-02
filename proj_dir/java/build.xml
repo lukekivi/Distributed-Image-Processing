@@ -99,6 +99,7 @@
    <target name="clean_output">
       <delete>
          <fileset dir="${output.dir}">
+            <exclude name=".gitkeep"/>
             <include name="*"/>
          </fileset>
       </delete>
