@@ -147,14 +147,18 @@ In order to run the tests users must complete the following steps:
     ```
     Distributed-ImageProcessing
     |-- proj_dir
-    |   |-- config
-    |   |   |-- machine.txt  <-- replace me
+    |   |-- data
+    |   |-- java
+    |   |-- ...
+    |   |-- machine.txt  <-- replace me
+    |   |-- ...
     ```
 * Run the commands found in `commands.txt` in order.
 * See transformed images in the test's `output_dir` and see logs in `Distributed-Image-Processing/proj_dir/java/log`
     ```
     Distributed-Image-Processing
     |-- proj_dir
+    |   |-- data
     |   |-- java
     |   |   |-- log   <-- logs
     |   |   |-- ...
