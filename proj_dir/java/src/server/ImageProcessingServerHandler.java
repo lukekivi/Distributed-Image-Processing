@@ -62,6 +62,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
          */
         ArrayList<TaskReceipt> completedTasks = new ArrayList<TaskReceipt>();
         ArrayList<ThreadAndRunnableContainer> containers = new ArrayList<ThreadAndRunnableContainer>();
+        int numTasks = taskRequests.size();
     
         while (!taskRequests.isEmpty()) {
             // pop TaskRequest
@@ -86,6 +87,8 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
             containers.add(container);
         }
 
+        ArrayList<String> errorMessages = new ArrayList<String>();
+
         /**
          * Check to see that threads completed successfully.
          */
@@ -100,18 +103,15 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                 TaskReceipt receipt = runnable.getTaskReceipt();
 
                 if (receipt == null) {
-                     return new JobReceipt(
-                        job.getJob(),
-                        JobStatus.FAILURE,
-                        getElapsedTime(startTime),
-                        "An error occurred in a TaskRequest."
+                    errorMessages.add(
+                        job.getJob() + 
+                        " failed: an exception was thrown in runnable.\n"
                     );
                 } else if (receipt.status == TaskStatus.FAILURE) {
-                    return new JobReceipt(
-                        job.getJob(),
-                        JobStatus.FAILURE,
-                        getElapsedTime(startTime),
-                        "A TaskRequest failed to complete\n\t" + receipt.msg
+                    errorMessages.add(
+                        job.getJob() + 
+                        "A TaskRequest failed to complete\n\t" + 
+                        receipt.msg + "\n"
                     );
                 }
 
@@ -131,13 +131,28 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                 );
             }
         }       
-        
-        return new JobReceipt(
-            job.getJob(),
-            JobStatus.SUCCESS,
-            System.currentTimeMillis() - startTime,
-            "All tasks completed successfully."
-        );
+
+        if (errorMessages.isEmpty(  )) {
+            return new JobReceipt(
+                job.getJob(),
+                JobStatus.SUCCESS,
+                getElapsedTime(startTime),
+                "All tasks completed successfully."
+            );
+        } else {
+            String errorMsg = errorMessages.size() + "/" + numTasks + " tasks failed\n";
+
+            while (!errorMessages.isEmpty()) {
+                errorMsg += errorMessages.remove(errorMessages.size() - 1);
+            }
+
+            return new JobReceipt(
+                job.getJob(),
+                JobStatus.FAILURE,
+                getElapsedTime(startTime),
+                errorMsg
+            );
+        }
     }
 
     private Long getElapsedTime(Long startTime) {
