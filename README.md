@@ -111,6 +111,10 @@ Be sure the `machine.txt` file reflects which machine the client is going to run
 
  ```
  
+## Server, Client, and Node Output
+ 
+We have inserted print statements throughout the code to help bring life to the process. Each server, client, and node will each get their own sepcific log file to record their output content. We can look at the comments and see more details on what each machine is doing. Examples of this include printing out messages if a task is rejected or delay is implemented (three second sleep). The final JobReceipt that the client receives will also be recorded in its respective log.txt file.
+ 
 ## Scheduling Policy
 Currently two scheduling policies are imlemented:
 1. `random` - nodes must accept randomly assigned tasks from the server
