@@ -1,0 +1,7 @@
+node_0 0.8 8155
+node_1 0.8 8156
+node_2 0.8 8157
+node_3 0.8 8158
+server 8159
+policy random
+data ../tests/test11/data

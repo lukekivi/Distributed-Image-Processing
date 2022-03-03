@@ -1,0 +1,7 @@
+node_0 1.0 8130
+node_1 1.0 8131
+node_2 0.0 8132
+node_3 0.0 8133
+server 8134
+policy balancing
+data ../tests/test06/data

@@ -1,25 +1,13 @@
 Starting the multi threaded server node...
 Task received!
 Task received!
-Task received!
 Checking for rejection: 
 Checking for rejection: 
-Checking for rejection: 
-Value calculated: 0.49515196942123096
-Probability: 0.6
-Value calculated: 0.30983892479654407
-Probability: 0.6
-Rejected
-Value calculated: 0.6915899660321215
-Probability: 0.6
-Rejected
-Value calculated: 0.5974547442340669
-Probability: 0.6
-Task received!
-Checking for rejection: 
-Value calculated: 0.717141555172228
-Probability: 0.6
-Value calculated: 0.21324371714596801
-Probability: 0.6
-After sleep.
-After sleep.
+Value calculated: 0.8911723475513349
+Probability: 0.0
+Value calculated: 0.049425985641945114
+Probability: 0.0
+Value calculated: 0.510913320008737
+Probability: 0.0
+Value calculated: 0.37048575672396344
+Probability: 0.0

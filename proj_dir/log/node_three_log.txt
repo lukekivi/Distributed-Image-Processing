@@ -1,6 +1,11 @@
 Starting the multi threaded server node...
 Task received!
 Checking for rejection: 
-Value calculated: 0.7149964039504698
-Probability: 0.8
+Value calculated: 0.8549380943320994
+Probability: 1.0
+Rejected
+Task received!
+Checking for rejection: 
+Value calculated: 0.19970183175852307
+Probability: 1.0
 Rejected
