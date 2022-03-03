@@ -25,12 +25,15 @@ In order to run this application you must fulfill the mandatory OpenCV and Thrif
 
 In order for the application to resolve your dependencies set the environment these environment variables:
 
-> THRIFT_LIB_PATH /\<path\>/thrift-0.15.0/lib/java/build/libs \
-> OPENCV_LIB_PATH /\<path\>/opencv/build/lib \
+> THRIFT_LIB_PATH /\<path\>/project/kivix019/thrift-0.15.0/lib/java/build/libs \
+> OPENCV_LIB_PATH /\<path\>/usr/share/java/opencv4 \
 > PROJ_PATH /\<path\>/project/kivix019/Distributed-Image-Processing/proj_dir 
 
 ## Machines
-Being that the application is a distributed system we have a config document `machine.txt`. Inside of this document you may assign host addresses, port numbers and other details to application entities. The syntax details will be explained in the entity sections below. It is important to keep the syntax the same as displayed currently. The program will not work if the format is changed.
+Being that the application is a distributed system we have a `machine.txt` document. This file contains the addresses for each node, server, and client. This file is used by the system to locate the address at which the nodes, server, and client are operating.
+
+## Configuration Details
+The `config.txt` file contains the load-inject probability of each node, the schduling policy to be used, the path leading to the input and output images, and the port numbers for the nodes, client, and server. This file is read in by the program and the values are grabbed, stored, and used.
 
 ## Commands
 `command.txt` contains commands for starting app entities.
@@ -38,51 +41,54 @@ Being that the application is a distributed system we have a config document `ma
 If you change a machine address in `machine.txt` be sure to adjust the associated command in `command.txt` to reflect the change in address.
 
 ## Nodes
-Nodes depend on a scheduling policy that is outlined in the **Scheduling Policy** section below. There are two ways to run nodes.
+Nodes depend on a scheduling policy that is outlined in the **Scheduling Policy** section below.
 
-1. On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir/java` and run 1 of 4 commands:
+On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir` and run 1 of 4 commands:
  - ```ant node_zero```
  - ```ant node_one```
  - ```ant node_two```
  - ```ant node_three```
 ---
-2. On any machine run the respective node command in `command.txt`. This will start ssh into a machine and run the node. Be sure the `machine.txt` file reflects which machine is being activated in `commands.txt`.
+
+Be sure the `machine.txt` file reflects the proper address of the machine you are running the specific node from.
 
  The `machine.txt` entry syntax for nodes looks like this:
  ```
- node_<num> <machine address> <load probability> <port number>
+ node_<num> <machine address>
  ```
  Example:
  ```
- node_0 csel-kh4250-08.cselabs.umn.edu 0.8 9094
+ node_0 csel-kh4250-08.cselabs.umn.edu
  ```
+
  ** remember load probability simulates the probability of injecting a delay no matter the scheduling policy . It also simulates the probability of rejection when using the `Random` scheduling policy. More details in `DesignSpecifications.md`. Also take  note that the machine.txt file reads the nodes as 'node_2' while the command to run it will be ant 'node_two'.
 
 ## Server
-There are two ways to run the server.
  
-1. On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir/java` and run:
+On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir` and run:
  - ```ant server```
 ---
-2. On any machine run the respective node command in `command.txt`. This will start ssh into a machine and run the node. Be sure the `machine.txt` file reflects which machine is being activated in `commands.txt`.
+
+Be sure the `machine.txt` file reflects which machine you are going to run the server on.
 
  The `machine.txt` entry syntax for nodes looks like this:
  ```
- server <machine address> <port number>
+ server <machine address>
  ```
  Example:
  ```
- server csel-kh1260-12.cselabs.umn.edu 9094
+ server csel-kh1260-12.cselabs.umn.edu
 
  ```
  
+
+
 ## Client
-There are two ways to run the client.
  
-1. On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir/java` and run:
+On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir/java` and run:
  - ```ant client```
 ---
-2. On any machine run the respective node command in `command.txt`. This will start ssh into a machine and run the node. Be sure the `machine.txt` file reflects which machine is being activated in `commands.txt`.
+Be sure the `machine.txt` file reflects which machine the client is going to run on.
 
  The `machine.txt` entry syntax for nodes looks like this:
  ```
@@ -99,7 +105,7 @@ Currently two scheduling policies are imlemented:
 1. `random` - nodes must accept randomly assigned tasks from the server
 2. `balancing` - nodes potentially reject randomly assigned tasks from the server (details are given in `DesignSpecifications.md`).
 
-Scheduling policy is modified via a field at line 7 in `machine.txt`.
+Scheduling policy can be set in the `config.txt` file on any line starting with 'policy'.
 ```
 policy <policy type>
 ```
@@ -109,21 +115,16 @@ policy random
 ```
 
 ### Data
-Users may use data directories that adhere to the below hierarchy.
+Users may set the directory from which images are used and then outputted to in the `config.txt` file. This should be done for testing cases. Otherwise, the data field should be followed by nothing.
 ```
 proj_dir
-|-- <directory_name>
-    |-- input_dir
-    |-- output dir
+tests
+|-- <test01>
+     |-- data
+          |-- input_dir
+          |-- output dir
 ```
-The <directory_name> can be anything and is assigned in line 8 in `machine.txt`
-```
-data <path>
-```
-example with data directory named `data` within proj_dir
-```
-data data
-```
+The data field should remain blank in `config.txt` unless running a test.
 
 # Tests
 ## Running
@@ -137,39 +138,38 @@ In order to run the tests users must complete the following steps:
         |-- test02   <-- expand
         |-- ...
     ```
- * Within each test directory you will find the same structure. The difference is in the `input_dir`, contents of the `machine.txt` file.
+ * Within each test directory you will find the same structure. The difference is in the `input_dir` and the contents of the `config.txt` file.
     ```
     |-- test02
         |-- data
         |-- machine.txt
     ```
-* Copy (don't cut) the `machine.txt` file and replace the `machine.txt` located here:
+* Copy (don't cut) the `config.txt` file and replace the `config.txt` located here:
     ```
     Distributed-ImageProcessing
     |-- proj_dir
-    |   |-- data
+    |   |-- input_dir
     |   |-- java
     |   |-- ...
-    |   |-- machine.txt  <-- replace me
+    |   |-- config.txt  <-- replace me
     |   |-- ...
     ```
-* Run the commands found in `commands.txt` in order.
-* See transformed images in the test's `output_dir` and see logs in `Distributed-Image-Processing/proj_dir/java/log`
+* Run the commands for the nodes, followed by the server, then finally the client.
+* See transformed images in the test's `output_dir` and see logs in `Distributed-Image-Processing/proj_dir/log`
     ```
     Distributed-Image-Processing
     |-- proj_dir
-    |   |-- data
+    |   |-- input_dir
     |   |-- java
-    |   |   |-- log   <-- logs
-    |   |   |-- ...
-    |   |-- ... 
+    |   |-- log   <-- logs
+    |   |-- ...
     |-- tests
         |-- test01
         |-- test02
         |   |-- data
         |   |   |-- input_dir
         |   |   |-- output_dir  <-- output images
-        |   |-- machine.txt
+        |   |-- config.txt
         |-- ...   
     ```
     
