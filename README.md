@@ -143,6 +143,13 @@ tests
 ```
 The data field should remain blank in `config.txt` unless running a test.
 
+
+##Running the Submission
+* Download the submission and place in a directory. The submission should be in the form of a proj_dir folder
+* Make sure the paths of the env vars in `env.txt` align with where the proj_dir, thrift, and opencv folders are located on your machine
+* Navigate to proj_dir in the terminal
+* Now you can run any commands or the auto grader as outlined in this README file
+
 # Tests
 ## Running
 In order to run the tests users must complete the following steps:
