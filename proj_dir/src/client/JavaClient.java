@@ -54,7 +54,7 @@ public class JavaClient {
             perform(client, cJob); // Passing job as arg for client
 
             try {
-                Thread.sleep(120000);
+                Thread.sleep(180000);
             } catch (Exception e) {
                 System.out.println("Client sleep failed.");
                 System.exit(1);
