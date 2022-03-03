@@ -148,7 +148,7 @@ The data field should remain blank in `config.txt` unless running a test.
 * Download the submission and place in a directory. The submission should be in the form of a proj_dir folder
 * Make sure the paths of the env vars in `env.txt` align with where the proj_dir, thrift, and opencv folders are located on your machine
     * You can set these variables in a .bashrc or .cshrc in order to automatically create these env vars upon machine startup
-    * Other wise you can set these variables manually in the terminal (For bash do: export PROJ_PATH=/<path>/proj_dir)
+    * Other wise you can set these variables manually in the terminal (For bash do: export PROJ_PATH=/\<path\>/proj_dir)
 * Navigate to proj_dir in the terminal
 * Now you can run any commands or the auto grader as outlined in this README file
 
