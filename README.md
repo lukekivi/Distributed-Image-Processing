@@ -42,6 +42,7 @@ Distributed-Image-Processing
 |-- ssh_commands.txt
 ```
 Upon running any `ant` targets there will be new directories within `proj_dir`:
+```
 proj_dir
 |-- build	<-- 
 |-- gen-java	<-- 
@@ -55,7 +56,7 @@ proj_dir
 |-- env.txt
 |-- machine.txt
 |-- pa1.thrift
-
+```
 
 # Running
 This description is for running this app on machines with **shared memory space**. If you are not using shared memory space this setting up all entites in the system will be complicated and we will not detail that process.
