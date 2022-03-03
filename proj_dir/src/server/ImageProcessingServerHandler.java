@@ -18,14 +18,24 @@ import server.utils.JobRequestManager;
 import server.utils.ServerNodeManager;
 import server.utils.ThreadAndRunnableContainer;
 
-
+/**
+ * The server interface. Handle client invokations.
+ */
 public class ImageProcessingServerHandler implements ImageProcessingServer.Iface {
 
     static private final JobRequestManager jobRequestManager = new JobRequestManager();
     private ServerNodeManager serverNodeManager;
 
+    /**
+     * Receive a job from the client. Break it into tasks and
+     * send them out to nodes
+     * @param job a path to a directory that contains an input_dir and output_dir
+     * @return A JobReciept indicating the status of the job.
+     */
     @Override
     public JobReceipt sendJob(JobRequest job) throws InvalidLocation {
+
+        // start stopwatch
         final Long startTime =  System.currentTimeMillis();
         System.out.println("Job received..");
 
@@ -36,6 +46,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
 
         ArrayList<TaskRequest> taskRequests = jobRequestManager.getTaskRequests();
 
+        // null is the error value for getTaskRequests()
         if (taskRequests == null) {
             return new JobReceipt(
                 job.getJob(),
@@ -43,6 +54,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                 getElapsedTime(startTime),
                 jobRequestManager.getErrorMsg()
             );
+
         } else if (taskRequests.isEmpty()) {
             return new JobReceipt(
                 job.getJob(),
@@ -57,6 +69,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
          */
         serverNodeManager = new ServerNodeManager();
 
+        // check to see if the nodes were setup successfully
         if (!serverNodeManager.isSuccessful()) {
             return new JobReceipt(
                 job.getJob(),
@@ -71,10 +84,15 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
          * Send TaskRequests
          */
         ArrayList<TaskReceipt> completedTasks = new ArrayList<TaskReceipt>();
+
+        // containes for the thread (to join later) and the runnable (to extract data)
         ArrayList<ThreadAndRunnableContainer> containers = new ArrayList<ThreadAndRunnableContainer>();
+
         int numTasks = taskRequests.size();
     
+        // start all runnables on threads
         while (!taskRequests.isEmpty()) {
+
             // pop TaskRequest
             TaskRequest task = taskRequests.remove(taskRequests.size() - 1);
 
@@ -104,12 +122,15 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
          */
         while (!containers.isEmpty()) {
             try {
+                
+                // crack open the containers
                 ThreadAndRunnableContainer container = containers.remove(containers.size() - 1);
                 Thread thread = container.getThread();
                 TaskRequestRunnable runnable = container.getRunnable();
 
                 thread.join();
 
+                // extract receipt from runnable
                 TaskReceipt receipt = runnable.getTaskReceipt();
 
                 if (receipt == null) {
@@ -117,6 +138,7 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
                         job.getJob() + 
                         " failed: an exception was thrown in runnable.\n"
                     );
+
                 } else if (receipt.status == TaskStatus.FAILURE) {
                     errorMessages.add(
                         job.getJob() + 
@@ -142,14 +164,21 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
             }
         }       
 
-        if (errorMessages.isEmpty(  )) {
+        // if there are no error messages things went well!
+        if (errorMessages.isEmpty()) {
             return new JobReceipt(
                 job.getJob(),
                 JobStatus.SUCCESS,
                 getElapsedTime(startTime),
                 "All tasks completed successfully."
             );
+
+        // if there are error messages report them
         } else {
+
+            /** 
+             * build a useful error message
+             */ 
             String errorMsg = errorMessages.size() + "/" + numTasks + " tasks failed\n";
 
             while (!errorMessages.isEmpty()) {
