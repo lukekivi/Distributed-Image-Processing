@@ -68,7 +68,7 @@ In order for the application to resolve your dependencies set the these environm
 
 > THRIFT_LIB_PATH /\<path-to-thrift-libs/> \
 > OPENCV_LIB_PATH /\<path-to-opencv-jar/> \
-> PROJ_PATH /\<path\>/Distributed-Image-Processing/proj_dir 
+> PROJ_PATH /\<path\>/proj_dir 
 
 ## Machines
 Being that the application is a distributed system we have a `machine.txt` document. This file contains the addresses for each node, server, and client. This file is used by the application to locate the address at which the nodes, server, and client are operating.
