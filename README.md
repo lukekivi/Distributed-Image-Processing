@@ -49,6 +49,8 @@ On the correct host machine (as declared in machine.txt) navigate to: `Distribut
  - ```ant node_two```
  - ```ant node_three```
 ---
+You can also run the node commands that reside in ssh_commands.txt. This will automatically ssh into a kh4250 lab machine and start up the specific node you select.
+---
 
 Be sure the `machine.txt` file reflects the proper address of the machine you are running the specific node from.
 
@@ -68,7 +70,8 @@ Be sure the `machine.txt` file reflects the proper address of the machine you ar
 On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir` and run:
  - ```ant server```
 ---
-
+You can also run the server command that resides in ssh_commands.txt. This will automatically ssh into a kh4250 lab machine and start up the server.
+---
 Be sure the `machine.txt` file reflects which machine you are going to run the server on.
 
  The `machine.txt` entry syntax for nodes looks like this:
@@ -87,6 +90,8 @@ Be sure the `machine.txt` file reflects which machine you are going to run the s
  
 On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir/java` and run:
  - ```ant client```
+---
+You can also run the client command that resides in ssh_commands.txt. This will automatically ssh into a kh4250 lab machine and start up the client.
 ---
 Be sure the `machine.txt` file reflects which machine the client is going to run on.
 
