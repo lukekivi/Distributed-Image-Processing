@@ -1,3 +1,9 @@
+/**
+ * Created by:
+ * - Lucas Kivi (kivix019)
+ * - Charles Droege (droeg022)
+ */
+ 
 package server.utils;
 
 import java.io.File;
@@ -6,7 +12,12 @@ import pa1.JobRequest;
 import pa1.TaskRequest;
 
 
+/**
+ * Manager of JobRequests. The server can hand me a JobRequest and
+ * I will disect it and tell the server what it needs to know.
+ */
 public class JobRequestManager {
+
     private static final String INPUT_DIRECTORY_NAME = "input_dir";
     private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
     private static final String TASK_REQUEST_EXT = "/" + INPUT_DIRECTORY_NAME + "/";
@@ -15,6 +26,9 @@ public class JobRequestManager {
     private File inputFolder;
     private String errorMsg;
     
+    /**
+     * Entry point for the JobRequest
+     */
     public void setJob(JobRequest job) {
         System.out.println("Processing job..");
 
@@ -36,23 +50,30 @@ public class JobRequestManager {
     }
 
     /**
-     * @brief Get the input_dir from a folder and set it. Does no sanity checking on folder.
+     * Get the input_dir from a folder and set it. Does no sanity checking on
+     * input_dir itself.
      * @param folder
      * @return the input_dir or null
      */
     private void setInputFolder(File folder) {
 
-        if (!folder.isDirectory()) { // Checks if the file is a folder or not
+        // Checks if the file is a folder or not
+        if (!folder.isDirectory()) { 
             errorMsg = "Path does not point to a directory.";
         } else {
             boolean foundInput = false;
             boolean foundOutput = false;
 
-            File[] dirs = folder.listFiles(); // Get the contents of the folder
+            // Get the contents of the folder
+            File[] dirs = folder.listFiles(); 
             int i = 0;
-            while (i < dirs.length && (!foundInput || !foundOutput)) { // iterate until finding both the output and input dirs
+
+            // iterate until finding both the output and input dirs
+            while (i < dirs.length && (!foundInput || !foundOutput)) { 
                 if (dirs[i].getName().equals(INPUT_DIRECTORY_NAME)) {
-                    inputFolder = dirs[i]; // Set input_dir, contains images
+
+                    // Set input_dir, contains images
+                    inputFolder = dirs[i]; 
                     foundInput = true;
                 } else if (dirs[i].getName().equals(OUTPUT_DIRECTORY_NAME)) {
                     foundOutput = true;
@@ -60,7 +81,8 @@ public class JobRequestManager {
                 i++;
             }
 
-            if (!foundInput || !foundOutput) { // Assures both input and output dirs are present
+            // Assures both input and output dirs are present
+            if (!foundInput || !foundOutput) { 
                 inputFolder = null;
                 errorMsg = "Data directory must contain an input_dir and an output_dir";
             }
@@ -68,9 +90,9 @@ public class JobRequestManager {
     }
 
     /**
-     * @brief Generate a list of TaskRequests from a folder. Looks for files with
-     * ".jpg" or ".png" file extensions. Does no sanity checking of the folder.
-     * @return a list of TaskRequests
+     * Generate a list of TaskRequests from the input folder. Looks for files with
+     * ".jpg" or ".png" file extensions.
+     * @return a list of TaskRequests or null as an error value
      */
     public ArrayList<TaskRequest> getTaskRequests() {
         if (inputFolder == null) {

@@ -1,3 +1,9 @@
+/**
+ * Created by:
+ * - Lucas Kivi (kivix019)
+ * - Charles Droege (droeg022)
+ */
+
 package server;
 
 import java.io.PrintStream;
@@ -16,6 +22,9 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
 
+/**
+ * The starting point of the Image Processing Server
+ */
 public class JavaServer {
 
     private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/config.txt";
@@ -46,6 +55,8 @@ public class JavaServer {
     public static void simple(ImageProcessingServer.Processor processor) {
         try {
             ReadIn readIn = new ReadIn();
+
+            // read in portnumber from the config file
             int portNum = readIn.getServerPort(CONFIG_FILE_PATH);
 
             if (portNum == -1) {
@@ -62,9 +73,5 @@ public class JavaServer {
             System.out.println("JavaServer: Client connection closed with exception.");
             e.printStackTrace();
         }
-    }
-
-    private static PrintStream outputFile(String name) throws FileNotFoundException {
-        return new PrintStream(new BufferedOutputStream(new FileOutputStream(name)), true);
     }
 }
