@@ -113,7 +113,7 @@ Be sure the `machine.txt` file reflects which machine the client is going to run
  
 ## Server, Client, and Node Output
  
-We have inserted print statements throughout the code to help bring life to the process. Instead of printing to the terminal, each server, client, and node will get their own sepcific log.txt file to record their output. These will be titled `server_log.txt`, `client_log.txt`, and `node_<num>_log.txt` where <num> is the number of the node it represents. We can look at the statements printed to these files and see more details on what each machine is doing. Examples of this include printing out messages if a task is rejected or a delay is implemented (three second sleep). The final JobReceipt that the client receives will also be recorded in its respective client_log.txt file.
+We have inserted print statements throughout the code to help bring life to the process. Instead of printing to the terminal, each server, client, and node will get their own sepcific log.txt file to record their output. These will be titled `server_log.txt`, `client_log.txt`, and `node_<num>_log.txt` where num is the number of the node it represents. We can look at the statements printed to these files and see more details on what each machine is doing. Examples of this include printing out messages if a task is rejected or a delay is implemented (three second sleep). The final JobReceipt that the client receives will also be recorded in its respective client_log.txt file.
  
 --- 
  
