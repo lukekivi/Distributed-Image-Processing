@@ -10,11 +10,9 @@ import java.io.PrintStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
-
 import pa1.ImageProcessingNode;
 import utils.NodeData;
 import utils.ReadIn;
-
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.server.TThreadPoolServer.Args;
@@ -45,7 +43,7 @@ public class JavaNode {
                 System.out.println("Need 1 argument, a node number");
                 System.exit(1);
             }
-            num = Integer.parseInt(args[0]);
+            num = Integer.parseInt(args[0]); // Grabbing node number passed in
 
             handler = new ImageProcessingNodeHandler(num);
             processor = new ImageProcessingNode.Processor<ImageProcessingNodeHandler>(handler);
@@ -61,10 +59,12 @@ public class JavaNode {
             x.printStackTrace();
         }
     }
+    
     public static void simple(ImageProcessingNode.Processor processor) {
+
         try {
-            ReadIn r = new ReadIn();
-            NodeData nodeData = r.getNodes(MACHINE_FILE_PATH, CONFIG_FILE_PATH)[num];
+            ReadIn r = new ReadIn(); // Creating a ReadIn instance to get config and machine info
+            NodeData nodeData = r.getNodes(MACHINE_FILE_PATH, CONFIG_FILE_PATH)[num]; // Getting its own nodeData object
 
             if (nodeData == null) {
                 System.out.println(
@@ -75,16 +75,16 @@ public class JavaNode {
             }
             
             TServerTransport nodeTransport = new TServerSocket(nodeData.getPort());
-            TServer node = new TThreadPoolServer(
+            TServer node = new TThreadPoolServer( // Auto creates new threads for each task
                 new TThreadPoolServer.Args(nodeTransport).processor(processor)
             );
-
             System.out.println("Starting the multi threaded server node...");
             node.serve();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     private static PrintStream outputFile(String name) throws FileNotFoundException {
         return new PrintStream(new BufferedOutputStream(new FileOutputStream(name)), true);
     }

@@ -22,22 +22,32 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
     private static final String MACHINE_FILE_PATH = PROJ_FILE_PATH + "/machine.txt";
     private static final String CONFIG_FILE_PATH = PROJ_FILE_PATH + "/config.txt";
     static private final NodeManager nodeManager = new NodeManager();
-    static public int nodeNum;
+    static public int nodeNum; // Number node that is to be used
 
+    /**
+     * Grabs the node number so it can locate its information in the array of NodeData objects
+     * @param num node num which is used in nodes array
+     */
     public ImageProcessingNodeHandler(int num) {
         nodeNum = num;
     }
 
+    /**
+     * Called by server, node accepts the task and deals with it
+     * @param task the task that has been assigned to this node
+     * @return TaskReceipt after processing the task received
+     */
     public TaskReceipt sendTask(TaskRequest task) throws InvalidLocation {
+        
         System.out.println("Task received!");
 
-        TaskReceipt receipt;
+        TaskReceipt receipt; // Initializing values
         TaskRequest myTask = task;
-        String dataPath = myTask.task;
+        String dataPath = myTask.task; // Path to the image
         ReadIn reader = new ReadIn();
-        SchedulingPolicy policy = reader.getPolicy(CONFIG_FILE_PATH);
+        SchedulingPolicy policy = reader.getPolicy(CONFIG_FILE_PATH); // Getting either MANDATORY or OPTIONAL for scheduling policy
 
-        if (dataPath == "" || myTask == null) {
+        if (dataPath == "" || myTask == null) { // Invalid path
             return new TaskReceipt(
                 dataPath,
                 TaskStatus.FAILURE,
@@ -45,9 +55,9 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             );
         }
         
-        NodeData[] nodes = reader.getNodes(MACHINE_FILE_PATH, CONFIG_FILE_PATH);
+        NodeData[] nodes = reader.getNodes(MACHINE_FILE_PATH, CONFIG_FILE_PATH); // Getting array of objects containing node information
 
-        if (nodes == null) {
+        if (nodes == null) { // Error when comparing the config and machine
             return new TaskReceipt(
                 dataPath,
                 TaskStatus.FAILURE,
@@ -56,26 +66,26 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             );
         }
 
-        double prob = nodes[nodeNum].getProbability();
+        double prob = nodes[nodeNum].getProbability(); // Getting the load-injecting/rejection probability
 
-        try {
+        try { // If optional, need to see if this node rejects or not
             boolean decision = true;
             if (policy == SchedulingPolicy.OPTIONAL) {
                 System.out.println("Checking for rejection: ");
                 decision = nodeManager.decide(prob);
             }
 
-            if (decision) {
+            if (decision) { // Accepted the task
                 // Conduct image operation here
                 TransformationData transformationData = nodeManager.transformImage(dataPath, prob);
 
-                if (transformationData.getStatus() == TransformationStatus.SUCCESS) {
+                if (transformationData.getStatus() == TransformationStatus.SUCCESS) { // Image transformation succeeded
                     receipt = new TaskReceipt(
                         dataPath,
                         TaskStatus.SUCCESS,
                         "Successful task completion."
                     );
-                } else {
+                } else { // Image transformation failed
                     receipt = new TaskReceipt(
                         dataPath,
                         TaskStatus.FAILURE,
@@ -83,7 +93,7 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
                     );
                 }
 
-            } else {
+            } else { // Rejected the task
                 System.out.println("Rejected");
                 receipt = new TaskReceipt(
                     dataPath,
@@ -99,6 +109,6 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
                 "Task Failed."
             );
         }
-        return receipt;
+        return receipt; // Returning the TasReceipt to the server
     }
 }

@@ -8,7 +8,14 @@
  import java.io.File;
  import java.util.*;
 
+/**
+ * Object that holds a node's info:
+ *  - address
+ *  - port
+ *  - probability
+ */
 public class NodeData {
+    
     String address;
     int port;
     double prob;

@@ -1,6 +1,12 @@
 package node;
 
+/**
+ * Object that holds info of an image transformation
+ *  - status
+ *  - msg
+ */
 public class TransformationData {
+    
     private TransformationStatus status;
     private String msg;
 

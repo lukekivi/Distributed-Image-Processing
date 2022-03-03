@@ -9,12 +9,18 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class OpenCVTransformer {
-    
     private static final int RATIO = 3;
     private static final int KERNEL_SIZE = 3;
     private static final Size BLUR_SIZE = new Size(3,3);
 
+    /**
+     * Perform the transformation of an image
+     * @param imagePath path leading to the image
+     * @param outputPath path leading to where the transformed image should go
+     * @return Object containing the transformation status and a msg
+     */
     public TransformationData perform(String imagePath, String outputPath) {
+        
         int lowThresh = 5;
         Mat srcBlur = new Mat();
         Mat detectedEdges = new Mat();
@@ -22,7 +28,7 @@ public class OpenCVTransformer {
 
         Mat src = Imgcodecs.imread(imagePath);
 
-        if (src.empty()) {
+        if (src.empty()) { // Image path doesn't exist
             String localErrorMsg = "ERROR: " + imagePath + " is an empty image.";
             System.out.println(localErrorMsg);
             return new TransformationData(
@@ -40,9 +46,9 @@ public class OpenCVTransformer {
         // save file
         Imgcodecs.imwrite(outputPath, dst);
 
-        return new TransformationData(
-                TransformationStatus.SUCCESS,
-                imagePath + " successfully transformed."
+        return new TransformationData( // Return a successful image transformation
+            TransformationStatus.SUCCESS,
+            imagePath + " successfully transformed."
         );
     }
 }

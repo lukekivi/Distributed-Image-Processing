@@ -17,6 +17,7 @@ import pa1.ImageProcessingServer;
 import utils.ReadIn;
 
 public class JavaClient {
+
     private static final String PROJ_PATH = System.getenv("PROJ_PATH");
     private static final String MACHINE_FILE_PATH = PROJ_PATH + "/machine.txt";
     private static final String CONFIG_FILE_PATH = PROJ_PATH + "/config.txt";
@@ -57,7 +58,11 @@ public class JavaClient {
         } 
     }
 
+    /**
+    * Sends the job to the server and receives back a JobReceipt which is then printed to the terminal.
+    */
     private static void perform(ImageProcessingServer.Client client, JobRequest clientJob) throws TException {
+        
         JobReceipt receipt;
         try {
             receipt = client.sendJob(clientJob); // Getting job receipt and printing info

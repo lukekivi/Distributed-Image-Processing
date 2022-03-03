@@ -7,7 +7,6 @@ import pa1.TaskRequest;
 
 
 public class JobRequestManager {
-
     private static final String INPUT_DIRECTORY_NAME = "input_dir";
     private static final String OUTPUT_DIRECTORY_NAME = "output_dir";
     private static final String TASK_REQUEST_EXT = "/" + INPUT_DIRECTORY_NAME + "/";
@@ -26,9 +25,12 @@ public class JobRequestManager {
 
         File folder = new File(job.getJob()); 
 
-        setInputFolder(folder);
+        setInputFolder(folder); // Sets the input folder
     }
 
+    /**
+     * Grabs the error message, only set if error encountered
+     */
     public String getErrorMsg() {
         return errorMsg;
     }
@@ -40,17 +42,17 @@ public class JobRequestManager {
      */
     private void setInputFolder(File folder) {
 
-        if (!folder.isDirectory()) {
+        if (!folder.isDirectory()) { // Checks if the file is a folder or not
             errorMsg = "Path does not point to a directory.";
         } else {
             boolean foundInput = false;
-            boolean foundOutput =false;
+            boolean foundOutput = false;
 
-            File[] dirs = folder.listFiles();
+            File[] dirs = folder.listFiles(); // Get the contents of the folder
             int i = 0;
-            while (i < dirs.length && (!foundInput || !foundOutput)) {
+            while (i < dirs.length && (!foundInput || !foundOutput)) { // iterate until finding both the output and input dirs
                 if (dirs[i].getName().equals(INPUT_DIRECTORY_NAME)) {
-                    inputFolder = dirs[i];
+                    inputFolder = dirs[i]; // Set input_dir, contains images
                     foundInput = true;
                 } else if (dirs[i].getName().equals(OUTPUT_DIRECTORY_NAME)) {
                     foundOutput = true;
@@ -58,13 +60,12 @@ public class JobRequestManager {
                 i++;
             }
 
-            if (!foundInput || !foundOutput) {
+            if (!foundInput || !foundOutput) { // Assures both input and output dirs are present
                 inputFolder = null;
                 errorMsg = "Data directory must contain an input_dir and an output_dir";
             }
         }
     }
-
 
     /**
      * @brief Generate a list of TaskRequests from a folder. Looks for files with
