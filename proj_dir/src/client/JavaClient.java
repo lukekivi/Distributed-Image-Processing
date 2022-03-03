@@ -15,6 +15,8 @@ import pa1.JobReceipt;
 import pa1.JobRequest;
 import pa1.ImageProcessingServer;
 import utils.ReadIn;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 
 public class JavaClient {
 
@@ -23,6 +25,8 @@ public class JavaClient {
     private static final String CONFIG_FILE_PATH = PROJ_PATH + "/config.txt";
 
     public static void main(String [] args) {
+
+        Logger.getRootLogger().setLevel(Level.ERROR);
         
         ReadIn r = new ReadIn();
         String serverA = r.getServer(MACHINE_FILE_PATH); // server address

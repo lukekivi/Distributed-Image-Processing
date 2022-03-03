@@ -61,7 +61,7 @@
    <!-- Run client -->
    <target name="client" depends="compile, clean_output">
       <echo>tutorial client simple:</echo>
-      <java classpathref="pa1.classpath" failonerror="false" fork="true" classname="client/JavaClient"/>
+      <java classpathref="pa1.classpath" output="${log.dir}/client_log.txt" failonerror="false" fork="true" classname="client/JavaClient"/>
    </target>
    
    <!-- Run server -->
