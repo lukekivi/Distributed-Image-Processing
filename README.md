@@ -50,6 +50,10 @@ On the correct host machine (as declared in machine.txt) navigate to: `Distribut
  - ```ant node_three```
 ---
 
+You can also run the node commands that reside in ssh_commands.txt. This will automatically ssh into a kh4250 lab machine and start up the specific node you select.
+
+---
+
 Be sure the `machine.txt` file reflects the proper address of the machine you are running the specific node from.
 
  The `machine.txt` entry syntax for nodes looks like this:
@@ -69,6 +73,9 @@ On the correct host machine (as declared in machine.txt) navigate to: `Distribut
  - ```ant server```
 ---
 
+You can also run the server command that resides in ssh_commands.txt. This will automatically ssh into a kh4250 lab machine and start up the server.
+
+---
 Be sure the `machine.txt` file reflects which machine you are going to run the server on.
 
  The `machine.txt` entry syntax for nodes looks like this:
@@ -88,6 +95,10 @@ Be sure the `machine.txt` file reflects which machine you are going to run the s
 On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir/java` and run:
  - ```ant client```
 ---
+
+You can also run the client command that resides in ssh_commands.txt. This will automatically ssh into a kh4250 lab machine and start up the client.
+
+---
 Be sure the `machine.txt` file reflects which machine the client is going to run on.
 
  The `machine.txt` entry syntax for nodes looks like this:
@@ -99,6 +110,12 @@ Be sure the `machine.txt` file reflects which machine the client is going to run
  client csel-kh4250-01.cselabs.umn.edu
 
  ```
+ 
+## Server, Client, and Node Output
+ 
+We have inserted print statements throughout the code to help bring life to the process. Instead of printing to the terminal, each server, client, and node will get their own sepcific log.txt file to record their output. These will be titled `server_log.txt`, `client_log.txt`, and `node_<num>_log.txt` where num is the number of the node it represents. We can look at the statements printed to these files and see more details on what each machine is doing. Examples of this include printing out messages if a task is rejected or a delay is implemented (three second sleep). The final JobReceipt that the client receives will also be recorded in its respective client_log.txt file.
+ 
+--- 
  
 ## Scheduling Policy
 Currently two scheduling policies are imlemented:
