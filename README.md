@@ -71,7 +71,7 @@ In order for the application to resolve your dependencies set the these environm
 > PROJ_PATH /\<path\>/Distributed-Image-Processing/proj_dir 
 
 ## Machines
-Being that the application is a distributed system we have a `machine.txt` document. This file contains the addresses for each node, server, and client. This file is used by the application to locate the address at which the nodes, server, and client are operating. \
+Being that the application is a distributed system we have a `machine.txt` document. This file contains the addresses for each node, server, and client. This file is used by the application to locate the address at which the nodes, server, and client are operating.
 
 Feel free to change machines however do not disturb the identifiers at the beginning of each line as they are required by the application.
 
@@ -104,10 +104,10 @@ client csel-kh4250-25.cselabs.umn.edu
 The `config.txt` file contains configuration details for each entity in the progam. This is where nodes get their load percentage and port number and the server gets its port number. This is also where the load injection policy is set from. Finally, the data path is set here too. Read more about the data attribute in the **Data** section below. If you change the config file you must restart all entities for the effect to take place.
 
 ```
-node_0 0.2 8125
-node_1 0. 8126
-node_2 0.0 8127
-node_3 0.0 8128
+node_0 0.8 8125
+node_1 0.6 8126
+node_2 0.5 8127
+node_3 0.2 8128
 server 8129
 policy random
 data
