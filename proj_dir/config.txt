@@ -1,7 +1,7 @@
-node_0 0.0 8150
-node_1 0.0 8151
-node_2 0.0 8152
-node_3 1.0 8153
+node_0 0.8 8150
+node_1 0.6 8151
+node_2 0.5 8152
+node_3 0.2 8153
 server 8154
 policy balancing
-data ../tests/test10/data
+data
