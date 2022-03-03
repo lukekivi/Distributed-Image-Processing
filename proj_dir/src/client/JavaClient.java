@@ -53,6 +53,13 @@ public class JavaClient {
 
             perform(client, cJob); // Passing job as arg for client
 
+            try {
+                Thread.sleep(120000);
+            } catch (Exception e) {
+                System.out.println("Client sleep failed.");
+                System.exit(1);
+            }
+            
             transport.close();
         } catch (TTransportException x) {
             System.out.println("Server not running as expected.");
