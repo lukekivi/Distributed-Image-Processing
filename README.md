@@ -19,28 +19,98 @@ An application for processing image files in a distributed, synchronous manner.
 
 ## Project Structure
 
-### Pre build
+Pre build:
 ```
 Distributed-Image-Processing
-|-- 
+|-- proj_dir
+|   |-- input_dir
+|   |-- src
+|   |   |-- client
+|   |   |-- node
+|   |   |-- server
+|   |   |-- utils
+|   |-- build.xml
+|   |-- commands.txt
+|   |-- config.txt
+|   |-- env.txt
+|   |-- machine.txt
+|   |-- pa1.thrift
+|-- tests
+|-- DesignSpecifications.md
+|-- README.md
+|-- ssh_cleanup.txt
+|-- ssh_commands.txt
+```
+Upon running any `ant` targets there will be new directories within `proj_dir`:
+proj_dir
+|-- build	<-- 
+|-- gen-java	<-- 
+|-- input_dir
+|-- log	        <--
+|-- output_dir	<--
+|-- src
+|-- build.xml
+|-- commands.txt
+|-- config.txt
+|-- env.txt
+|-- machine.txt
+|-- pa1.thrift
+
 
 # Running
 This description is for running this app on machines with **shared memory space**. If you are not using shared memory space this setting up all entites in the system will be complicated and we will not detail that process.
 
 ## Environment
-In order to run this application you must fulfill the mandatory OpenCV and Thrift dependency.
+In order to run this application you must fulfill the mandatory OpenCV and Thrift dependencies.
 
-In order for the application to resolve your dependencies set the environment these environment variables:
+In order for the application to resolve your dependencies set the these environment variables:
 
-> THRIFT_LIB_PATH /\<path\>/thrift-0.15.0/lib/java/build/libs \
-> OPENCV_LIB_PATH /\<path\>/usr/share/java/opencv4 \
-> PROJ_PATH /\<path\>/proj_dir 
+> THRIFT_LIB_PATH /\<path-to-thrift-libs/> \
+> OPENCV_LIB_PATH /\<path-to-opencv-jar/> \
+> PROJ_PATH /\<path\>/Distributed-Image-Processing/proj_dir 
 
 ## Machines
-Being that the application is a distributed system we have a `machine.txt` document. This file contains the addresses for each node, server, and client. This file is used by the system to locate the address at which the nodes, server, and client are operating.
+Being that the application is a distributed system we have a `machine.txt` document. This file contains the addresses for each node, server, and client. This file is used by the application to locate the address at which the nodes, server, and client are operating. \
+
+Feel free to change machines however do not disturb the identifiers at the beginning of each line as they are required by the application.
+
+```
+node_0 csel-kh4250-20.cselabs.umn.edu
+node_1 csel-kh4250-21.cselabs.umn.edu
+node_2 csel-kh4250-22.cselabs.umn.edu
+node_3 csel-kh4250-23.cselabs.umn.edu
+server csel-kh4250-24.cselabs.umn.edu
+client csel-kh4250-25.cselabs.umn.edu
+```
+
+## Running the Submission via AutoGrader
+* Follow **Environment** step above^
+* Place the `grader.sh` file within the `proj_dir`
+* I had to explicitly set the `USERID` variable within the autograder in order for it to work.
+* Verify that the input_dir has the correct images in it. Duplicates can be found in `tests/test01`
+* Run the autograder.
+* Output can be found in the logs found in the `log` directory
+* if you need to change ports use the `config.txt`. Details about that are found in the **Configuration Details** section below
+* If you run our tests via the autograder just know that ouput is directed to the test diretory and will not be picked up by the autograder.
+
+## Running the Submission our way
+* Open up 6 terminals and run the commands found in ssh_commands.txt in order. Be sure the machines correspond to the machines in `machine.txt` and that you wait for the server and nodes to start prior to running the client.
+* View output in `log` directory
+* Run `source ssh_cleanup.sh` to close all processes on the machines. Once again, be sure the machines correspond to the same machines in `machine.txt`/`ssh_command.txt`.
+* To change run configuration simply alter the `config.txt` file or replace the existing one with a `config.txt` file from one of our tests. Run the `ssh_cleanup.sh` file and then restart all machines in your six terminals as outlined in the first bullet.
 
 ## Configuration Details
-The `config.txt` file contains the load-inject probability of each node, the schduling policy to be used, the path leading to the input and output images, and the port numbers for the nodes, client, and server. This file is read in by the program and the values are grabbed, stored, and used.
+The `config.txt` file contains configuration details for each entity in the progam. This is where nodes get their load percentage and port number and the server gets its port number. This is also where the load injection policy is set from. Finally, the data path is set here too. Read more about the data attribute in the **Data** section below. If you change the config file you must restart all entities for the effect to take place.
+
+```
+node_0 0.2 8125
+node_1 0. 8126
+node_2 0.0 8127
+node_3 0.0 8128
+server 8129
+policy random
+data
+```
 
 ## Commands
 `command.txt` contains commands for starting app entities.
@@ -139,16 +209,9 @@ policy random
 ```
 
 ### Data
-Users may set the directory from which images are used and then outputted to in the `config.txt` file. This should be done for testing cases. Otherwise, the data field should be followed by nothing.
-```
-proj_dir
-tests
-|-- <test01>
-     |-- data
-          |-- input_dir
-          |-- output dir
-```
-The data field should remain blank in `config.txt` unless running a test.\
+Users may set the directory from which images are used and then outputted to in the `config.txt` file. This should be done for testing cases. If the data you want to modify is in `proj_dir/input_dir` then the field should be followed by nothing. \
+
+Remember, if you explicitly set a data directory (not proj_dir/input_dir) then the directory must have an `input_dir` and an `output_dir` within it. \
 
 Testing:
 ```
@@ -172,15 +235,6 @@ policy random
 data
 ```
 
-
-## Running the Submission
-* Download the submission and place in a directory. The submission should be in the form of a proj_dir folder
-* Make sure the paths of the env vars in `env.txt` align with where the proj_dir, thrift, and opencv folders are located on your machine
-    * You can set these variables in a .bashrc or .cshrc in order to automatically create these env vars upon machine startup
-    * Other wise you can set these variables manually in the terminal (For bash do: export PROJ_PATH=/\<path\>/proj_dir)
-* Navigate to proj_dir in the terminal
-* Now you can run any commands or the auto grader as outlined in this README file
-
 # Tests
 ## Running
 In order to run the tests users must complete the following steps:
@@ -193,7 +247,7 @@ In order to run the tests users must complete the following steps:
         |-- test02   <-- expand
         |-- ...
     ```
- * Within each test directory you will find the same structure. The difference is in the `input_dir` and the contents of the `config.txt` file.
+ * Within each test directory you will find the same structure (unless it is an error case). The difference is in the `input_dir` and the contents of the `config.txt` file.
     ```
     |-- test02
         |-- data
