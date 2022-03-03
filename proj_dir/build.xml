@@ -5,7 +5,7 @@
    <property name="src.dir" location="src" />
    <property name="gen.dir" location="gen-java" />
    <property name="build.dir" location="build" />
-   <property name="output.dir" location="../data/output_dir"/>
+   <property name="output.dir" location="output_dir"/>
    <property name="log.dir" location="log" />
    <property environment="env"/>
    
@@ -41,12 +41,13 @@
       <tstamp/>
       <mkdir dir="${build.dir}"/>
       <mkdir dir="${log.dir}"/>
+      <mkdir dir="${output.dir}"/>
    </target>
 
    <!-- Generate the thrift gen-java source -->
    <target name="generate">
-      <exec failonerror="true" executable="../../../thrift-0.15.0/compiler/cpp/thrift">
-         <arg line="--gen java -r ../pa1.thrift"/>
+      <exec failonerror="true" executable="../../thrift-0.15.0/compiler/cpp/thrift">
+         <arg line="--gen java -r pa1.thrift"/>
       </exec>
    </target>
 

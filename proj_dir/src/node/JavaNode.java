@@ -28,7 +28,9 @@ import org.opencv.core.Core;
 
 public class JavaNode {
 
-    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/machine.txt";
+    private static final String PROJ_FILE_PATH = System.getenv("PROJ_PATH");
+    private static final String MACHINE_FILE_PATH = PROJ_FILE_PATH + "/machine.txt";
+    private static final String CONFIG_FILE_PATH = PROJ_FILE_PATH + "/config.txt";
     public static ImageProcessingNodeHandler handler;
     public static ImageProcessingNode.Processor processor;
     public static int num = 0;
@@ -62,7 +64,15 @@ public class JavaNode {
     public static void simple(ImageProcessingNode.Processor processor) {
         try {
             ReadIn r = new ReadIn();
-            NodeData nodeData = r.getNodes(CONFIG_FILE_PATH)[num];
+            NodeData nodeData = r.getNodes(MACHINE_FILE_PATH, CONFIG_FILE_PATH)[num];
+
+            if (nodeData == null) {
+                System.out.println(
+                    "Error with config.txt and machine.txt file matching." +
+                    "Make sure they contain the same amount of nodes."
+                    );
+                System.exit(1);
+            }
             
             TServerTransport nodeTransport = new TServerSocket(nodeData.getPort());
             TServer node = new TThreadPoolServer(

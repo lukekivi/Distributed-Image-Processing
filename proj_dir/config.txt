@@ -1,0 +1,7 @@
+node_0 0.2 9000
+node_1 0.4 9001
+node_2 0.6 9002
+node_3 0.8 9003
+server 9004
+policy balancing
+data

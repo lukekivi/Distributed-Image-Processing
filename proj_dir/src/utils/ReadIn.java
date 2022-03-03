@@ -14,48 +14,53 @@ import utils.NodeData;
 
 public class ReadIn {
 
-    public NodeData[] getNodes(String name) {
+    public NodeData[] getNodes(String machineFileName, String configFileName) {
         String address; 
         double prob;
         int port;
-        NodeData[] nodes = new NodeData[4];
-        File file = new File(name);
+        NodeData[] nodes = null;
+        ArrayList<String> nodeAddresses = new ArrayList<String>();
+        File machineFile = new File(machineFileName);
+        File configFile = new File(configFileName);
+
         try {
-            Scanner scanConfig = new Scanner(file);
+            Scanner scanConfig = new Scanner(machineFile);
             String[] line; // Read in node lines
 
             while (scanConfig.hasNextLine()) {
                 line = scanConfig.nextLine().split(" ");
-                if (line[0].equals("node_0")) {
-                    address = line[1]; // address
-                    prob = Double.parseDouble(line[2]); // probability
-                    port = Integer.parseInt(line[3]); // port number
-                    nodes[0] = new NodeData(address, prob, port);
-                } else if (line[0].equals("node_1")) {
-                    address = line[1]; // address
-                    prob = Double.parseDouble(line[2]); // probability
-                    port = Integer.parseInt(line[3]); // port number
-                    nodes[1] = new NodeData(address, prob, port);
-                } else if (line[0].equals("node_2")) {
-                    address = line[1]; // address
-                    prob = Double.parseDouble(line[2]); // probability
-                    port = Integer.parseInt(line[3]); // port number
-                    nodes[2] = new NodeData(address, prob, port);
-                } else if (line[0].equals("node_3")) {
-                    address = line[1]; // address
-                    prob = Double.parseDouble(line[2]); // probability
-                    port = Integer.parseInt(line[3]); // port number
-                    nodes[3] = new NodeData(address, prob, port);
+                if (line[0].contains("node_")) {
+                    nodeAddresses.add(line[1]); // host address
                 }
             }
+
+            scanConfig = new Scanner(configFile);
+            nodes = new NodeData[nodeAddresses.size()];
+
+            int nodesInConfig = 0;
+            while (scanConfig.hasNextLine()) {
+                line = scanConfig.nextLine().split(" ");
+                if (line[0].contains("node_")) {
+                    if (nodesInConfig >= nodeAddresses.size()) {
+                        return null;
+                    } else {
+                        prob = Double.parseDouble(line[1]); // load probability
+                        port = Integer.parseInt(line[2]);   // host port number
+                        nodes[nodesInConfig] = new NodeData(nodeAddresses.get(nodesInConfig), prob, port);
+                        nodesInConfig++;
+                    }
+                }
+            }
+
+            if (nodesInConfig != nodeAddresses.size()) {
+                return null;
+            }
+
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
             System.exit(1);
         }
-        if (nodes[0] == null || nodes[1] == null || nodes[2] == null || nodes[3] == null) {
-            System.out.println("Improper Configuration file - Invalid Nodes given.\n");
-            System.exit(1);
-        }
+
         return nodes;
     }
 
@@ -141,23 +146,30 @@ public class ReadIn {
     }
     
     public String getData(String name) {
-        String ans = "";
+        String ans = null;
         File file = new File(name);
         try {
             Scanner scanConfig = new Scanner(file);
-            String[] line; // Read in client line
+            String[] line;
 
             while (scanConfig.hasNextLine()) {
-                line = scanConfig.nextLine().split(" "); // Scheduling Policy
+                line = scanConfig.nextLine().split(" ");
+
                 if (line[0].equals("data")) {
-                    ans = line[1];
+                    if (line.length > 1 ) {
+                        ans = "/"  + line[1];
+                    } else {
+                        ans = "";
+                    }
+                    break;
                 }
+
             }
         } catch (Exception e) {
             System.out.println("Improper Configuration file.\n");
             System.exit(1);
         }
-        if (ans.equals("")) {
+        if (ans == null) {
             System.out.println("Improper Configuration file - No Data path given.\n");
             System.exit(1);
         }
@@ -253,7 +265,7 @@ public class ReadIn {
                 line = scanConfig.nextLine().split(" ");
 
                 if (line[0].equals("server")) {
-                    ans = Integer.parseInt(line[2]);
+                    ans = Integer.parseInt(line[1]);
                     break;
                 }
             }

@@ -1,0 +1,37 @@
+Starting the server...
+Job received..
+Processing job..
+TaskRequestRunnable: task Completed.
+Node 9003 rejected and will try again
+TaskRequestRunnable: task Completed.
+TaskRequestRunnable: task Completed.
+Node 9002 rejected and will try again
+Node 9002 rejected and will try again
+TaskRequestRunnable: task Completed.
+TaskRequestRunnable: task Completed.
+TaskRequestRunnable: task Completed.
+Node 9001 rejected and will try again
+TaskRequestRunnable: task Completed.
+Node 9001 rejected and will try again
+TaskRequestRunnable: task Completed.
+TaskReceipt:
+	Path: /project/kivix019/Distributed-Image-Processing/proj_dir/input_dir/baboon.jpg
+	Msg: Successful task completion.
+TaskReceipt:
+	Path: /project/kivix019/Distributed-Image-Processing/proj_dir/input_dir/mask.png
+	Msg: Successful task completion.
+TaskReceipt:
+	Path: /project/kivix019/Distributed-Image-Processing/proj_dir/input_dir/starry_night.jpg
+	Msg: Successful task completion.
+TaskRequestRunnable: task Completed.
+TaskRequestRunnable: task Completed.
+TaskRequestRunnable: task Completed.
+TaskReceipt:
+	Path: /project/kivix019/Distributed-Image-Processing/proj_dir/input_dir/squirrel_cls.jpg
+	Msg: Successful task completion.
+TaskReceipt:
+	Path: /project/kivix019/Distributed-Image-Processing/proj_dir/input_dir/HappyFish.jpg
+	Msg: Successful task completion.
+TaskReceipt:
+	Path: /project/kivix019/Distributed-Image-Processing/proj_dir/input_dir/fruits.jpg
+	Msg: Successful task completion.

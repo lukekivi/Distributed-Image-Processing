@@ -57,6 +57,16 @@ public class ImageProcessingServerHandler implements ImageProcessingServer.Iface
          */
         serverNodeManager = new ServerNodeManager();
 
+        if (!serverNodeManager.isSuccessful()) {
+            return new JobReceipt(
+                job.getJob(),
+                JobStatus.FAILURE,
+                getElapsedTime(startTime),
+                "Error with config.txt and machine.txt file matching." +
+                    "Make sure they contain the same amount of nodes."
+            );
+        }
+
         /**
          * Send TaskRequests
          */

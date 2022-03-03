@@ -18,16 +18,17 @@ import utils.ReadIn;
 
 public class JavaClient {
     private static final String PROJ_PATH = System.getenv("PROJ_PATH");
-    private static final String CONFIG_FILE_PATH = PROJ_PATH + "/machine.txt";
+    private static final String MACHINE_FILE_PATH = PROJ_PATH + "/machine.txt";
+    private static final String CONFIG_FILE_PATH = PROJ_PATH + "/config.txt";
 
     public static void main(String [] args) {
         
         ReadIn r = new ReadIn();
-        String serverA = r.getServer(CONFIG_FILE_PATH); // server address
-        String dirPath = PROJ_PATH + "/" + r.getData(CONFIG_FILE_PATH); // getting path to data dir
+        String serverA = r.getServer(MACHINE_FILE_PATH); // server address
+        String dataDirPath = PROJ_PATH + r.getData(CONFIG_FILE_PATH);
 
         // Creating a job to send to server
-        JobRequest cJob = new JobRequest(dirPath);
+        JobRequest cJob = new JobRequest(dataDirPath);
 
         try {
             TTransport transport;

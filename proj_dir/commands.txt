@@ -1,6 +1,6 @@
-cd java; ant node_zero
-cd java; ant node_one
-cd java; ant node_two
-cd java; ant node_three
-cd java; ant server
-cd java; ant client
+NODE_COMMAND_0 ant node_zero
+NODE_COMMAND_1 ant node_one
+NODE_COMMAND_2 ant node_two 
+NODE_COMMAND_3 ant node_three
+SERVER_COMMAND ant server
+CLIENT_COMMAND ant client

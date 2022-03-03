@@ -43,26 +43,24 @@ public class JobRequestManager {
         if (!folder.isDirectory()) {
             errorMsg = "Path does not point to a directory.";
         } else {
+            boolean foundInput = false;
+            boolean foundOutput =false;
 
             File[] dirs = folder.listFiles();
-
-            if (dirs.length != 2 || !dirs[0].isDirectory() || !dirs[1].isDirectory()) {
-                errorMsg = "Target directory does not contain exactly two directories.";
-            } else {
-        
-                if (dirs[0].getName().equals(INPUT_DIRECTORY_NAME) || 
-                    dirs[1].getName().equals(OUTPUT_DIRECTORY_NAME)) {        
-                    
-                    inputFolder = dirs[0];
-
-                } else if (dirs[1].getName().equals(INPUT_DIRECTORY_NAME) || 
-                        dirs[0].getName().equals(OUTPUT_DIRECTORY_NAME)) {
-
-                    inputFolder = dirs[1];
-
-                } else {
-                    errorMsg = "Target directory does not abide by naming standards. (input_dir, output_dir)";
+            int i = 0;
+            while (i < dirs.length && (!foundInput || !foundOutput)) {
+                if (dirs[i].getName().equals(INPUT_DIRECTORY_NAME)) {
+                    inputFolder = dirs[i];
+                    foundInput = true;
+                } else if (dirs[i].getName().equals(OUTPUT_DIRECTORY_NAME)) {
+                    foundOutput = true;
                 }
+                i++;
+            }
+
+            if (!foundInput || !foundOutput) {
+                inputFolder = null;
+                errorMsg = "Data directory must contain an input_dir and an output_dir";
             }
         }
     }

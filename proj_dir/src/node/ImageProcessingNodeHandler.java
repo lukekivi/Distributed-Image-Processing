@@ -18,7 +18,9 @@ import org.apache.thrift.TException;
 
 public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
 
-    private static final String CONFIG_FILE_PATH = System.getenv("PROJ_PATH") + "/machine.txt";
+    private static final String PROJ_FILE_PATH = System.getenv("PROJ_PATH");
+    private static final String MACHINE_FILE_PATH = PROJ_FILE_PATH + "/machine.txt";
+    private static final String CONFIG_FILE_PATH = PROJ_FILE_PATH + "/config.txt";
     static private final NodeManager nodeManager = new NodeManager();
     static public int nodeNum;
 
@@ -43,7 +45,17 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
             );
         }
         
-        NodeData[] nodes = reader.getNodes(CONFIG_FILE_PATH);
+        NodeData[] nodes = reader.getNodes(MACHINE_FILE_PATH, CONFIG_FILE_PATH);
+
+        if (nodes == null) {
+            return new TaskReceipt(
+                dataPath,
+                TaskStatus.FAILURE,
+                "Error with config.txt and machine.txt file matching." +
+                    "Make sure they contain the same amount of nodes."
+            );
+        }
+
         double prob = nodes[nodeNum].getProbability();
 
         try {

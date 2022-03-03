@@ -63,7 +63,7 @@ The key jobs are:
 - Send **TaskReceipt** to **ImageProcessingServer**
 
 #### Note
-For the sake of school we will be implementing an explicit *`load-probability`* parameter instead of a true *load balance*. This will allow the ImageProcessingNodes to behave as if they are truly experiencing variable load thus allowing us to test our load balancing technique of rejection by probability. Also, nodes will have a probability of adding a delay which is equal to the `load-probability` parameter. So for each accepted job there will be a probability of a constant three second delay prior to that job being processed.
+For the sake of school we will be implementing an explicit *`load-probability`* parameter instead of a true *load balance*. This will allow the ImageProcessingNodes to behave as if they are truly experiencing variable load thus allowing us to test our load balancing technique of rejection by probability. Also, nodes will have a probability of adding a delay which is equal to the `load-probability` parameter. So for each accepted job there will be a probability of a constant three second delay prior to that job being processed. This is `load-proability` is passed in via the config file. This design decison was made because it doesn't make sense for the client or server to tell the node how much load it is experiencing.
 
 &nbsp; 
 ## JobRequest
