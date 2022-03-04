@@ -329,7 +329,7 @@ Test that if `input_dir` is empty we get a success status and a report that the 
 If the `data` directory is incorrectly laid out the app should return a failure and a useful message about why it failed.
 ```
 Job Receipt:
-	Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test05/data
+	Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test04/data
 	Time: 23
 	Status: FAILURE
 	Msg: Data directory must contain an input_dir and an output_dir
