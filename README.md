@@ -121,7 +121,7 @@ If you change a machine address in `machine.txt` be sure to adjust the associate
 ## Nodes
 Nodes depend on a scheduling policy that is outlined in the **Scheduling Policy** section below.
 
-On the correct host machine (as declared in machine.txt) navigate to: `/\<path\>/proj_dir` and run 1 of 4 commands:
+On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir` and run 1 of 4 commands:
  - ```ant node_zero```
  - ```ant node_one```
  - ```ant node_two```
@@ -170,7 +170,7 @@ Be sure the `machine.txt` file reflects which machine you are going to run the s
 
 ## Client
  
-On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir/java` and run:
+On the correct host machine (as declared in machine.txt) navigate to: `Distributed-Image-Processing/proj_dir` and run:
  - ```ant client```
 ---
 
