@@ -34,8 +34,8 @@ public class JavaNode {
     public static int num = 0;
 
     public static void main(String [] args) {
-        Logger.getRootLogger().setLevel(Level.ERROR);
 
+        Logger.getRootLogger().setLevel(Level.ERROR);
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
         try {
@@ -45,7 +45,7 @@ public class JavaNode {
             }
             num = Integer.parseInt(args[0]); // Grabbing node number passed in
 
-            handler = new ImageProcessingNodeHandler(num);
+            handler = new ImageProcessingNodeHandler(num); // Creating handler 
             processor = new ImageProcessingNode.Processor<ImageProcessingNodeHandler>(handler);
 
             Runnable simple = new Runnable() {
@@ -54,7 +54,7 @@ public class JavaNode {
                 }
             };      
 
-            new Thread(simple).start();
+            new Thread(simple).start(); // Starting thread
         } catch (Exception x) {
             x.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class JavaNode {
             ReadIn r = new ReadIn(); // Creating a ReadIn instance to get config and machine info
             NodeData nodeData = r.getNodes(MACHINE_FILE_PATH, CONFIG_FILE_PATH)[num]; // Getting its own nodeData object
 
-            if (nodeData == null) {
+            if (nodeData == null) { // Config and machine aren't aligning with node info
                 System.out.println(
                     "Error with config.txt and machine.txt file matching." +
                     "Make sure they contain the same amount of nodes."

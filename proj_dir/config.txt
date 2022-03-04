@@ -1,7 +1,7 @@
-node_0 0.8 8310
-node_1 0.8 8311
-node_2 0.8 8312
-node_3 0.8 8313
-server 8314
-policy balancing
+node_0 0.8 8320
+node_1 0.6 8321
+node_2 0.5 8322
+node_3 0.2 8323
+server 8324
+policy random
 data

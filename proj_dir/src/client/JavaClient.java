@@ -1,7 +1,9 @@
-// Charles Droege
-// droeg022
-// Lucas Kivi
-// kivix019
+/**
+ * Created by:
+ * - Lucas Kivi (kivix019)
+ * - Charles Droege (droeg022)
+ */
+ 
 package client;
 
 import org.apache.thrift.TException;
@@ -27,7 +29,6 @@ public class JavaClient {
     public static void main(String [] args) {
 
         Logger.getRootLogger().setLevel(Level.ERROR);
-        
         ReadIn r = new ReadIn();
         String serverA = r.getServer(MACHINE_FILE_PATH); // server address
         String dataDirPath = PROJ_PATH + r.getData(CONFIG_FILE_PATH);
@@ -37,7 +38,6 @@ public class JavaClient {
 
         try {
             TTransport transport;
-
             int serverPortNum = r.getServerPort(CONFIG_FILE_PATH);
 
             if (serverPortNum == -1) {
@@ -59,7 +59,6 @@ public class JavaClient {
                 System.out.println("Client sleep failed.");
                 System.exit(1);
             }
-            
             transport.close();
         } catch (TTransportException x) {
             System.out.println("Server not running as expected.");

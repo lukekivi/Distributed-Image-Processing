@@ -19,6 +19,7 @@ public class NodeData {
     String address;
     int port;
     double prob;
+    
     public NodeData(
         String address,
         double prob,
