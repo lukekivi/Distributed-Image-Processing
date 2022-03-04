@@ -143,7 +143,7 @@ Be sure the `machine.txt` file reflects the proper address of the machine you ar
  node_0 csel-kh4250-08.cselabs.umn.edu
  ```
 
-** remember load probability simulates the probability of injecting a delay no matter the scheduling policy . It also simulates the probability of rejection when using the `Random` scheduling policy. More details in `DesignSpecifications.md`. Also take  note that the machine.txt file reads the nodes as 'node_2' while the command to run it will be ant 'node_two'.
+Remember load probability simulates the probability of injecting a delay no matter the scheduling policy . It also simulates the probability of rejection when using the `Random` scheduling policy. More details in `DesignSpecifications.md`. Also take  note that the machine.txt file reads the nodes as 'node_2' while the command to run it will be ant 'node_two'.
 
 ## Server
  
@@ -210,9 +210,9 @@ policy random
 ```
 
 ### Data
-Users may set the directory from which images are used and then outputted to in the `config.txt` file. This should be done for testing cases. If the data you want to modify is in `proj_dir/input_dir` then the field should be followed by nothing. \
+Users may set the directory from which images are used and then outputted to in the `config.txt` file. This should be done for testing cases. If the data you want to modify is in `proj_dir/input_dir` then the field should be followed by nothing.
 
-Remember, if you explicitly set a data directory (not proj_dir/input_dir) then the directory must have an `input_dir` and an `output_dir` within it. \
+Remember, if you explicitly set a data directory (not proj_dir/input_dir) then the directory must have an `input_dir` and an `output_dir` within it.
 
 Testing:
 ```
@@ -293,7 +293,6 @@ Test a spread of probabilities with **random** scheduling policy.
 
 ```
 client:
-     [echo] tutorial client simple:
      Job Receipt:
          Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test02/data
          Time: 3145
