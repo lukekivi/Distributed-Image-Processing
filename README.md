@@ -143,7 +143,7 @@ Be sure the `machine.txt` file reflects the proper address of the machine you ar
  node_0 csel-kh4250-08.cselabs.umn.edu
  ```
 
- ** remember load probability simulates the probability of injecting a delay no matter the scheduling policy . It also simulates the probability of rejection when using the `Random` scheduling policy. More details in `DesignSpecifications.md`. Also take  note that the machine.txt file reads the nodes as 'node_2' while the command to run it will be ant 'node_two'.
+** remember load probability simulates the probability of injecting a delay no matter the scheduling policy . It also simulates the probability of rejection when using the `Random` scheduling policy. More details in `DesignSpecifications.md`. Also take  note that the machine.txt file reads the nodes as 'node_2' while the command to run it will be ant 'node_two'.
 
 ## Server
  
@@ -196,7 +196,7 @@ We have inserted print statements throughout the code to help bring life to the 
 --- 
  
 ## Scheduling Policy
-Currently two scheduling policies are imlemented:
+Currently two scheduling policies are implemented:
 1. `random` - nodes must accept randomly assigned tasks from the server
 2. `balancing` - nodes potentially reject randomly assigned tasks from the server (details are given in `DesignSpecifications.md`).
 
