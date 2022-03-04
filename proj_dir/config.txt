@@ -1,7 +1,7 @@
-node_0 0.8 8320
-node_1 0.6 8321
-node_2 0.5 8322
-node_3 0.2 8323
-server 8324
+node_0 1.0 8125
+node_1 1.0 8126
+node_2 0.0 8127
+node_3 0.0 8128
+server 8129
 policy random
 data
