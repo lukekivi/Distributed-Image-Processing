@@ -294,8 +294,8 @@ Test a spread of probabilities with **random** scheduling policy.
 ```
 client:
      Job Receipt:
-         Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test02/data
-         Time: 3145
+         Job: /project/kivix019/Distributed-Image-Processing/proj_dir/../tests/test01/data
+         Time: 3045
          Status: SUCCESS
          Msg: All tasks completed successfully.
 ```
