@@ -3,6 +3,7 @@
  * - Lucas Kivi (kivix019)
  * - Charles Droege (droeg022)
  */
+
 package node;
 
 import utils.NodeData;
@@ -21,8 +22,8 @@ public class ImageProcessingNodeHandler implements ImageProcessingNode.Iface {
     private static final String PROJ_FILE_PATH = System.getenv("PROJ_PATH");
     private static final String MACHINE_FILE_PATH = PROJ_FILE_PATH + "/machine.txt";
     private static final String CONFIG_FILE_PATH = PROJ_FILE_PATH + "/config.txt";
-    static private final NodeManager nodeManager = new NodeManager();
-    static public int nodeNum; // Number node that is to be used
+    private static final NodeManager nodeManager = new NodeManager();
+    public static int nodeNum; // Number node that is to be used
 
     /**
      * Grabs the node number so it can locate its information in the array of NodeData objects

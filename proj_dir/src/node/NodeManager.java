@@ -42,7 +42,7 @@ public class NodeManager {
 
         String outputPath = imagePath.replace(INPUT_DIR_NAME, OUTPUT_DIR_NAME); // File that the transformation will write to
 
-        return transformer.perform(imagePath, outputPath); // Transform
+        return transformer.perform(imagePath, outputPath); // Transform the image
     }
 
     /**
@@ -55,7 +55,7 @@ public class NodeManager {
         Random rand = new Random();
         double val = rand.nextDouble(); // Calculating random double value 0.0<=val<=1.0
         System.out.println("Value calculated: " + val + "\nProbability: " + probability); // Logging
-        if (val <= probability) { // Hits if val is below probability
+        if (val <= probability) { // False if val is below probability meaning the chance hit
             return false;
         }
        return true;

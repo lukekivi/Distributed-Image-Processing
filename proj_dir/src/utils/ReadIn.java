@@ -16,12 +16,12 @@ public class ReadIn {
     /**
      * Returns an array of NodeData objects which contain node info
      * @param machineFileName path to machine.txt
-     * @param configFileName path to machine.txt
+     * @param configFileName path to config.txt
      * @return array of NodeData objects
      */
     public NodeData[] getNodes(String machineFileName, String configFileName) {
         
-        String address; 
+        String address;
         double prob;
         int port;
         NodeData[] nodes = null;
@@ -132,7 +132,7 @@ public class ReadIn {
     /**
      * Grabs the scheduling policy
      * @param name file to be checked for policy, config.txt
-     * @return the shcheduling policy, either 'random' or 'balancing'
+     * @return the scheduling policy, either 'random' or 'balancing'
      */
     public SchedulingPolicy getPolicy(String name) {
 
@@ -145,18 +145,19 @@ public class ReadIn {
             while (scanConfig.hasNextLine()) {
                 line = scanConfig.nextLine().split(" ");
                 if (line[0].equals("policy")) { // Detected policy line
-                    if (line[1].equals("random")) {
+                    if (line[1].equals("random")) { // Random so forced to accept
                         policy = SchedulingPolicy.MANDATORY;
                     }
-                    else if (line[1].equals("balancing")){
+                    else if (line[1].equals("balancing")){ // Balancing so capable of rejecting
                         policy = SchedulingPolicy.OPTIONAL;
                     }
-                    else {
+                    else { // Not a valid policy
                         System.out.println("Improper Configuration file - Invalid Policy.\n");
                         System.exit(1);
                     }
                 }
             }
+
         } catch (Exception e) {
             System.out.println("Improper Configuration file\n");
             System.exit(1);
@@ -183,7 +184,7 @@ public class ReadIn {
             while (scanConfig.hasNextLine()) {
                 line = scanConfig.nextLine().split(" ");
                 if (line[0].equals("data")) { // Detected data line
-                    if (line.length > 1 ) { // Leads to test directory
+                    if (line.length > 1 ) { // Leads to test directory or another
                         ans = "/"  + line[1];
                     } else { // Image directories are in proj_dir
                         ans = "";

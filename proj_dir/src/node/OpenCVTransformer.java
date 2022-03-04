@@ -1,3 +1,9 @@
+/**
+ * Created by:
+ * - Lucas Kivi (kivix019)
+ * - Charles Droege (droeg022)
+ */
+
 package node;
 
 import org.opencv.core.Core;
@@ -21,12 +27,12 @@ public class OpenCVTransformer {
      */
     public TransformationData perform(String imagePath, String outputPath) {
         
-        int lowThresh = 5;
+        int lowThresh = 5; // Transformation value and Mat objects
         Mat srcBlur = new Mat();
         Mat detectedEdges = new Mat();
         Mat dst = new Mat();
 
-        Mat src = Imgcodecs.imread(imagePath);
+        Mat src = Imgcodecs.imread(imagePath); // Assign the image source
 
         if (src.empty()) { // Image path doesn't exist
             String localErrorMsg = "ERROR: " + imagePath + " is an empty image.";
@@ -43,7 +49,7 @@ public class OpenCVTransformer {
         dst = new Mat(src.size(), CvType.CV_8UC3, Scalar.all(0));
         src.copyTo(dst, detectedEdges);
 
-        // save file
+        // save file to new location
         Imgcodecs.imwrite(outputPath, dst);
 
         return new TransformationData( // Return a successful image transformation
